@@ -1,7 +1,7 @@
 import uuid
 from datetime import datetime
 
-from sqlalchemy import Boolean, CheckConstraint, ForeignKey, String, UniqueConstraint, func
+from sqlalchemy import Boolean, CheckConstraint, ForeignKey, String, UniqueConstraint, func, text
 from sqlalchemy.dialects.postgresql import JSONB
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
@@ -35,7 +35,7 @@ class Candidate(TimestampMixin, Base):
     photo_attribution: Mapped[str | None] = mapped_column()
     color: Mapped[str | None] = mapped_column(String(7))
     is_demo: Mapped[bool] = mapped_column(Boolean, server_default="false")
-    sources: Mapped[dict | list] = mapped_column(JSONB, server_default="'[]'::jsonb")
+    sources: Mapped[dict | list] = mapped_column(JSONB, server_default=text("'[]'::jsonb"))
 
     # relationships
     election: Mapped["Election"] = relationship(back_populates="candidates")  # noqa: F821

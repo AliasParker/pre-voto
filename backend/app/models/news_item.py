@@ -1,7 +1,7 @@
 import uuid
 from datetime import datetime
 
-from sqlalchemy import ForeignKey, String, func
+from sqlalchemy import ForeignKey, String, func, text
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.models.base import Base
@@ -23,7 +23,7 @@ class NewsItem(Base):
     title: Mapped[str] = mapped_column(nullable=False)
     snippet: Mapped[str | None] = mapped_column()
     published_at: Mapped[datetime | None] = mapped_column()
-    status: Mapped[str] = mapped_column(String, server_default="'raw'")
+    status: Mapped[str] = mapped_column(String, server_default=text("'raw'"))
     fetched_at: Mapped[datetime] = mapped_column(server_default=func.now())
 
     # relationships
