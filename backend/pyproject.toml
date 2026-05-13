@@ -13,6 +13,8 @@ dependencies = [
     "redis>=5.2",
     "structlog>=24.4",
     "httpx>=0.28",
+    "alembic>=1.14",
+    "pgvector>=0.3",
 ]
 
 [build-system]
