@@ -6,7 +6,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from starlette.responses import JSONResponse
 
 from app.db import get_db
-from app.main import limiter
+from app.limiter import limiter
 from app.models.subscriber import Subscriber
 from app.schemas.subscriber import SubscriberCreate, SubscriberOut
 from app.services.beehiiv import forward_to_beehiiv

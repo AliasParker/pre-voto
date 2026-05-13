@@ -7,12 +7,12 @@ from fastapi import FastAPI, Request
 from fastapi.exceptions import RequestValidationError
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
-from slowapi import Limiter
 from slowapi.errors import RateLimitExceeded
 from slowapi.middleware import SlowAPIMiddleware
 from starlette.exceptions import HTTPException as StarletteHTTPException
 
 from app.config import settings
+from app.limiter import _get_remote_ip, limiter
 
 structlog.configure(
     processors=[
@@ -30,24 +30,6 @@ structlog.configure(
 )
 
 log = structlog.get_logger()
-
-
-# ---------------------------------------------------------------------------
-# Rate limiting
-# ---------------------------------------------------------------------------
-
-def _get_remote_ip(request: Request) -> str:
-    forwarded = request.headers.get("x-forwarded-for")
-    if forwarded:
-        return forwarded.split(",")[0].strip()
-    return request.client.host if request.client else "unknown"
-
-
-limiter = Limiter(
-    key_func=_get_remote_ip,
-    storage_uri=settings.redis_ratelimit_url,
-    default_limits=[f"{settings.rate_limit_per_minute}/minute"],
-)
 
 
 # ---------------------------------------------------------------------------
@@ -180,6 +162,27 @@ async def request_logging_middleware(request: Request, call_next):
     )
 
     return response
+
+
+# ---------------------------------------------------------------------------
+# Routers
+# ---------------------------------------------------------------------------
+
+from app.routers.admin import router as admin_router  # noqa: E402
+from app.routers.articles import router as articles_router  # noqa: E402
+from app.routers.candidates import router as candidates_router  # noqa: E402
+from app.routers.countries import router as countries_router  # noqa: E402
+from app.routers.polls import router as polls_router  # noqa: E402
+from app.routers.quiz import router as quiz_router  # noqa: E402
+from app.routers.subscribers import router as subscribers_router  # noqa: E402
+
+app.include_router(countries_router)
+app.include_router(candidates_router)
+app.include_router(quiz_router)
+app.include_router(articles_router)
+app.include_router(polls_router)
+app.include_router(subscribers_router)
+app.include_router(admin_router)
 
 
 # ---------------------------------------------------------------------------
