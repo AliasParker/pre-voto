@@ -1,0 +1,13 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import HealthCheck from "../components/islands/_HealthCheck.svelte";
+---
+
+<BaseLayout title="pre.voto — pronto">
+  <main class="flex min-h-screen flex-col items-center justify-center">
+    <h1 class="text-4xl font-bold">
+      pre<span class="text-brand">.</span>voto — pronto
+    </h1>
+    <HealthCheck client:load />
+  </main>
+</BaseLayout>
