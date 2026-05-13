@@ -1,0 +1,20 @@
+[project]
+name = "prevoto-backend"
+version = "0.1.0"
+description = "pre.voto API backend"
+requires-python = ">=3.12"
+dependencies = [
+    "fastapi>=0.115",
+    "uvicorn[standard]>=0.34",
+    "pydantic>=2.10",
+    "pydantic-settings>=2.7",
+    "sqlalchemy[asyncio]>=2.0",
+    "asyncpg>=0.30",
+    "redis>=5.2",
+    "structlog>=24.4",
+    "httpx>=0.28",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
