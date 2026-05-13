@@ -5,7 +5,7 @@ import pytest
 class TestPollsRouter:
 
     async def test_list_polls(self, client):
-        resp = await client.get("/polls/co")
+        resp = await client.get("/polls/xt")
         assert resp.status_code == 200
         data = resp.json()
         assert isinstance(data, list)
@@ -15,7 +15,7 @@ class TestPollsRouter:
         assert "results" in poll
 
     async def test_get_average(self, client):
-        resp = await client.get("/polls/co/average")
+        resp = await client.get("/polls/xt/average")
         assert resp.status_code == 200
         data = resp.json()
         assert "results" in data
@@ -26,5 +26,5 @@ class TestPollsRouter:
 class TestPollsRouterNoData:
 
     async def test_average_not_found(self, client):
-        resp = await client.get("/polls/co/average")
+        resp = await client.get("/polls/xt/average")
         assert resp.status_code == 404

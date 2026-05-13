@@ -2,14 +2,16 @@ import uuid
 from datetime import date, datetime
 
 import pytest
+import pytest_asyncio
 from httpx import ASGITransport, AsyncClient
-from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_async_engine
+from sqlalchemy import event, text
+from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine
+from sqlalchemy.pool import NullPool
 
 from app.config import settings
 from app.db import get_db
 from app.main import app
 from app.models.article import Article
-from app.models.base import Base
 from app.models.candidate import Candidate
 from app.models.country import Country
 from app.models.election import Election
@@ -18,34 +20,33 @@ from app.models.poll_average import PollAverage
 from app.models.position import CandidatePosition
 from app.models.statement import Statement
 
-# Fixed UUIDs for test data
-COUNTRY_ID = uuid.UUID("a1000000-0000-0000-0000-000000000001")
-ELECTION_ID = uuid.UUID("b1000000-0000-0000-0000-000000000001")
+# Use DIFFERENT UUIDs from seed data to avoid conflicts
+COUNTRY_ID = uuid.UUID("aa000000-0000-0000-0000-000000000001")
+ELECTION_ID = uuid.UUID("bb000000-0000-0000-0000-000000000001")
 CANDIDATE_IDS = [
-    uuid.UUID("c1000000-0000-0000-0000-000000000001"),
-    uuid.UUID("c1000000-0000-0000-0000-000000000002"),
-    uuid.UUID("c1000000-0000-0000-0000-000000000003"),
-    uuid.UUID("c1000000-0000-0000-0000-000000000004"),
-    uuid.UUID("c1000000-0000-0000-0000-000000000005"),
+    uuid.UUID("cc000000-0000-0000-0000-000000000001"),
+    uuid.UUID("cc000000-0000-0000-0000-000000000002"),
+    uuid.UUID("cc000000-0000-0000-0000-000000000003"),
+    uuid.UUID("cc000000-0000-0000-0000-000000000004"),
+    uuid.UUID("cc000000-0000-0000-0000-000000000005"),
 ]
 STATEMENT_IDS = [
-    uuid.UUID("d1000000-0000-0000-0000-000000000001"),
-    uuid.UUID("d1000000-0000-0000-0000-000000000002"),
-    uuid.UUID("d1000000-0000-0000-0000-000000000003"),
-    uuid.UUID("d1000000-0000-0000-0000-000000000004"),
-    uuid.UUID("d1000000-0000-0000-0000-000000000005"),
-    uuid.UUID("d1000000-0000-0000-0000-000000000006"),
-    uuid.UUID("d1000000-0000-0000-0000-000000000007"),
-    uuid.UUID("d1000000-0000-0000-0000-000000000008"),
+    uuid.UUID("dd000000-0000-0000-0000-000000000001"),
+    uuid.UUID("dd000000-0000-0000-0000-000000000002"),
+    uuid.UUID("dd000000-0000-0000-0000-000000000003"),
+    uuid.UUID("dd000000-0000-0000-0000-000000000004"),
+    uuid.UUID("dd000000-0000-0000-0000-000000000005"),
+    uuid.UUID("dd000000-0000-0000-0000-000000000006"),
+    uuid.UUID("dd000000-0000-0000-0000-000000000007"),
+    uuid.UUID("dd000000-0000-0000-0000-000000000008"),
 ]
 
-# Position matrix: 5 candidates x 8 statements
 POSITION_VALUES = [
-    [2, -1, 2, 1, 1, -1, 2, 2],   # María Valencia
-    [-1, 2, -1, -1, -2, 2, -1, -1],  # Carlos Restrepo
-    [1, -2, 1, 2, 2, -1, 1, 2],   # Laura Castillo
-    [0, 0, 0, 1, 1, 0, 0, 1],     # Andrés Molina
-    [2, -1, 2, 1, 0, -2, 2, 2],   # Sofía Herrera
+    [2, -1, 2, 1, 1, -1, 2, 2],
+    [-1, 2, -1, -1, -2, 2, -1, -1],
+    [1, -2, 1, 2, 2, -1, 1, 2],
+    [0, 0, 0, 1, 1, 0, 0, 1],
+    [2, -1, 2, 1, 0, -2, 2, 2],
 ]
 
 STATEMENT_WEIGHTS = [2, 2, 1, 2, 3, 1, 2, 1]
@@ -55,48 +56,56 @@ STATEMENT_CATEGORIES = [
 ]
 
 
-@pytest.fixture(scope="session")
-def engine():
-    return create_async_engine(settings.database_url)
+test_engine = create_async_engine(settings.database_url, poolclass=NullPool)
 
 
-@pytest.fixture()
-async def db_session(engine):
-    """Create a transactional session that rolls back after each test."""
-    async with engine.connect() as conn:
-        trans = await conn.begin()
+@pytest_asyncio.fixture()
+async def db_session():
+    """Create a session with SAVEPOINT-based test isolation."""
+    async with test_engine.connect() as conn:
+        await conn.begin()
+        await conn.begin_nested()
+
         session = AsyncSession(bind=conn, expire_on_commit=False)
-        try:
-            yield session
-        finally:
-            await session.close()
-            await trans.rollback()
+
+        @event.listens_for(session.sync_session, "after_transaction_end")
+        def restart_savepoint(session_sync, transaction):
+            if transaction.nested and not transaction._parent.nested:
+                session_sync.begin_nested()
+
+        yield session
+
+        await session.close()
+        await conn.rollback()
 
 
-@pytest.fixture()
+@pytest_asyncio.fixture()
 async def client(db_session):
-    """AsyncClient with overridden DB dependency."""
+    """AsyncClient with overridden DB dependency and rate limiting disabled."""
+    from app.limiter import limiter
 
     async def _override_get_db():
         yield db_session
 
     app.dependency_overrides[get_db] = _override_get_db
+    limiter.enabled = False
     transport = ASGITransport(app=app)
     async with AsyncClient(transport=transport, base_url="http://test") as c:
         yield c
+    limiter.enabled = True
     app.dependency_overrides.clear()
 
 
-@pytest.fixture()
+@pytest_asyncio.fixture()
 async def seed_data(db_session):
     """Create test data: country, election, 5 candidates, 8 statements, 40 positions."""
-    # Country
+    # Use test-only country code to avoid conflict with seeded "co"
     country = Country(
-        id=COUNTRY_ID, code="co", name="Colombia", language="es", is_active=True
+        id=COUNTRY_ID, code="xt", name="Testlandia", language="es", is_active=True
     )
     db_session.add(country)
+    await db_session.flush()
 
-    # Election
     election = Election(
         id=ELECTION_ID,
         country_id=COUNTRY_ID,
@@ -106,8 +115,8 @@ async def seed_data(db_session):
         is_active=True,
     )
     db_session.add(election)
+    await db_session.flush()
 
-    # Candidates
     candidate_names = [
         ("maria-valencia", "María Valencia", "Alianza Ciudadana", "AC", "#2A9D8F"),
         ("carlos-restrepo", "Carlos Restrepo", "Movimiento Fuerza Nacional", "MFN", "#C17F59"),
@@ -130,8 +139,8 @@ async def seed_data(db_session):
         )
         db_session.add(c)
         candidates.append(c)
+    await db_session.flush()
 
-    # Statements
     statements = []
     statement_texts = [
         "El gobierno debe aumentar los impuestos a las grandes fortunas.",
@@ -143,11 +152,11 @@ async def seed_data(db_session):
         "El sistema de salud debe avanzar hacia cobertura pública universal.",
         "La educación universitaria debe ser completamente gratuita.",
     ]
-    for i, text in enumerate(statement_texts):
+    for i, txt in enumerate(statement_texts):
         s = Statement(
             id=STATEMENT_IDS[i],
             election_id=ELECTION_ID,
-            text=text,
+            text=txt,
             category=STATEMENT_CATEGORIES[i],
             weight=STATEMENT_WEIGHTS[i],
             display_order=i + 1,
@@ -155,8 +164,8 @@ async def seed_data(db_session):
         )
         db_session.add(s)
         statements.append(s)
+    await db_session.flush()
 
-    # Positions (5 candidates x 8 statements = 40)
     for ci, candidate in enumerate(candidates):
         for si, statement in enumerate(statements):
             pos = CandidatePosition(
@@ -167,8 +176,8 @@ async def seed_data(db_session):
                 coded_by="test",
             )
             db_session.add(pos)
-
     await db_session.flush()
+
     return {
         "country": country,
         "election": election,
@@ -177,7 +186,7 @@ async def seed_data(db_session):
     }
 
 
-@pytest.fixture()
+@pytest_asyncio.fixture()
 async def seed_articles(db_session, seed_data):
     """Create test articles."""
     articles = []
@@ -195,7 +204,6 @@ async def seed_articles(db_session, seed_data):
         db_session.add(a)
         articles.append(a)
 
-    # Add unpublished article
     unpublished = Article(
         country_id=COUNTRY_ID,
         slug="unpublished-article",
@@ -204,7 +212,6 @@ async def seed_articles(db_session, seed_data):
     )
     db_session.add(unpublished)
 
-    # Add deleted article
     deleted = Article(
         country_id=COUNTRY_ID,
         slug="deleted-article",
@@ -219,7 +226,7 @@ async def seed_articles(db_session, seed_data):
     return articles
 
 
-@pytest.fixture()
+@pytest_asyncio.fixture()
 async def seed_polls(db_session, seed_data):
     """Create test polls and average."""
     poll = Poll(

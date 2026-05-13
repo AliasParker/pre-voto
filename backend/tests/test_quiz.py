@@ -7,7 +7,7 @@ from tests.conftest import STATEMENT_IDS
 class TestQuizRouter:
 
     async def test_list_statements(self, client):
-        resp = await client.get("/quiz/co/statements")
+        resp = await client.get("/quiz/xt/statements")
         assert resp.status_code == 200
         data = resp.json()
         assert isinstance(data, list)
@@ -19,7 +19,7 @@ class TestQuizRouter:
     async def test_submit_quiz(self, client):
         # Build answers: agree with everything
         answers = {str(sid): 2 for sid in STATEMENT_IDS}
-        resp = await client.post("/quiz/co/submit", json={"answers": answers})
+        resp = await client.post("/quiz/xt/submit", json={"answers": answers})
         assert resp.status_code == 200
         data = resp.json()
         assert "results" in data
@@ -37,7 +37,7 @@ class TestQuizRouter:
             assert "affinity" in r
 
     async def test_submit_empty_answers(self, client):
-        resp = await client.post("/quiz/co/submit", json={"answers": {}})
+        resp = await client.post("/quiz/xt/submit", json={"answers": {}})
         assert resp.status_code == 200
         data = resp.json()
         assert data["statements_answered"] == 0
@@ -51,7 +51,7 @@ class TestQuizRouter:
             str(STATEMENT_IDS[1]): None,
             str(STATEMENT_IDS[2]): -1,
         }
-        resp = await client.post("/quiz/co/submit", json={"answers": answers})
+        resp = await client.post("/quiz/xt/submit", json={"answers": answers})
         assert resp.status_code == 200
         data = resp.json()
         assert data["statements_answered"] == 2  # None doesn't count

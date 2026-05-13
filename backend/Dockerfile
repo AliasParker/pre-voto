@@ -14,6 +14,8 @@ COPY migrations/ migrations/
 # ---- Runtime ----
 FROM python:3.12-slim AS runtime
 
+COPY --from=ghcr.io/astral-sh/uv:latest /uv /usr/local/bin/uv
+
 RUN groupadd --system app && useradd --system --gid app app
 
 WORKDIR /app

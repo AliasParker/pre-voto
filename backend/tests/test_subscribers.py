@@ -7,12 +7,12 @@ class TestSubscribersRouter:
     async def test_create_subscriber(self, client):
         resp = await client.post(
             "/subscribers",
-            json={"email": "test@example.com", "country_code": "co"},
+            json={"email": "test@example.com", "country_code": "xt"},
         )
         assert resp.status_code == 201
         data = resp.json()
         assert data["status"] == "pending"
-        assert data["country_code"] == "co"
+        assert data["country_code"] == "xt"
         # Email should NOT be in response
         assert "email" not in data
 
@@ -20,7 +20,7 @@ class TestSubscribersRouter:
         # First subscription
         await client.post(
             "/subscribers",
-            json={"email": "dup@example.com", "country_code": "co"},
+            json={"email": "dup@example.com", "country_code": "xt"},
         )
         # Second subscription (upsert)
         resp = await client.post(
