@@ -36,6 +36,8 @@ services:
       - ./backend/app:/app/app
       - ./backend/alembic.ini:/app/alembic.ini:ro
       - ./backend/migrations:/app/migrations
+      - ./backend/tests:/app/tests
+      - ./backend/pyproject.toml:/app/pyproject.toml:ro
     networks:
       - prevoto
     depends_on:

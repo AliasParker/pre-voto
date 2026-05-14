@@ -6,7 +6,7 @@ requires-python = ">=3.12"
 dependencies = [
     "fastapi>=0.115",
     "uvicorn[standard]>=0.34",
-    "pydantic>=2.10",
+    "pydantic[email]>=2.10",
     "pydantic-settings>=2.7",
     "sqlalchemy[asyncio]>=2.0",
     "asyncpg>=0.30",
@@ -15,7 +15,20 @@ dependencies = [
     "httpx>=0.28",
     "alembic>=1.14",
     "pgvector>=0.3",
+    "slowapi>=0.1.9",
 ]
+
+[project.optional-dependencies]
+test = [
+    "pytest>=8.0",
+    "pytest-asyncio>=0.25,<1.0",
+    "pytest-cov>=6.0",
+    "httpx>=0.28",
+]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
 
 [build-system]
 requires = ["hatchling"]

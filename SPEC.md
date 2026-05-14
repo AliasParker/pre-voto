@@ -380,7 +380,7 @@ Admin auth: header `X-Admin-Key` validado contra `ADMIN_API_KEY` del env. No es 
 
 - Toda respuesta JSON debe seguir Pydantic schemas en `/backend/app/schemas/`.
 - Toda request validada por schemas.
-- Rate limiting con `slowapi`: 60 req/min por IP en endpoints públicos, 5 req/min en `/api/subscribers` (anti-spam).
+- Rate limiting con `slowapi`: 60 req/min por IP en endpoints públicos, 5 req/hora en `/api/subscribers` (anti-spam).
 - CORS: solo `pre.voto`, `www.pre.voto`, `localhost:3000`, `localhost:4321`.
 - Logging estructurado (JSON) con `structlog`. Cada request loggea: method, path, status, latency, ip (hash, no plain), country requested.
 - `/api/quiz/submit` NUNCA guarda respuestas individuales identificables. Lo único que persiste: `(country, date, statements_answered, top_match_candidate_id, session_hash)` donde `session_hash = sha256(ip + user_agent + day)` truncado a 16 chars. Es solo para deduplicar completions en analítica.

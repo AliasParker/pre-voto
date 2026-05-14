@@ -12,6 +12,7 @@ class Settings(BaseSettings):
 
     # Redis
     redis_url: str = "redis://redis:6379/0"
+    redis_ratelimit_url: str = "redis://redis:6379/1"
 
     # Admin
     admin_api_key: str = "changeme"
