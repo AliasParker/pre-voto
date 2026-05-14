@@ -50,9 +50,9 @@
 |---|---|---|
 | Frontend | Astro 4 + Tailwind 4 + Svelte 5 (islas) | Astro es content-first: páginas estáticas rapidísimas para SEO + islas interactivas solo donde se necesita. Tailwind 4 para velocidad. Svelte 5 (no React) en islas porque produce bundles ~3× menores. |
 | Backend | FastAPI (Python 3.12) | Async nativo, OpenAPI auto-generado, tipado, ecosistema Python para NLP, scraping y embeddings. |
-| Worker | Python con APScheduler + RQ | Misma imagen Docker que el API, distinto entrypoint. Reduce complejidad operativa. |
+| Worker | Python con APScheduler + asyncio tasks | Misma imagen Docker que el API, distinto entrypoint. Reduce complejidad operativa. |
 | DB | PostgreSQL 16 con extensión pgvector | Estándar, gratuito. pgvector incluido desde día 1 para búsqueda semántica de propuestas (lo necesitarás antes de lo que crees, no quieras migrar después). |
-| Cache + cola | Redis 7 | Sesiones, rate limiting, cola de jobs (RQ). |
+| Cache + cola | Redis 7 | Sesiones, rate limiting. Tareas ad-hoc via asyncio (migrar a arq cuando el throughput lo requiera). |
 | Reverse proxy | Caddy 2 | TLS automático con Let's Encrypt. Config de 8 líneas vs 80 de nginx. |
 | CDN + protección | Cloudflare (free tier) | DNS, DDoS, cache edge, WAF, Origin Cert para TLS end-to-end. |
 | Hosting | Hetzner Cloud (CX22) | €4.59/mes, mejor €/performance del mercado. Datacenter US (Ashburn) para LATAM. |
@@ -465,9 +465,11 @@ Debe replicarse byte-por-byte en `frontend/src/lib/quiz.ts` para que cliente y s
 
 ### 4.3 Cola para tareas ad-hoc
 
-- Redis Queue (RQ) para tareas disparadas por requests del API.
-- Ejemplo: cuando se crea un nuevo candidato, encolar `refresh_photo(candidate_id)`.
-- Worker procesa la cola en el mismo proceso (separado del scheduler por thread).
+- `spawn_background_task()` helper basado en `asyncio.create_task()`.
+- Mantiene referencias fuertes al set `_background_tasks` para prevenir garbage collection.
+- Excepciones capturadas y logueadas via structlog (no propagan).
+- Ejemplo: `POST /admin/jobs/refresh-photos` despacha via `spawn_background_task(job_refresh_photos())` y retorna 202 inmediatamente.
+- Migración futura: cuando el throughput sostenido exceda ~1 task/segundo, migrar a arq o similar cola Redis-backed.
 
 ### 4.4 Servicio RSS aggregator — código de partida
 
