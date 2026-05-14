@@ -36,7 +36,7 @@ class TestSearchCandidatePhoto:
             return_value=httpx.Response(200, json=wikimedia_found)
         )
 
-        result = await search_candidate_photo("María Valencia", "Colombia")
+        result = await search_candidate_photo("Candidata Demo Alfa", "Colombia")
         assert result is not None
         assert result["url"] == "https://upload.wikimedia.org/wikipedia/commons/a/ab/María_Valencia_2025.jpg"
         assert result["author"] == "Juan Pérez"
@@ -58,7 +58,7 @@ class TestSearchCandidatePhoto:
             return_value=httpx.Response(200, json=wikimedia_pdf)
         )
 
-        result = await search_candidate_photo("Laura Castillo", "Colombia")
+        result = await search_candidate_photo("Candidata Demo Gamma", "Colombia")
         assert result is None
 
 

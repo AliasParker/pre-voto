@@ -11,14 +11,14 @@ class TestCandidatesRouter:
         assert isinstance(data, list)
         assert len(data) == 5
         slugs = {c["slug"] for c in data}
-        assert "maria-valencia" in slugs
+        assert "candidata-demo-alfa" in slugs
 
     async def test_get_candidate_by_slug(self, client):
-        resp = await client.get("/candidates/xt/maria-valencia")
+        resp = await client.get("/candidates/xt/candidata-demo-alfa")
         assert resp.status_code == 200
         data = resp.json()
-        assert data["slug"] == "maria-valencia"
-        assert data["name"] == "María Valencia"
+        assert data["slug"] == "candidata-demo-alfa"
+        assert data["name"] == "Candidata Demo Alfa"
         assert "positions" in data
         assert len(data["positions"]) == 8
 
