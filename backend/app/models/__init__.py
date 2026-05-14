@@ -4,6 +4,7 @@ from app.models.candidate import Candidate
 from app.models.country import Country
 from app.models.election import Election
 from app.models.news_item import NewsItem
+from app.models.newsletter_send import NewsletterSend
 from app.models.poll import Poll
 from app.models.poll_average import PollAverage
 from app.models.position import CandidatePosition
@@ -22,6 +23,7 @@ __all__ = [
     "Article",
     "Source",
     "NewsItem",
+    "NewsletterSend",
     "Poll",
     "PollAverage",
     "Subscriber",
