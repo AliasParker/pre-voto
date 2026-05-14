@@ -20,6 +20,7 @@ from sqlalchemy import select, update
 from sqlalchemy.dialects.postgresql import insert as pg_insert
 from sqlalchemy.ext.asyncio import AsyncSession
 
+from app.config import settings
 from app.models.news_item import NewsItem
 from app.models.source import Source
 
@@ -42,7 +43,8 @@ async def pull_source(source: Source, db: AsyncSession) -> int:
     """
     new_count = 0
     try:
-        async with httpx.AsyncClient(timeout=15) as client:
+        headers = {"User-Agent": settings.wikimedia_user_agent}
+        async with httpx.AsyncClient(timeout=15, headers=headers) as client:
             resp = await client.get(source.feed_url)
             resp.raise_for_status()
     except Exception:
