@@ -1,0 +1,28 @@
+{
+  "batchcomplete": "",
+  "query": {
+    "pages": {
+      "12345": {
+        "pageid": 12345,
+        "ns": 6,
+        "title": "File:María Valencia 2025.jpg",
+        "imageinfo": [
+          {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/a/ab/María_Valencia_2025.jpg",
+            "descriptionurl": "https://commons.wikimedia.org/wiki/File:María_Valencia_2025.jpg",
+            "extmetadata": {
+              "Artist": {
+                "value": "Juan Pérez",
+                "source": "commons-desc-page"
+              },
+              "LicenseShortName": {
+                "value": "CC BY-SA 4.0",
+                "source": "commons-desc-page"
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
+}
