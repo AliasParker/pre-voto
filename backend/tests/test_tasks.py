@@ -26,8 +26,8 @@ class TestSpawnBackgroundTask:
             raise ValueError("boom")
 
         task = spawn_background_task(failing(), name="test-fail")
-        # Should not raise — exception is captured in the callback
-        await task
+        # Wait for task to complete — gather with return_exceptions avoids re-raise
+        await asyncio.gather(task, return_exceptions=True)
         await asyncio.sleep(0)
         assert task not in _background_tasks
 

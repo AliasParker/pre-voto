@@ -1,4 +1,4 @@
-from datetime import datetime, UTC
+from datetime import datetime
 from unittest.mock import patch
 
 import httpx
@@ -23,7 +23,7 @@ async def seed_newsletter_data(db_session, seed_data):
             dek=f"Resumen del artículo {i}",
             body_markdown=f"Contenido del artículo {i}.",
             author="Test Author",
-            published_at=datetime.now(UTC),
+            published_at=datetime.utcnow(),
         )
         db_session.add(a)
         articles.append(a)

@@ -5,7 +5,7 @@ Searches for candidate photos on Wikimedia Commons API and updates
 candidate records with photo URL, author, and license information.
 """
 
-from datetime import UTC, datetime, timedelta
+from datetime import datetime, timedelta
 
 import httpx
 import structlog
@@ -83,7 +83,7 @@ async def refresh_candidate_photos(db: AsyncSession) -> dict:
 
     Returns dict with {updated, not_found, errors}.
     """
-    cutoff = datetime.now(UTC) - timedelta(days=30)
+    cutoff = datetime.utcnow() - timedelta(days=30)
 
     result = await db.execute(
         select(Candidate).where(

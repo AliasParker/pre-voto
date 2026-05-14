@@ -105,7 +105,7 @@ class TestAdminJobs:
             "duration_ms": 123,
         }
         with patch(
-            "app.routers.admin.job_pull_rss",
+            "app.jobs.pull_rss.job_pull_rss",
             new_callable=AsyncMock,
             return_value=mock_result,
         ):
