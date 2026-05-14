@@ -2,18 +2,18 @@
   "batchcomplete": "",
   "query": {
     "pages": {
-      "12345": {
-        "pageid": 12345,
+      "67890": {
+        "pageid": 67890,
         "ns": 6,
-        "title": "File:María Valencia 2025.jpg",
+        "title": "File:Informe académico 2024.pdf",
         "imageinfo": [
           {
-            "url": "https://upload.wikimedia.org/wikipedia/commons/a/ab/María_Valencia_2025.jpg",
-            "descriptionurl": "https://commons.wikimedia.org/wiki/File:María_Valencia_2025.jpg",
-            "mediatype": "BITMAP",
+            "url": "https://upload.wikimedia.org/wikipedia/commons/b/bc/Informe_académico_2024.pdf",
+            "descriptionurl": "https://commons.wikimedia.org/wiki/File:Informe_académico_2024.pdf",
+            "mediatype": "OFFICE",
             "extmetadata": {
               "Artist": {
-                "value": "Juan Pérez",
+                "value": "Universidad Nacional",
                 "source": "commons-desc-page"
               },
               "LicenseShortName": {

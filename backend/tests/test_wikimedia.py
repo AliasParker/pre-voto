@@ -23,6 +23,11 @@ def wikimedia_empty():
     return json.loads((FIXTURES_DIR / "wikimedia_empty.json").read_text())
 
 
+@pytest.fixture()
+def wikimedia_pdf():
+    return json.loads((FIXTURES_DIR / "wikimedia_pdf.json").read_text())
+
+
 class TestSearchCandidatePhoto:
 
     @respx.mock
@@ -45,6 +50,15 @@ class TestSearchCandidatePhoto:
         )
 
         result = await search_candidate_photo("Unknown Person", "Colombia")
+        assert result is None
+
+    @respx.mock
+    async def test_search_candidate_photo_rejects_pdf(self, wikimedia_pdf):
+        respx.get(COMMONS_API).mock(
+            return_value=httpx.Response(200, json=wikimedia_pdf)
+        )
+
+        result = await search_candidate_photo("Laura Castillo", "Colombia")
         assert result is None
 
 
@@ -81,6 +95,25 @@ class TestRefreshCandidatePhotos:
 
         result = await refresh_candidate_photos(db_session)
         assert result["not_found"] > 0
+
+        row = await db_session.execute(
+            select(Candidate).where(Candidate.id == CANDIDATE_IDS[0])
+        )
+        candidate = row.scalar_one()
+        assert candidate.photo_url is None
+
+    @respx.mock
+    async def test_refresh_candidate_pdf_result_leaves_null(
+        self, db_session, seed_data, wikimedia_pdf
+    ):
+        respx.get(COMMONS_API).mock(
+            return_value=httpx.Response(200, json=wikimedia_pdf)
+        )
+
+        result = await refresh_candidate_photos(db_session)
+        # PDF results are treated as not found
+        assert result["not_found"] > 0
+        assert result["updated"] == 0
 
         row = await db_session.execute(
             select(Candidate).where(Candidate.id == CANDIDATE_IDS[0])

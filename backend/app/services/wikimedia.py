@@ -35,7 +35,7 @@ async def search_candidate_photo(
         "gsrsearch": f"{name} {country}",
         "gsrlimit": "1",
         "prop": "imageinfo",
-        "iiprop": "url|extmetadata",
+        "iiprop": "url|extmetadata|mediatype",
         "format": "json",
     }
     headers = {"User-Agent": settings.wikimedia_user_agent}
@@ -62,6 +62,17 @@ async def search_candidate_photo(
     info = imageinfo[0]
     url = info.get("url")
     if not url:
+        return None
+
+    # Only accept bitmap images — reject PDFs, office docs, etc.
+    mediatype = info.get("mediatype", "")
+    if mediatype != "BITMAP":
+        log.info(
+            "wikimedia_non_image_skipped",
+            name=name,
+            mediatype=mediatype,
+            url=url,
+        )
         return None
 
     extmetadata = info.get("extmetadata", {})
