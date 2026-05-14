@@ -1,5 +1,3 @@
-import asyncio
-
 from fastapi import APIRouter, Depends, Request
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -10,6 +8,7 @@ from app.limiter import limiter
 from app.models.subscriber import Subscriber
 from app.schemas.subscriber import SubscriberCreate, SubscriberOut
 from app.services.beehiiv import forward_to_beehiiv
+from app.tasks import spawn_background_task
 
 router = APIRouter(prefix="/subscribers", tags=["subscribers"])
 
@@ -49,6 +48,9 @@ async def create_subscriber(
         await db.refresh(subscriber)
 
     # Forward to Beehiiv in background (don't block response)
-    asyncio.create_task(forward_to_beehiiv(body.email, body.country_code))
+    spawn_background_task(
+        forward_to_beehiiv(body.email, body.country_code),
+        name="forward_to_beehiiv",
+    )
 
     return subscriber
