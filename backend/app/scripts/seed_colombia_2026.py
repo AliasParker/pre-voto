@@ -73,8 +73,8 @@ CANDIDATES = [
     {
         "id": CANDIDATE_IDS[0],
         "election_id": ELECTION_ID,
-        "slug": "maria-valencia",
-        "name": "María Valencia",
+        "slug": "candidata-demo-alfa",
+        "name": "Candidata Demo Alfa",
         "party": "Alianza Ciudadana",
         "party_acronym": "AC",
         "bio_short": "Economista y exministra de Hacienda. Propone reformas fiscales progresivas.",
@@ -84,8 +84,8 @@ CANDIDATES = [
     {
         "id": CANDIDATE_IDS[1],
         "election_id": ELECTION_ID,
-        "slug": "carlos-restrepo",
-        "name": "Carlos Restrepo",
+        "slug": "candidato-demo-beta",
+        "name": "Candidato Demo Beta",
         "party": "Movimiento Fuerza Nacional",
         "party_acronym": "MFN",
         "bio_short": "Exalcalde de Medellín. Enfoque en seguridad y desarrollo empresarial.",
@@ -95,8 +95,8 @@ CANDIDATES = [
     {
         "id": CANDIDATE_IDS[2],
         "election_id": ELECTION_ID,
-        "slug": "laura-castillo",
-        "name": "Laura Castillo",
+        "slug": "candidata-demo-gamma",
+        "name": "Candidata Demo Gamma",
         "party": "Partido Verde Esperanza",
         "party_acronym": "PVE",
         "bio_short": "Ambientalista y senadora. Prioriza transición energética y reforma rural.",
@@ -106,8 +106,8 @@ CANDIDATES = [
     {
         "id": CANDIDATE_IDS[3],
         "election_id": ELECTION_ID,
-        "slug": "andres-molina",
-        "name": "Andrés Molina",
+        "slug": "candidato-demo-delta",
+        "name": "Candidato Demo Delta",
         "party": "Convergencia Democrática",
         "party_acronym": "CD",
         "bio_short": "Abogado constitucionalista. Propone reforma judicial y anticorrupción.",
@@ -117,8 +117,8 @@ CANDIDATES = [
     {
         "id": CANDIDATE_IDS[4],
         "election_id": ELECTION_ID,
-        "slug": "sofia-herrera",
-        "name": "Sofía Herrera",
+        "slug": "candidata-demo-epsilon",
+        "name": "Candidata Demo Epsilon",
         "party": "Movimiento Raíces",
         "party_acronym": "MR",
         "bio_short": "Socióloga y activista comunitaria. Enfoque en equidad social y educación.",
@@ -206,11 +206,11 @@ STATEMENTS = [
 # Values: -2 (muy en contra), -1 (en contra), 0 (neutro), 1 (a favor), 2 (muy a favor)
 POSITION_VALUES = [
     # economy, security, social, environment, drugs, foreign_policy, health, education
-    [ 2,  -1,   2,   1,   1,  -1,   2,   2],  # María Valencia
-    [-1,   2,  -1,  -1,  -2,   2,  -1,  -1],  # Carlos Restrepo
-    [ 1,  -2,   1,   2,   2,  -1,   1,   2],  # Laura Castillo
-    [ 0,   0,   0,   1,   1,   0,   0,   1],  # Andrés Molina
-    [ 2,  -1,   2,   1,   0,  -2,   2,   2],  # Sofía Herrera
+    [ 2,  -1,   2,   1,   1,  -1,   2,   2],  # Demo Alfa
+    [-1,   2,  -1,  -1,  -2,   2,  -1,  -1],  # Demo Beta
+    [ 1,  -2,   1,   2,   2,  -1,   1,   2],  # Demo Gamma
+    [ 0,   0,   0,   1,   1,   0,   0,   1],  # Demo Delta
+    [ 2,  -1,   2,   1,   0,  -2,   2,   2],  # Demo Epsilon
 ]
 
 SOURCES = [
@@ -228,7 +228,7 @@ SOURCES = [
         "name": "El Espectador",
         "feed_url": "https://www.elespectador.com/rss/politica.xml",
         "site_url": "https://www.elespectador.com",
-        "is_active": True,
+        "is_active": False,  # RSS feed unavailable as of 2025-05
     },
     {
         "id": SOURCE_IDS[2],
@@ -244,7 +244,7 @@ SOURCES = [
         "name": "Semana",
         "feed_url": "https://www.semana.com/rss/nacion.xml",
         "site_url": "https://www.semana.com",
-        "is_active": True,
+        "is_active": False,  # RSS feed unavailable as of 2025-05
     },
     {
         "id": SOURCE_IDS[4],

@@ -118,11 +118,11 @@ async def seed_data(db_session):
     await db_session.flush()
 
     candidate_names = [
-        ("maria-valencia", "María Valencia", "Alianza Ciudadana", "AC", "#2A9D8F"),
-        ("carlos-restrepo", "Carlos Restrepo", "Movimiento Fuerza Nacional", "MFN", "#C17F59"),
-        ("laura-castillo", "Laura Castillo", "Partido Verde Esperanza", "PVE", "#4A7CB5"),
-        ("andres-molina", "Andrés Molina", "Convergencia Democrática", "CD", "#7B68A5"),
-        ("sofia-herrera", "Sofía Herrera", "Movimiento Raíces", "MR", "#A3768A"),
+        ("candidata-demo-alfa", "Candidata Demo Alfa", "Alianza Ciudadana", "AC", "#2A9D8F"),
+        ("candidato-demo-beta", "Candidato Demo Beta", "Movimiento Fuerza Nacional", "MFN", "#C17F59"),
+        ("candidata-demo-gamma", "Candidata Demo Gamma", "Partido Verde Esperanza", "PVE", "#4A7CB5"),
+        ("candidato-demo-delta", "Candidato Demo Delta", "Convergencia Democrática", "CD", "#7B68A5"),
+        ("candidata-demo-epsilon", "Candidata Demo Epsilon", "Movimiento Raíces", "MR", "#A3768A"),
     ]
     candidates = []
     for i, (slug, name, party, acronym, color) in enumerate(candidate_names):
@@ -235,14 +235,14 @@ async def seed_polls(db_session, seed_data):
         field_start=date(2025, 5, 1),
         field_end=date(2025, 5, 5),
         sample_size=1000,
-        results={"maria-valencia": 30.5, "carlos-restrepo": 25.0},
+        results={"candidata-demo-alfa": 30.5, "candidato-demo-beta": 25.0},
         source_url="https://example.com/poll",
     )
     db_session.add(poll)
 
     avg = PollAverage(
         election_id=ELECTION_ID,
-        results={"maria-valencia": 28.0, "carlos-restrepo": 24.0},
+        results={"candidata-demo-alfa": 28.0, "candidato-demo-beta": 24.0},
         polls_included=3,
     )
     db_session.add(avg)

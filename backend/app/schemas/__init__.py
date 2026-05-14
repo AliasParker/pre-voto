@@ -10,6 +10,7 @@ from app.schemas.candidate import (
 )
 from app.schemas.common import ErrorDetail, ErrorResponse
 from app.schemas.country import CountryDetail, CountryOut, ElectionBrief
+from app.schemas.job import JobResponse
 from app.schemas.poll import PollAverageOut, PollCreate, PollOut
 from app.schemas.quiz import CandidateAffinity, QuizResult, QuizSubmitRequest, StatementOut
 from app.schemas.statement import StatementCreate
@@ -35,6 +36,7 @@ __all__ = [
     "ArticleOut",
     "ArticleDetail",
     "ArticleCreate",
+    "JobResponse",
     "PollOut",
     "PollAverageOut",
     "PollCreate",

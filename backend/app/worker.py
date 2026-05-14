@@ -3,8 +3,12 @@ import signal
 import sys
 
 import structlog
+from apscheduler.events import EVENT_JOB_ERROR, EVENT_JOB_EXECUTED
+from apscheduler.schedulers.asyncio import AsyncIOScheduler
 
 from app.config import settings
+from app.jobs.schedule import configure_scheduler
+from app.tasks import _background_tasks
 
 structlog.configure(
     processors=[
@@ -56,6 +60,23 @@ async def check_redis():
         log.warning("worker_redis_unavailable", error=str(exc))
 
 
+def _job_executed_listener(event):
+    log.info(
+        "scheduler_job_executed",
+        job_id=event.job_id,
+        run_time=str(event.scheduled_run_time),
+    )
+
+
+def _job_error_listener(event):
+    log.error(
+        "scheduler_job_error",
+        job_id=event.job_id,
+        error=str(event.exception),
+        run_time=str(event.scheduled_run_time),
+    )
+
+
 async def main():
     signal.signal(signal.SIGTERM, handle_signal)
     signal.signal(signal.SIGINT, handle_signal)
@@ -65,13 +86,32 @@ async def main():
     await check_postgres()
     await check_redis()
 
-    log.info("worker_started")
+    scheduler = AsyncIOScheduler()
+    configure_scheduler(scheduler)
+    scheduler.add_listener(_job_executed_listener, EVENT_JOB_EXECUTED)
+    scheduler.add_listener(_job_error_listener, EVENT_JOB_ERROR)
+    scheduler.start()
+
+    jobs = scheduler.get_jobs()
+    for job in jobs:
+        log.info("worker_job_registered", job_id=job.id, trigger=str(job.trigger))
+
+    log.info("worker_started", scheduled_jobs=len(jobs))
 
     while not shutdown_event.is_set():
         try:
             await asyncio.wait_for(shutdown_event.wait(), timeout=60)
         except asyncio.TimeoutError:
             pass
+
+    # Graceful shutdown
+    log.info("worker_shutting_down")
+    scheduler.shutdown(wait=False)
+
+    # Wait for any pending background tasks
+    if _background_tasks:
+        log.info("worker_waiting_for_tasks", count=len(_background_tasks))
+        await asyncio.gather(*_background_tasks, return_exceptions=True)
 
     log.info("worker_stopped")
 

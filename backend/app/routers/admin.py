@@ -1,6 +1,7 @@
 import uuid
 
 from fastapi import APIRouter, Depends, HTTPException
+from pydantic import BaseModel
 from sqlalchemy import select
 from sqlalchemy.dialects.postgresql import insert as pg_insert
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -21,9 +22,11 @@ from app.schemas.candidate import (
     CandidateUpdate,
     PositionOut,
 )
+from app.schemas.job import JobResponse
 from app.schemas.poll import PollCreate, PollOut
 from app.schemas.statement import StatementCreate
 from app.schemas.quiz import StatementOut
+from app.tasks import spawn_background_task
 
 router = APIRouter(
     prefix="/admin",
@@ -189,21 +192,43 @@ async def create_poll(
     return poll
 
 
-@router.post("/jobs/pull-rss", status_code=501)
+class ComputePollAvgRequest(BaseModel):
+    election_id: uuid.UUID
+
+
+class SendNewsletterRequest(BaseModel):
+    country_id: uuid.UUID
+
+
+@router.post("/jobs/pull-rss", response_model=JobResponse)
 async def pull_rss():
-    return {
-        "error": {
-            "code": "not_implemented",
-            "message": "This endpoint will be activated in Fase 4 (worker)",
-        }
-    }
+    from app.jobs.pull_rss import job_pull_rss
+
+    result = await job_pull_rss()
+    return JobResponse(**result)
 
 
-@router.post("/jobs/refresh-photos", status_code=501)
+@router.post("/jobs/refresh-photos", response_model=JobResponse, status_code=202)
 async def refresh_photos():
-    return {
-        "error": {
-            "code": "not_implemented",
-            "message": "This endpoint will be activated in Fase 4 (worker)",
-        }
-    }
+    from app.jobs.refresh_photos import job_refresh_photos
+
+    spawn_background_task(job_refresh_photos(), name="admin-refresh-photos")
+    return JobResponse(job="refresh_photos", status="started")
+
+
+@router.post("/jobs/compute-poll-average", response_model=JobResponse)
+async def compute_poll_average(body: ComputePollAvgRequest):
+    from app.jobs.compute_poll_avg import job_compute_poll_average
+
+    result = await job_compute_poll_average(body.election_id)
+    return JobResponse(**result)
+
+
+@router.post("/jobs/send-newsletter", response_model=JobResponse, status_code=202)
+async def send_newsletter(body: SendNewsletterRequest):
+    from app.jobs.send_newsletter import job_send_newsletter
+
+    spawn_background_task(
+        job_send_newsletter(body.country_id), name="admin-send-newsletter"
+    )
+    return JobResponse(job="send_newsletter", status="started")

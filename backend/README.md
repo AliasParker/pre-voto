@@ -35,8 +35,10 @@ The backend runs inside Docker. See the root `README.md` for full setup.
 | POST | `/admin/statements` | Create statement |
 | POST | `/admin/articles` | Create article |
 | POST | `/admin/polls` | Create poll |
-| POST | `/admin/jobs/pull-rss` | Stub (501) |
-| POST | `/admin/jobs/refresh-photos` | Stub (501) |
+| POST | `/admin/jobs/pull-rss` | Pull all active RSS feeds (200) |
+| POST | `/admin/jobs/refresh-photos` | Refresh candidate photos (202, async) |
+| POST | `/admin/jobs/compute-poll-average` | Compute weighted poll average (200) |
+| POST | `/admin/jobs/send-newsletter` | Send newsletter digest (202, async) |
 
 Caddy strips `/api` prefix, so all paths above are accessed externally as `/api/...`.
 
@@ -123,6 +125,66 @@ carlos-restrepo,d1000000-0000-0000-0000-000000000002,-1,,,,,nota adicional
 
 The script is idempotent — running it twice with the same CSV will not create duplicates.
 
+## Worker
+
+The worker runs background jobs on a schedule using APScheduler.
+
+### Running the worker
+
+```bash
+# With Docker Compose (recommended)
+docker compose up worker
+
+# Standalone (inside container or local dev)
+python -m app.worker
+```
+
+### Job schedule
+
+| Job | Trigger | Description |
+|-----|---------|-------------|
+| `pull_rss` | Every 30 minutes | Fetch all active RSS feeds, insert new items |
+| `refresh_photos` | Daily at 3:00 AM | Update candidate photos from Wikimedia Commons |
+
+### Triggering jobs manually
+
+All jobs can be triggered via the admin API:
+
+```bash
+# Pull RSS feeds
+curl -X POST http://localhost/api/admin/jobs/pull-rss \
+  -H "X-Admin-Key: $ADMIN_KEY"
+
+# Refresh candidate photos (async, returns 202)
+curl -X POST http://localhost/api/admin/jobs/refresh-photos \
+  -H "X-Admin-Key: $ADMIN_KEY"
+
+# Compute poll average
+curl -X POST http://localhost/api/admin/jobs/compute-poll-average \
+  -H "X-Admin-Key: $ADMIN_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{"election_id": "b1000000-0000-0000-0000-000000000001"}'
+
+# Send newsletter digest (async, returns 202)
+curl -X POST http://localhost/api/admin/jobs/send-newsletter \
+  -H "X-Admin-Key: $ADMIN_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{"country_id": "a1000000-0000-0000-0000-000000000001"}'
+```
+
+### Debugging
+
+```bash
+# Check worker logs
+docker compose logs worker -f
+
+# Check fetched news items
+docker compose exec postgres psql -U prevoto -c "SELECT count(*) FROM news_items"
+
+# Check newsletter send history
+docker compose exec postgres psql -U prevoto -c "SELECT * FROM newsletter_sends ORDER BY created_at DESC LIMIT 5"
+```
+
 ## Database Access
 
 ```bash
@@ -136,19 +198,27 @@ docker compose exec postgres psql -U prevoto -c "\dt"
 
 ## Tests
 
-```bash
-# Install test dependencies
-docker compose exec api pip install -e ".[test]"
+Tests run inside a dedicated `api-test` service that includes dev dependencies.
 
-# Run all tests
-docker compose exec api pytest
+```bash
+# Run all tests (one command)
+docker compose run --rm api-test
+
+# Run with verbose output
+docker compose run --rm api-test pytest tests/ -v
 
 # Run with coverage
-docker compose exec api pytest --cov=app/routers --cov-report=term-missing
+docker compose run --rm api-test pytest tests/ --cov=app --cov-report=term-missing
 
-# Run specific test file
-docker compose exec api pytest tests/test_matching.py -v
+# Run a specific test file
+docker compose run --rm api-test pytest tests/test_matching.py -v
+
+# Run a specific test
+docker compose run --rm api-test pytest tests/test_quiz.py::TestQuizSubmit::test_submit_returns_sorted_affinities -v
 ```
+
+The `api-test` service uses the `test` stage of the Dockerfile, which includes pytest
+and other test dependencies. It only starts when explicitly invoked (uses Docker Compose profiles).
 
 ## Project Structure
 
@@ -163,8 +233,9 @@ backend/
 │   ├── db.py                  # Async engine & session factory
 │   ├── deps.py                # FastAPI dependencies (auth, country lookup)
 │   ├── limiter.py             # Rate limiter (slowapi + Redis)
-│   ├── worker.py              # Background worker
-│   ├── models/                # SQLAlchemy ORM models (12 tables)
+│   ├── tasks.py               # spawn_background_task() helper
+│   ├── worker.py              # APScheduler worker process
+│   ├── models/                # SQLAlchemy ORM models (13 tables)
 │   ├── routers/               # FastAPI route handlers
 │   │   ├── countries.py       # /countries
 │   │   ├── candidates.py      # /candidates
@@ -176,11 +247,20 @@ backend/
 │   ├── schemas/               # Pydantic request/response models
 │   ├── services/              # Business logic
 │   │   ├── matching.py        # Quiz affinity algorithm
-│   │   └── beehiiv.py         # Newsletter forwarding
+│   │   ├── beehiiv.py         # Newsletter forwarding
+│   │   ├── rss_aggregator.py  # RSS feed fetching + dedup
+│   │   ├── wikimedia.py       # Candidate photo search
+│   │   ├── poll_compute.py    # Weighted poll averages
+│   │   └── newsletter.py      # Digest generation + send
 │   ├── scripts/               # CLI scripts
 │   │   ├── seed_colombia_2026.py
 │   │   └── import_positions_csv.py
-│   ├── jobs/                  # Scheduled jobs (Phase 4)
+│   ├── jobs/                  # Job wrappers + scheduler
+│   │   ├── pull_rss.py
+│   │   ├── refresh_photos.py
+│   │   ├── compute_poll_avg.py
+│   │   ├── send_newsletter.py
+│   │   └── schedule.py        # APScheduler job registration
 │   └── utils/
 ├── migrations/
 │   ├── env.py                 # Alembic async config
