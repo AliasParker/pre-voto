@@ -1,5 +1,5 @@
 import uuid
-from datetime import date, datetime
+from datetime import UTC, date, datetime
 
 import pytest
 import pytest_asyncio
@@ -199,7 +199,7 @@ async def seed_articles(db_session, seed_data):
             body_markdown=f"# Article {i}\n\nBody content.",
             author="Test Author",
             tags=["test"],
-            published_at=datetime(2025, 6, 1 + i),
+            published_at=datetime(2025, 6, 1 + i, tzinfo=UTC),
         )
         db_session.add(a)
         articles.append(a)
@@ -217,8 +217,8 @@ async def seed_articles(db_session, seed_data):
         slug="deleted-article",
         title="Deleted",
         body_markdown="This is deleted.",
-        published_at=datetime(2025, 6, 10),
-        deleted_at=datetime(2025, 6, 11),
+        published_at=datetime(2025, 6, 10, tzinfo=UTC),
+        deleted_at=datetime(2025, 6, 11, tzinfo=UTC),
     )
     db_session.add(deleted)
 

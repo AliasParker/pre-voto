@@ -1,7 +1,7 @@
 import uuid
 from datetime import datetime
 
-from sqlalchemy import Boolean, ForeignKey, UniqueConstraint, func
+from sqlalchemy import Boolean, DateTime, ForeignKey, UniqueConstraint, func
 from sqlalchemy.dialects.postgresql import ARRAY, TEXT
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
@@ -33,8 +33,8 @@ class Article(TimestampMixin, Base):
     hero_image_attribution: Mapped[str | None] = mapped_column()
     author: Mapped[str | None] = mapped_column()
     tags = mapped_column(ARRAY(TEXT), nullable=True)
-    published_at: Mapped[datetime | None] = mapped_column()
-    deleted_at: Mapped[datetime | None] = mapped_column()
+    published_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+    deleted_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
     embedding = mapped_column(Vector(1536), nullable=True) if Vector else None
     is_demo: Mapped[bool] = mapped_column(Boolean, server_default="false")
 

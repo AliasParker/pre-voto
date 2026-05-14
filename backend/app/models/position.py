@@ -1,7 +1,7 @@
 import uuid
 from datetime import date, datetime
 
-from sqlalchemy import CheckConstraint, Date, ForeignKey, Integer, UniqueConstraint, func
+from sqlalchemy import CheckConstraint, Date, DateTime, ForeignKey, Integer, UniqueConstraint, func
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.models.base import Base, TimestampMixin
@@ -28,7 +28,7 @@ class CandidatePosition(TimestampMixin, Base):
     source_url: Mapped[str | None] = mapped_column()
     source_date: Mapped[date | None] = mapped_column(Date)
     coded_by: Mapped[str | None] = mapped_column()
-    coded_at: Mapped[datetime | None] = mapped_column(server_default=func.now())
+    coded_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), server_default=func.now())
     notes: Mapped[str | None] = mapped_column()
 
     # relationships

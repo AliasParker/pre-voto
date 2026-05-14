@@ -10,7 +10,7 @@ import asyncio
 import time
 from calendar import timegm
 from collections import defaultdict
-from datetime import datetime
+from datetime import UTC, datetime
 from urllib.parse import urlparse
 
 import feedparser
@@ -28,10 +28,10 @@ log = structlog.get_logger()
 
 
 def _parse_published(entry) -> datetime | None:
-    """Convert feedparser's published_parsed (time.struct_time) to naive UTC datetime."""
+    """Convert feedparser's published_parsed (time.struct_time) to aware UTC datetime."""
     pp = entry.get("published_parsed")
     if pp is not None:
-        return datetime.utcfromtimestamp(timegm(pp))
+        return datetime.fromtimestamp(timegm(pp), tz=UTC)
     return None
 
 
@@ -80,7 +80,7 @@ async def pull_source(source: Source, db: AsyncSession) -> int:
 
     # Update last_pulled_at
     await db.execute(
-        update(Source).where(Source.id == source.id).values(last_pulled_at=datetime.utcnow())
+        update(Source).where(Source.id == source.id).values(last_pulled_at=datetime.now(UTC))
     )
     await db.commit()
 

@@ -2,7 +2,7 @@ import uuid
 from datetime import datetime
 from decimal import Decimal
 
-from sqlalchemy import ForeignKey, Integer, Numeric, func
+from sqlalchemy import DateTime, ForeignKey, Integer, Numeric, func
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.models.base import Base
@@ -23,7 +23,7 @@ class QuizCompletion(Base):
         ForeignKey("candidates.id")
     )
     top_match_pct: Mapped[Decimal | None] = mapped_column(Numeric(4, 1))
-    completed_at: Mapped[datetime] = mapped_column(server_default=func.now())
+    completed_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
 
     # relationships
     election: Mapped["Election"] = relationship(back_populates="quiz_completions")  # noqa: F821
