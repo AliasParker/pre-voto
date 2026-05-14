@@ -228,7 +228,7 @@ SOURCES = [
         "name": "El Espectador",
         "feed_url": "https://www.elespectador.com/rss/politica.xml",
         "site_url": "https://www.elespectador.com",
-        "is_active": True,
+        "is_active": False,  # RSS feed unavailable as of 2025-05
     },
     {
         "id": SOURCE_IDS[2],
@@ -244,7 +244,7 @@ SOURCES = [
         "name": "Semana",
         "feed_url": "https://www.semana.com/rss/nacion.xml",
         "site_url": "https://www.semana.com",
-        "is_active": True,
+        "is_active": False,  # RSS feed unavailable as of 2025-05
     },
     {
         "id": SOURCE_IDS[4],
