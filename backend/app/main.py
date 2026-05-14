@@ -1,4 +1,5 @@
 import hashlib
+import sys
 import time
 from contextlib import asynccontextmanager
 
@@ -38,6 +39,13 @@ log = structlog.get_logger()
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
+    if settings.env == "production" and settings.admin_api_key == "changeme":
+        log.error(
+            "ADMIN_API_KEY is set to the default value 'changeme'. "
+            "Refusing to start in production. Set a secure ADMIN_API_KEY "
+            "in your environment or .env file."
+        )
+        sys.exit(1)
     log.info("api_starting", env=settings.env)
     yield
     log.info("api_shutting_down")
