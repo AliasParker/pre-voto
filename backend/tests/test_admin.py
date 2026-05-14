@@ -1,6 +1,8 @@
+from unittest.mock import AsyncMock, patch
+
 import pytest
 
-from tests.conftest import ELECTION_ID, STATEMENT_IDS
+from tests.conftest import COUNTRY_ID, ELECTION_ID, STATEMENT_IDS
 
 
 @pytest.mark.usefixtures("seed_data")
@@ -92,12 +94,31 @@ class TestAdminStatements:
 
 
 @pytest.mark.usefixtures("seed_data")
-class TestAdminStubs:
+class TestAdminJobs:
 
-    async def test_pull_rss_stub(self, client, admin_headers):
-        resp = await client.post("/admin/jobs/pull-rss", headers=admin_headers)
-        assert resp.status_code == 501
+    async def test_pull_rss_endpoint(self, client, admin_headers):
+        mock_result = {
+            "job": "pull_rss",
+            "status": "completed",
+            "items_processed": 5,
+            "errors": 0,
+            "duration_ms": 123,
+        }
+        with patch(
+            "app.routers.admin.job_pull_rss",
+            new_callable=AsyncMock,
+            return_value=mock_result,
+        ):
+            resp = await client.post("/admin/jobs/pull-rss", headers=admin_headers)
+        assert resp.status_code == 200
+        data = resp.json()
+        assert data["job"] == "pull_rss"
+        assert data["status"] == "completed"
+        assert data["items_processed"] == 5
 
-    async def test_refresh_photos_stub(self, client, admin_headers):
+    async def test_refresh_photos_endpoint(self, client, admin_headers):
         resp = await client.post("/admin/jobs/refresh-photos", headers=admin_headers)
-        assert resp.status_code == 501
+        assert resp.status_code == 202
+        data = resp.json()
+        assert data["job"] == "refresh_photos"
+        assert data["status"] == "started"
