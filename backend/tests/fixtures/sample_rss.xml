@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+  <channel>
+    <title>Test News Feed</title>
+    <link>https://example.com</link>
+    <description>Test RSS feed for unit tests</description>
+    <item>
+      <title>Candidata Valencia presenta plan económico</title>
+      <link>https://example.com/news/valencia-plan-economico</link>
+      <description>María Valencia presentó su plan de reforma tributaria progresiva.</description>
+      <pubDate>Mon, 12 May 2025 14:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>Debate presidencial en Bogotá</title>
+      <link>https://example.com/news/debate-bogota</link>
+      <description>Los cinco candidatos se enfrentaron en el primer debate televisado.</description>
+      <pubDate>Sun, 11 May 2025 20:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>Encuesta muestra empate técnico</title>
+      <link>https://example.com/news/encuesta-empate</link>
+      <description>La última encuesta de Invamer muestra un empate técnico entre tres candidatos.</description>
+      <pubDate>Sat, 10 May 2025 10:00:00 GMT</pubDate>
+    </item>
+  </channel>
+</rss>
