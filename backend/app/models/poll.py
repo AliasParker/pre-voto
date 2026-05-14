@@ -1,7 +1,7 @@
 import uuid
 from datetime import date, datetime
 
-from sqlalchemy import Date, ForeignKey, Integer, func
+from sqlalchemy import Date, DateTime, ForeignKey, Integer, func
 from sqlalchemy.dialects.postgresql import JSONB
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
@@ -24,8 +24,8 @@ class Poll(Base):
     methodology: Mapped[str | None] = mapped_column()
     results: Mapped[dict] = mapped_column(JSONB, nullable=False)
     source_url: Mapped[str | None] = mapped_column()
-    created_at: Mapped[datetime] = mapped_column(server_default=func.now())
-    deleted_at: Mapped[datetime | None] = mapped_column()
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
+    deleted_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
 
     # relationships
     election: Mapped["Election"] = relationship(back_populates="polls")  # noqa: F821

@@ -5,7 +5,7 @@ Generates a markdown digest from recent articles and polls, and sends
 it via Beehiiv API (or logs a dry-run if not configured).
 """
 
-from datetime import datetime, timedelta
+from datetime import UTC, datetime, timedelta
 
 import httpx
 import structlog
@@ -27,7 +27,7 @@ async def generate_digest(
     """
     Generate a markdown newsletter digest from recent articles and polls.
     """
-    cutoff = datetime.utcnow() - timedelta(days=days)
+    cutoff = datetime.now(UTC) - timedelta(days=days)
 
     # Recent articles
     result = await db.execute(

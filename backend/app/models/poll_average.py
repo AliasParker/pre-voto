@@ -1,7 +1,7 @@
 import uuid
 from datetime import datetime
 
-from sqlalchemy import ForeignKey, Integer, func
+from sqlalchemy import DateTime, ForeignKey, Integer, func
 from sqlalchemy.dialects.postgresql import JSONB
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
@@ -17,7 +17,7 @@ class PollAverage(Base):
     election_id: Mapped[uuid.UUID] = mapped_column(
         ForeignKey("elections.id"), nullable=False
     )
-    computed_at: Mapped[datetime] = mapped_column(server_default=func.now())
+    computed_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
     results: Mapped[dict] = mapped_column(JSONB, nullable=False)
     polls_included: Mapped[int | None] = mapped_column(Integer)
 

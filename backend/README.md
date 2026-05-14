@@ -109,8 +109,8 @@ docker compose run --rm -v $(pwd)/data/imports:/data api python -m app.scripts.i
 
 ```csv
 candidate_slug,statement_id,value,source_quote,source_url,source_date,coded_by,notes
-maria-valencia,d1000000-0000-0000-0000-000000000001,2,"Cita de ejemplo","https://example.com",2025-01-15,equipo,
-carlos-restrepo,d1000000-0000-0000-0000-000000000002,-1,,,,,nota adicional
+candidata-demo-alfa,d1000000-0000-0000-0000-000000000001,2,"Cita de ejemplo","https://example.com",2025-01-15,equipo,
+candidato-demo-beta,d1000000-0000-0000-0000-000000000002,-1,,,,,nota adicional
 ```
 
 **Columns:**
