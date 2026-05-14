@@ -30,3 +30,16 @@ USER app
 EXPOSE 8000
 
 CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
+
+# ---- Test ----
+FROM runtime AS test
+
+USER root
+COPY --from=ghcr.io/astral-sh/uv:latest /uv /usr/local/bin/uv
+COPY pyproject.toml uv.lock ./
+RUN mkdir -p /home/app/.cache/uv && chown -R app:app /home/app/.cache
+RUN uv sync --frozen --no-install-project --extra test
+COPY tests/ tests/
+
+USER app
+CMD ["pytest", "tests/", "-v"]

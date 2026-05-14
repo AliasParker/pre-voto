@@ -136,19 +136,27 @@ docker compose exec postgres psql -U prevoto -c "\dt"
 
 ## Tests
 
-```bash
-# Install test dependencies
-docker compose exec api pip install -e ".[test]"
+Tests run inside a dedicated `api-test` service that includes dev dependencies.
 
-# Run all tests
-docker compose exec api pytest
+```bash
+# Run all tests (one command)
+docker compose run --rm api-test
+
+# Run with verbose output
+docker compose run --rm api-test pytest tests/ -v
 
 # Run with coverage
-docker compose exec api pytest --cov=app/routers --cov-report=term-missing
+docker compose run --rm api-test pytest tests/ --cov=app --cov-report=term-missing
 
-# Run specific test file
-docker compose exec api pytest tests/test_matching.py -v
+# Run a specific test file
+docker compose run --rm api-test pytest tests/test_matching.py -v
+
+# Run a specific test
+docker compose run --rm api-test pytest tests/test_quiz.py::TestQuizSubmit::test_submit_returns_sorted_affinities -v
 ```
+
+The `api-test` service uses the `test` stage of the Dockerfile, which includes pytest
+and other test dependencies. It only starts when explicitly invoked (uses Docker Compose profiles).
 
 ## Project Structure
 
