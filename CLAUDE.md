@@ -93,6 +93,12 @@ Trigger `update_updated_at_column()` fires BEFORE UPDATE on tables with `updated
 - Append-only tables (sources, news_items, newsletter_sends, polls, poll_averages, subscribers, quiz_completions) have no `updated_at`
 - No IVFFlat/HNSW indexes on vector columns yet (low volume)
 
+## Lessons from Phase 5 (apply in all future phases)
+
+1. **Frontend dependency management**: Any change to `frontend/package.json` requires `docker compose build frontend && docker compose up -d frontend` for the container to pick it up. Never run `npm install` on the host Mac — the container's `node_modules` comes from the Docker image (`npm ci` at build time), and host-side installs silently diverge from what runs in the container, causing runtime errors that are invisible to linters.
+
+2. **Post-phase validation**: `astro check` only validates TypeScript — it does not detect missing Svelte runtime dependencies or broken rendering. Before declaring a phase complete, the app must be running and every critical page must be verified in runtime (curl with HTTP 200, or browser). This final browser validation is done by the user; Claude Code's pre-close report must include curl evidence (status codes) for each critical page.
+
 ## File structure
 
 ```
