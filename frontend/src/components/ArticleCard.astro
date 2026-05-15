@@ -1,0 +1,56 @@
+---
+import type { ArticleOut } from "../lib/types";
+import { getLocaleFromCountry } from "../lib/i18n";
+
+interface Props {
+  article: ArticleOut;
+  country: string;
+}
+
+const { article, country } = Astro.props;
+const locale = getLocaleFromCountry(country);
+const dateStr = article.published_at
+  ? new Date(article.published_at).toLocaleDateString(locale === "pt-BR" ? "pt-BR" : "es-CO", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    })
+  : null;
+---
+
+<a
+  href={`/${country}/articulos/${article.slug}`}
+  class="block border border-line rounded-lg overflow-hidden hover:border-brand hover:shadow-sm transition-all"
+>
+  {article.hero_image_url ? (
+    <img
+      src={article.hero_image_url}
+      alt=""
+      loading="lazy"
+      decoding="async"
+      class="w-full h-48 object-cover"
+    />
+  ) : (
+    <div class="w-full h-48 bg-gradient-to-br from-brand/20 to-brand/5" />
+  )}
+  <div class="p-4">
+    <h3 class="font-semibold mb-1">{article.title}</h3>
+    {article.dek && (
+      <p class="text-sm text-ink-soft mb-2">{article.dek}</p>
+    )}
+    <div class="flex items-center gap-2 text-xs text-ink-faint">
+      {article.author && <span>{article.author}</span>}
+      {article.author && dateStr && <span>·</span>}
+      {dateStr && <span>{dateStr}</span>}
+    </div>
+    {article.tags && article.tags.length > 0 && (
+      <div class="flex gap-1 mt-2 flex-wrap">
+        {article.tags.map((tag) => (
+          <span class="text-xs bg-paper-warm text-ink-faint px-2 py-0.5 rounded">
+            {tag}
+          </span>
+        ))}
+      </div>
+    )}
+  </div>
+</a>

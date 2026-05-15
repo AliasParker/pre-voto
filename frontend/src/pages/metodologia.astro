@@ -1,0 +1,111 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Disclaimer from "../components/Disclaimer.astro";
+---
+
+<BaseLayout
+  title="Metodologia | pre.voto"
+  description="Como funciona la brujula electoral de pre.voto: codificacion de posiciones, calculo de afinidad y fuentes."
+>
+  <article class="max-w-3xl mx-auto px-4 py-12">
+    <div class="bg-brand/10 text-brand-dark border border-brand/20 rounded-lg px-4 py-3 mb-8 text-sm font-medium">
+      [BORRADOR — pendiente de revision editorial]
+    </div>
+
+    <h1 class="text-3xl font-bold mb-8">Metodologia</h1>
+
+    <div class="prose">
+      <h2>Que es una brujula electoral</h2>
+      <p>
+        Una brujula electoral (Voting Advice Application o VAA) es una herramienta
+        que permite a los ciudadanos comparar sus posiciones politicas con las de los
+        candidatos que se presentan a una eleccion. El objetivo es facilitar el voto
+        informado, no recomendar un candidato.
+      </p>
+      <p>
+        pre.voto sigue la tradicion de herramientas como Wahl-O-Mat (Alemania),
+        StemWijzer (Paises Bajos) y Vote Compass (Canada), adaptada al contexto
+        latinoamericano.
+      </p>
+
+      <h2>Como se codifican las posiciones</h2>
+      <p>
+        Cada afirmacion se evalua en una escala de 5 puntos (escala Likert):
+      </p>
+      <ul>
+        <li><strong>+2</strong>: Totalmente de acuerdo</li>
+        <li><strong>+1</strong>: De acuerdo</li>
+        <li><strong>0</strong>: Neutral</li>
+        <li><strong>-1</strong>: En desacuerdo</li>
+        <li><strong>-2</strong>: Totalmente en desacuerdo</li>
+      </ul>
+      <p>
+        Las posiciones de los candidatos se codifican a partir de declaraciones
+        publicas, programas de gobierno, votaciones legislativas y entrevistas. Cada
+        posicion incluye la fuente original con enlace verificable.
+      </p>
+
+      <h2>Como se calcula la afinidad</h2>
+      <p>
+        La afinidad se calcula como la distancia normalizada entre las respuestas del
+        usuario y las posiciones del candidato, ponderada por la importancia de cada
+        tema:
+      </p>
+      <div class="bg-paper-warm p-4 rounded-lg font-mono text-sm my-4">
+        afinidad = (1 - distancia_ponderada / peso_total) * 100
+      </div>
+      <p>Donde:</p>
+      <ul>
+        <li>
+          <code>distancia_ponderada</code> = suma de |respuesta_usuario - posicion_candidato| *
+          peso para cada afirmacion contestada
+        </li>
+        <li>
+          <code>peso_total</code> = suma de 4 * peso (la distancia maxima posible es 4,
+          de -2 a +2)
+        </li>
+      </ul>
+      <p>
+        El resultado es un porcentaje de 0% a 100%, donde 100% indica posiciones
+        identicas en todos los temas evaluados.
+      </p>
+
+      <h2>Fuentes</h2>
+      <p>
+        Todas las posiciones codificadas incluyen:
+      </p>
+      <ul>
+        <li>Cita textual de la fuente</li>
+        <li>Enlace a la fuente original</li>
+        <li>Fecha de la declaracion</li>
+        <li>Nombre del codificador</li>
+      </ul>
+      <p>
+        Las fuentes incluyen programas de gobierno, entrevistas en medios, debates
+        publicos, y publicaciones oficiales en redes sociales.
+      </p>
+
+      <h2>Limitaciones</h2>
+      <ul>
+        <li>
+          Los candidatos pueden cambiar de posicion despues de la codificacion.
+        </li>
+        <li>
+          Las afirmaciones no cubren todos los temas relevantes para una eleccion.
+        </li>
+        <li>
+          La reduccion de posiciones politicas a una escala de 5 puntos implica una
+          simplificacion.
+        </li>
+        <li>
+          La afinidad numerica no captura matices como viabilidad, trayectoria o
+          coherencia del candidato.
+        </li>
+      </ul>
+    </div>
+
+    <div class="mt-8">
+      <Disclaimer variant="methodology" />
+    </div>
+  </article>
+</BaseLayout>

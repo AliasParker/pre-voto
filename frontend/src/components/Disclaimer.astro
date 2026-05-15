@@ -1,0 +1,16 @@
+---
+import { getLocaleFromCountry, t, type Locale } from "../lib/i18n";
+
+interface Props {
+  variant: "quiz" | "polls" | "methodology";
+  country?: string;
+}
+
+const { variant, country } = Astro.props;
+const locale: Locale = country ? getLocaleFromCountry(country) : "es";
+const text = t(locale, `disclaimer.${variant}`);
+---
+
+<aside class="bg-paper-warm border border-line rounded-lg p-4 text-sm text-ink-soft">
+  <p>{text}</p>
+</aside>

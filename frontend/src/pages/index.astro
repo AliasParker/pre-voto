@@ -1,13 +1,107 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import HealthCheck from "../components/islands/_HealthCheck.svelte";
+import { fetchCountries } from "../lib/api";
+import { countries as countryMeta } from "../lib/countries";
+import { t } from "../lib/i18n";
+
+const apiCountries = await fetchCountries();
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: "pre.voto",
+  url: "https://pre.voto",
+  description:
+    "Compara tus posiciones con las de los candidatos. Voto informado para Latinoamerica.",
+};
 ---
 
-<BaseLayout title="pre.voto — pronto">
-  <main class="flex min-h-screen flex-col items-center justify-center">
-    <h1 class="text-4xl font-bold">
-      pre<span class="text-brand">.</span>voto — pronto
+<BaseLayout
+  title="pre.voto — Voto informado para Latinoamerica"
+  description="Compara tus posiciones con las de los candidatos. Sin registro, sin datos personales."
+  jsonLd={jsonLd}
+>
+  <!-- Hero -->
+  <section class="max-w-5xl mx-auto px-4 py-16 md:py-24 text-center">
+    <h1 class="text-4xl md:text-4xl font-bold mb-4">
+      {t("es", "home.hero")}
     </h1>
-    <HealthCheck client:load />
-  </main>
+    <p class="text-lg text-ink-soft max-w-2xl mx-auto">
+      {t("es", "home.subtitle")}
+    </p>
+  </section>
+
+  <!-- Country selector -->
+  <section class="max-w-5xl mx-auto px-4 pb-16">
+    <h2 class="text-2xl font-bold mb-6 text-center">
+      {t("es", "home.selectCountry")}
+    </h2>
+    <div class="grid grid-cols-2 md:grid-cols-3 gap-4 max-w-3xl mx-auto">
+      {Object.entries(countryMeta).map(([code, meta]) => {
+        const apiCountry = apiCountries.find((c) => c.code === code);
+        const isActive = apiCountry?.is_active ?? meta.active;
+        const electionDate = apiCountry?.next_election?.election_date;
+        const electionDesc = apiCountry?.next_election?.description;
+
+        return isActive ? (
+          <a
+            href={`/${code}/`}
+            class="border border-line rounded-lg p-4 hover:border-brand hover:shadow-sm transition-all text-center"
+          >
+            <span class="text-3xl block mb-2">{meta.flag}</span>
+            <span class="font-medium block">{meta.name.es}</span>
+            {electionDate && (
+              <span class="text-sm text-ink-faint block mt-1">{electionDesc || electionDate}</span>
+            )}
+          </a>
+        ) : (
+          <div class="border border-line rounded-lg p-4 opacity-50 text-center">
+            <span class="text-3xl block mb-2">{meta.flag}</span>
+            <span class="font-medium block">{meta.name.es}</span>
+            <span class="text-sm text-ink-faint block mt-1">
+              {t("es", "common.soon")}
+            </span>
+          </div>
+        );
+      })}
+    </div>
+  </section>
+
+  <!-- How it works -->
+  <section class="bg-paper-warm py-16">
+    <div class="max-w-5xl mx-auto px-4">
+      <h2 class="text-2xl font-bold mb-8 text-center">
+        {t("es", "home.howItWorks")}
+      </h2>
+      <div class="grid md:grid-cols-3 gap-8 max-w-3xl mx-auto">
+        <div class="text-center">
+          <div class="w-12 h-12 mx-auto mb-4 rounded-full bg-brand/10 text-brand flex items-center justify-center">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 20h9" /><path d="M16.376 3.622a1 1 0 0 1 3.002 3.002L7.368 18.635a2 2 0 0 1-.855.506l-2.872.838a.5.5 0 0 1-.62-.62l.838-2.872a2 2 0 0 1 .506-.854z" />
+            </svg>
+          </div>
+          <h3 class="font-semibold mb-2">{t("es", "home.step1Title")}</h3>
+          <p class="text-sm text-ink-soft">{t("es", "home.step1Desc", { count: "8" })}</p>
+        </div>
+        <div class="text-center">
+          <div class="w-12 h-12 mx-auto mb-4 rounded-full bg-brand/10 text-brand flex items-center justify-center">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 3v16a2 2 0 0 0 2 2h16" /><path d="m19 9-5 5-4-4-3 3" />
+            </svg>
+          </div>
+          <h3 class="font-semibold mb-2">{t("es", "home.step2Title")}</h3>
+          <p class="text-sm text-ink-soft">{t("es", "home.step2Desc")}</p>
+        </div>
+        <div class="text-center">
+          <div class="w-12 h-12 mx-auto mb-4 rounded-full bg-brand/10 text-brand flex items-center justify-center">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="m9 12 2 2 4-4" /><path d="M5 7c0-1.1.9-2 2-2h10a2 2 0 0 1 2 2v12H5V7Z" /><path d="M22 19H2" />
+            </svg>
+          </div>
+          <h3 class="font-semibold mb-2">{t("es", "home.step3Title")}</h3>
+          <p class="text-sm text-ink-soft">{t("es", "home.step3Desc")}</p>
+        </div>
+      </div>
+    </div>
+  </section>
 </BaseLayout>
