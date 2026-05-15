@@ -9,8 +9,9 @@ pre.voto is a pan-LATAM voting advice application (VAA) that helps citizens comp
 - **Phase 1** (Infrastructure): Complete
 - **Phase 2** (Schema & migrations): Complete
 - **Phase 3** (API REST): Complete — merged to main (PR #4, fc7e0fe)
-- **Phase 4** (Worker & jobs): In progress — feature/fase-4-worker
-- **Phase 5–9**: Not started
+- **Phase 4** (Worker & jobs): Complete — merged to main
+- **Phase 5** (Frontend): Complete — feature/fase-5-frontend
+- **Phase 6–9**: Not started
 
 ## Tech stack
 
@@ -47,7 +48,15 @@ docker compose up worker
 # Trigger jobs manually (admin API)
 curl -X POST http://localhost/admin/jobs/pull-rss -H "X-Admin-Key: $ADMIN_KEY"
 curl -X POST http://localhost/admin/jobs/refresh-photos -H "X-Admin-Key: $ADMIN_KEY"
+
+# Frontend dev server (standalone, outside Docker)
+cd frontend && npm run dev
+
+# Frontend build
+cd frontend && npm run build
 ```
+
+**Note:** Publishing new articles or updating candidate data requires a frontend rebuild (`npm run build` or redeploy) since the frontend uses static site generation.
 
 ## Database
 
@@ -78,6 +87,8 @@ Trigger `update_updated_at_column()` fires BEFORE UPDATE on tables with `updated
 - SPEC.md is the source of truth for requirements
 - Never push directly to main
 - Never commit .env files
+- **Frontend dependency rule**: Never run `npm install` on the host Mac. All npm operations must happen inside the container. To add a package: edit `frontend/package.json` manually (or run `docker compose exec frontend npm install <package>`), then rebuild with `docker compose build frontend && docker compose up -d frontend`. The dev container mounts `src/` and `public/` but **not** `node_modules` — the container's `node_modules` comes from the image build via `npm ci`. Host-side installs silently diverge from the container and cause runtime errors.
+- **Frontend verification rule**: `astro check` alone does not catch missing Svelte runtime imports. After any dependency or component change, verify pages load in the actual running container (curl or browser), not just via type-checking.
 - `is_demo=True` marks seed/demo data — will need admin cleanup endpoint
 - Append-only tables (sources, news_items, newsletter_sends, polls, poll_averages, subscribers, quiz_completions) have no `updated_at`
 - No IVFFlat/HNSW indexes on vector columns yet (low volume)
@@ -116,5 +127,51 @@ Trigger `update_updated_at_column()` fires BEFORE UPDATE on tables with `updated
 │   ├── migrations/versions/   # Alembic migrations (0001, 0002)
 │   └── alembic.ini
 └── frontend/
-    └── src/                   # Astro + Svelte
+    ├── public/
+    │   ├── fonts/             # Self-hosted Inter + JetBrains Mono (woff2)
+    │   ├── favicon.svg
+    │   └── robots.txt
+    ├── astro.config.mjs       # Static output, Svelte, sitemap
+    └── src/
+        ├── components/
+        │   ├── Header.astro
+        │   ├── Footer.astro
+        │   ├── CandidateCard.astro
+        │   ├── ArticleCard.astro
+        │   ├── PollSummary.astro
+        │   ├── NewsletterSignup.astro
+        │   ├── Disclaimer.astro
+        │   └── islands/
+        │       ├── QuizApp.svelte        # VAA quiz island
+        │       ├── PollAggregator.svelte  # SVG line chart
+        │       ├── ResultsShare.svelte    # Share buttons
+        │       ├── DarkModeToggle.svelte  # Theme toggle
+        │       ├── CountdownTimer.svelte  # Election countdown
+        │       └── _HealthCheck.svelte
+        ├── layouts/
+        │   └── BaseLayout.astro           # SEO, dark mode, skip-to-content
+        ├── lib/
+        │   ├── api.ts                     # API client (build + client-side)
+        │   ├── i18n.ts                    # es + pt-BR translations
+        │   ├── types.ts                   # TS types mirroring backend schemas
+        │   ├── countries.ts               # Country metadata + locale mapping
+        │   ├── markdown.ts                # marked wrapper
+        │   └── quiz.ts                    # Affinity computation (mirrors backend)
+        ├── pages/
+        │   ├── index.astro                # Pan-LATAM landing
+        │   ├── metodologia.astro
+        │   ├── sobre.astro
+        │   ├── privacidad.astro
+        │   └── [country]/
+        │       ├── index.astro            # Country landing + countdown
+        │       ├── quiz.astro             # Quiz shell + QuizApp island
+        │       ├── candidatos/
+        │       │   ├── index.astro        # Candidate grid
+        │       │   └── [slug].astro       # Candidate detail
+        │       ├── encuestas.astro        # Polls + chart
+        │       └── articulos/
+        │           ├── index.astro        # Article list
+        │           └── [slug].astro       # Article detail
+        └── styles/
+            └── global.css                 # Fonts, dark mode, Tailwind theme
 ```
