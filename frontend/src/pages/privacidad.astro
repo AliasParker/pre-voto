@@ -1,0 +1,67 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout
+  title="Privacidad | pre.voto"
+  description="Politica de privacidad de pre.voto: que datos se recopilan, como se procesan y tus derechos."
+>
+  <article class="max-w-3xl mx-auto px-4 py-12">
+    <div class="bg-brand/10 text-brand-dark border border-brand/20 rounded-lg px-4 py-3 mb-8 text-sm font-medium">
+      [BORRADOR — pendiente de revision editorial]
+    </div>
+
+    <h1 class="text-3xl font-bold mb-8">Privacidad</h1>
+
+    <div class="prose">
+      <h2>Datos que recopilamos</h2>
+      <p>
+        pre.voto esta disenado para funcionar sin recopilar datos personales
+        individuales. No requerimos registro, no usamos cookies de rastreo y no
+        almacenamos las respuestas del quiz de forma asociada a un usuario.
+      </p>
+
+      <h2>El quiz</h2>
+      <p>
+        Las respuestas del quiz se procesan localmente en tu navegador para calcular
+        la afinidad con los candidatos. Cuando se envian al servidor para validacion,
+        se registra un hash anonimo de sesion (derivado de la IP y la fecha) para
+        fines estadisticos agregados. No es posible reconstruir tu identidad a partir
+        de este hash.
+      </p>
+      <p>
+        Los resultados del quiz se almacenan en la memoria de tu navegador
+        (sessionStorage) mientras completas el cuestionario. Se borran automaticamente
+        al cerrar la pestana.
+      </p>
+
+      <h2>Cookies y almacenamiento local</h2>
+      <p>
+        Utilizamos <code>localStorage</code> unicamente para guardar tu preferencia de
+        tema (modo claro/oscuro). No utilizamos cookies de seguimiento ni cookies de
+        terceros.
+      </p>
+
+      <h2>Analitica</h2>
+      <p>
+        Registramos datos agregados y anonimos sobre el uso de la plataforma, como
+        el numero total de quizzes completados por pais, para mejorar el servicio. Estos
+        datos no permiten identificar usuarios individuales.
+      </p>
+
+      <h2>Newsletter</h2>
+      <p>
+        Si te suscribes al newsletter, almacenamos tu direccion de correo electronico
+        y el pais seleccionado. Puedes darte de baja en cualquier momento a traves del
+        enlace incluido en cada correo.
+      </p>
+
+      <h2>Tus derechos</h2>
+      <p>
+        Tienes derecho a solicitar la eliminacion de tus datos (correo del newsletter)
+        en cualquier momento. Como no recopilamos datos personales del quiz, no hay datos
+        individuales que eliminar en ese contexto.
+      </p>
+    </div>
+  </article>
+</BaseLayout>

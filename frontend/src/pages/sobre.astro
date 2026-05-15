@@ -1,0 +1,62 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: "pre.voto",
+  url: "https://pre.voto",
+  description:
+    "Plataforma de voto informado para Latinoamerica.",
+};
+---
+
+<BaseLayout
+  title="Sobre pre.voto | pre.voto"
+  description="Quien esta detras de pre.voto, financiamiento, transparencia y como contribuir."
+  jsonLd={jsonLd}
+>
+  <article class="max-w-3xl mx-auto px-4 py-12">
+    <div class="bg-brand/10 text-brand-dark border border-brand/20 rounded-lg px-4 py-3 mb-8 text-sm font-medium">
+      [BORRADOR — pendiente de revision editorial]
+    </div>
+
+    <h1 class="text-3xl font-bold mb-8">Sobre pre.voto</h1>
+
+    <div class="prose">
+      <h2>Quien esta detras</h2>
+      <p>
+        pre.voto es un proyecto independiente y sin fines de lucro dedicado a
+        fortalecer la democracia en Latinoamerica a traves de herramientas de voto
+        informado. No esta afiliado a ningun partido politico, gobierno o campana
+        electoral.
+      </p>
+
+      <h2>Financiamiento y transparencia</h2>
+      <p>
+        El proyecto se financia a traves de contribuciones voluntarias y no acepta
+        fondos de partidos politicos, candidatos o sus campanas. Todos los gastos
+        operativos se documentan publicamente.
+      </p>
+
+      <h2>Codigo abierto</h2>
+      <p>
+        Todo el codigo fuente de pre.voto es abierto y esta disponible en GitHub bajo
+        una licencia que permite la auditoria, reutilizacion y contribucion por parte
+        de la comunidad.
+      </p>
+      <p>
+        Creemos que la transparencia en las herramientas democraticas es fundamental.
+        Cualquier persona puede verificar como se calculan los resultados, como se
+        almacenan (o no) los datos, y como funciona la plataforma.
+      </p>
+
+      <h2>Contacto</h2>
+      <p>
+        Para consultas, sugerencias o reportar errores, abre un issue en nuestro
+        repositorio de GitHub o escribenos a traves de los canales indicados en el
+        repositorio.
+      </p>
+    </div>
+  </article>
+</BaseLayout>
