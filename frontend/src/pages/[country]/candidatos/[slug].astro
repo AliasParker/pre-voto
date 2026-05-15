@@ -1,0 +1,161 @@
+---
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import { fetchCountries, fetchCandidates, fetchCandidate, fetchStatements } from "../../../lib/api";
+import { getLocaleFromCountry, t } from "../../../lib/i18n";
+import { getCountryName } from "../../../lib/countries";
+import type { CountryOut, CandidateDetail, StatementOut } from "../../../lib/types";
+
+export async function getStaticPaths() {
+  const countries = await fetchCountries();
+  const paths = [];
+  for (const country of countries) {
+    try {
+      const candidates = await fetchCandidates(country.code);
+      const statements = await fetchStatements(country.code);
+      for (const c of candidates) {
+        try {
+          const detail = await fetchCandidate(country.code, c.slug);
+          if (detail) {
+            paths.push({
+              params: { country: country.code, slug: c.slug },
+              props: { country, candidate: detail, statements },
+            });
+          }
+        } catch {}
+      }
+    } catch {}
+  }
+  return paths;
+}
+
+interface Props {
+  country: CountryOut;
+  candidate: CandidateDetail;
+  statements: StatementOut[];
+}
+
+const { country, candidate, statements } = Astro.props;
+const locale = getLocaleFromCountry(country.code);
+const name = getCountryName(country.code, locale);
+const color = candidate.color || "#737373";
+const initials = candidate.name
+  .split(" ")
+  .map((w) => w[0])
+  .slice(0, 2)
+  .join("")
+  .toUpperCase();
+
+// Map statements by ID for lookup
+const stmtMap = new Map(statements.map((s) => [s.id, s]));
+
+function getPositionLabel(value: number): string {
+  return t(locale, `position.${value}`);
+}
+---
+
+<BaseLayout
+  title={`${candidate.name} | ${t(locale, "candidates.title")} — ${name} | pre.voto`}
+  description={candidate.bio_short || `${candidate.name} — ${candidate.party || ""}`}
+  country={country.code}
+>
+  <article class="max-w-3xl mx-auto px-4 py-12">
+    <!-- Candidate header -->
+    <div class="flex items-start gap-4 mb-8">
+      {candidate.photo_url ? (
+        <img
+          src={candidate.photo_url}
+          alt={candidate.name}
+          width="96"
+          height="96"
+          loading="eager"
+          decoding="async"
+          class="w-24 h-24 rounded-full object-cover"
+        />
+      ) : (
+        <div
+          class="w-24 h-24 rounded-full flex items-center justify-center text-white text-2xl font-bold flex-shrink-0"
+          style={`background-color: ${color}`}
+        >
+          {initials}
+        </div>
+      )}
+      <div>
+        <h1 class="text-3xl font-bold">{candidate.name}</h1>
+        {(candidate.party_acronym || candidate.party) && (
+          <p class="text-ink-soft text-lg">
+            {candidate.party}
+            {candidate.party_acronym && ` (${candidate.party_acronym})`}
+          </p>
+        )}
+        {candidate.bio_short && (
+          <p class="text-ink-soft mt-2">{candidate.bio_short}</p>
+        )}
+      </div>
+    </div>
+
+    <!-- Photo attribution -->
+    {candidate.photo_author && (
+      <p class="text-xs text-ink-faint mb-8">
+        {t(locale, "candidates.photoAttribution", {
+          author: candidate.photo_author,
+          license: candidate.photo_license || "N/A",
+        })}
+      </p>
+    )}
+
+    <!-- Positions -->
+    {candidate.positions.length > 0 && (
+      <section>
+        <h2 class="text-xl font-bold mb-4">{t(locale, "candidates.positions")}</h2>
+        <div class="space-y-4">
+          {candidate.positions.map((pos) => {
+            const stmt = stmtMap.get(pos.statement_id);
+            return (
+              <div class="border border-line rounded-lg p-4">
+                <p class="font-medium mb-2">{stmt?.text || pos.statement_id}</p>
+                <div class="flex items-center gap-2 mb-2">
+                  <span
+                    class="w-3 h-3 rounded-full flex-shrink-0"
+                    style={`background-color: ${color}`}
+                  />
+                  <span class="font-medium">{getPositionLabel(pos.value)}</span>
+                </div>
+                {pos.source_quote && (
+                  <blockquote class="text-sm text-ink-soft border-l-2 border-line pl-3 my-2 italic">
+                    "{pos.source_quote}"
+                  </blockquote>
+                )}
+                <div class="flex items-center gap-3 text-xs text-ink-faint">
+                  {pos.source_url && (
+                    <a
+                      href={pos.source_url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="text-brand hover:underline"
+                    >
+                      {t(locale, "common.source")}
+                    </a>
+                  )}
+                  {pos.source_date && (
+                    <span>{pos.source_date}</span>
+                  )}
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </section>
+    )}
+
+    <!-- CTA -->
+    <div class="mt-8 text-center">
+      <p class="text-ink-soft mb-3">{t(locale, "candidates.affinityQuestion")}</p>
+      <a
+        href={`/${country.code}/quiz`}
+        class="inline-block px-6 py-3 bg-brand text-white rounded-lg font-medium hover:bg-brand-dark transition-colors"
+      >
+        {t(locale, "candidates.takeQuiz")}
+      </a>
+    </div>
+  </article>
+</BaseLayout>

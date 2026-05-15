@@ -1,0 +1,151 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PollSummary from "../../components/PollSummary.astro";
+import Disclaimer from "../../components/Disclaimer.astro";
+import PollAggregator from "../../components/islands/PollAggregator.svelte";
+import {
+  fetchCountries,
+  fetchPolls,
+  fetchPollAverage,
+  fetchCandidates,
+} from "../../lib/api";
+import { getLocaleFromCountry, t } from "../../lib/i18n";
+import { getCountryName } from "../../lib/countries";
+import type { CountryOut, PollOut, PollAverageOut, CandidateOut } from "../../lib/types";
+
+export async function getStaticPaths() {
+  const countries = await fetchCountries();
+  const paths = [];
+  for (const country of countries) {
+    try {
+      const [polls, pollAverage, candidates] = await Promise.all([
+        fetchPolls(country.code),
+        fetchPollAverage(country.code),
+        fetchCandidates(country.code),
+      ]);
+      paths.push({
+        params: { country: country.code },
+        props: { country, polls, pollAverage, candidates },
+      });
+    } catch {
+      paths.push({
+        params: { country: country.code },
+        props: { country, polls: [], pollAverage: null, candidates: [] },
+      });
+    }
+  }
+  return paths;
+}
+
+interface Props {
+  country: CountryOut;
+  polls: PollOut[];
+  pollAverage: PollAverageOut | null;
+  candidates: CandidateOut[];
+}
+
+const { country, polls, pollAverage, candidates } = Astro.props;
+const locale = getLocaleFromCountry(country.code);
+const name = getCountryName(country.code, locale);
+---
+
+<BaseLayout
+  title={`${t(locale, "polls.title")} — ${name} | pre.voto`}
+  description={`${t(locale, "polls.title")} y promedios electorales para ${name}`}
+  country={country.code}
+>
+  <section class="max-w-5xl mx-auto px-4 py-12">
+    <h1 class="text-3xl font-bold mb-8">{t(locale, "polls.title")}</h1>
+
+    {polls.length === 0 ? (
+      <p class="text-ink-faint">{t(locale, "polls.noPolls")}</p>
+    ) : (
+      <>
+        <!-- Poll average -->
+        {pollAverage && candidates.length > 0 && (
+          <div class="mb-10">
+            <h2 class="text-xl font-bold mb-4">{t(locale, "polls.average")}</h2>
+            <div class="border border-line rounded-lg p-4">
+              <PollSummary average={pollAverage} candidates={candidates} />
+            </div>
+          </div>
+        )}
+
+        <!-- Chart -->
+        {polls.length > 1 && (
+          <div class="mb-10">
+            <h2 class="text-xl font-bold mb-4">{t(locale, "polls.chart")}</h2>
+            <div class="border border-line rounded-lg p-4">
+              <PollAggregator client:visible polls={polls} candidates={candidates} />
+            </div>
+          </div>
+        )}
+
+        <!-- Individual polls table -->
+        <div class="mb-10">
+          <h2 class="text-xl font-bold mb-4">{t(locale, "polls.table")}</h2>
+          <div class="overflow-x-auto">
+            <table class="w-full text-sm">
+              <thead>
+                <tr class="border-b border-line text-left">
+                  <th class="py-2 pr-4 font-medium">{t(locale, "polls.pollster")}</th>
+                  <th class="py-2 pr-4 font-medium">{t(locale, "polls.fieldDate")}</th>
+                  <th class="py-2 pr-4 font-medium">{t(locale, "polls.sampleSize")}</th>
+                  {candidates.map((c) => (
+                    <th class="py-2 pr-4 font-medium text-right">
+                      <span class="flex items-center gap-1 justify-end">
+                        <span
+                          class="w-2 h-2 rounded-full inline-block"
+                          style={`background-color: ${c.color || "#737373"}`}
+                        />
+                        {c.party_acronym || c.name.split(" ").pop()}
+                      </span>
+                    </th>
+                  ))}
+                  <th class="py-2 font-medium">{t(locale, "common.source")}</th>
+                </tr>
+              </thead>
+              <tbody>
+                {polls.map((poll) => (
+                  <tr class="border-b border-line/50">
+                    <td class="py-2 pr-4">{poll.pollster}</td>
+                    <td class="py-2 pr-4 text-ink-faint whitespace-nowrap">
+                      {poll.field_end}
+                    </td>
+                    <td class="py-2 pr-4 text-ink-faint">
+                      {poll.sample_size ? poll.sample_size.toLocaleString() : "—"}
+                    </td>
+                    {candidates.map((c) => {
+                      const val = poll.results[c.slug];
+                      return (
+                        <td class="py-2 pr-4 text-right tabular-nums">
+                          {val !== undefined ? `${val}%` : "—"}
+                        </td>
+                      );
+                    })}
+                    <td class="py-2">
+                      {poll.source_url ? (
+                        <a
+                          href={poll.source_url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          class="text-brand hover:underline"
+                        >
+                          Ver
+                        </a>
+                      ) : (
+                        "—"
+                      )}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <Disclaimer variant="polls" country={country.code} />
+      </>
+    )}
+  </section>
+</BaseLayout>
