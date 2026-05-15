@@ -1,22 +1,85 @@
 ---
 import "../styles/global.css";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import { getLocaleFromCountry } from "../lib/i18n";
 
 interface Props {
   title?: string;
+  description?: string;
+  country?: string;
+  ogImage?: string;
+  jsonLd?: Record<string, unknown>;
 }
 
-const { title = "pre.voto" } = Astro.props;
+const {
+  title = "pre.voto",
+  description = "Compara tus posiciones con las de los candidatos. Voto informado para Latinoamerica.",
+  country,
+  ogImage = "/favicon.svg",
+  jsonLd,
+} = Astro.props;
+
+const locale = country ? getLocaleFromCountry(country) : "es";
+const lang = locale === "pt-BR" ? "pt-BR" : "es";
+const canonicalUrl = new URL(Astro.url.pathname, Astro.site ?? "https://pre.voto");
 ---
 
 <!doctype html>
-<html lang="es">
+<html lang={lang}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="canonical" href={canonicalUrl.href} />
+
     <title>{title}</title>
+    <meta name="description" content={description} />
+
+    <!-- Open Graph -->
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalUrl.href} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:site_name" content="pre.voto" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+
+    {jsonLd && (
+      <script is:inline type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+    )}
+
+    <!-- Dark mode: apply before paint to prevent flash -->
+    <script is:inline>
+      (function () {
+        var theme = localStorage.getItem("prevoto-theme");
+        if (
+          theme === "dark" ||
+          (!theme && window.matchMedia("(prefers-color-scheme: dark)").matches)
+        ) {
+          document.documentElement.classList.add("dark");
+        }
+      })();
+    </script>
   </head>
-  <body class="bg-paper text-ink">
-    <slot />
+  <body class="bg-paper text-ink min-h-screen flex flex-col">
+    <a
+      href="#main-content"
+      class="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-50 focus:bg-brand focus:text-white focus:px-4 focus:py-2 focus:rounded"
+    >
+      {lang === "pt-BR" ? "Ir para o conteudo" : "Ir al contenido"}
+    </a>
+
+    <Header country={country} />
+
+    <main id="main-content" class="flex-1">
+      <slot />
+    </main>
+
+    <Footer country={country} />
   </body>
 </html>

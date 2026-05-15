@@ -1,0 +1,125 @@
+---
+import DarkModeToggle from "./islands/DarkModeToggle.svelte";
+import { getLocaleFromCountry, t } from "../lib/i18n";
+import { countries } from "../lib/countries";
+
+interface Props {
+  country?: string;
+}
+
+const { country } = Astro.props;
+const locale = country ? getLocaleFromCountry(country) : "es";
+const countryMeta = country ? countries[country] : null;
+---
+
+<header class="border-b border-line">
+  <nav class="max-w-5xl mx-auto px-4 h-14 flex items-center justify-between">
+    <div class="flex items-center gap-4">
+      <a href="/" class="text-lg font-bold tracking-tight">
+        pre<span class="text-brand">.</span>voto
+      </a>
+      {countryMeta && (
+        <a
+          href={`/${country}/`}
+          class="text-sm text-ink-soft hover:text-ink flex items-center gap-1"
+        >
+          <span>{countryMeta.flag}</span>
+          <span>{countryMeta.name[locale]}</span>
+        </a>
+      )}
+    </div>
+
+    <div class="flex items-center gap-4">
+      <!-- Desktop nav -->
+      <div class="hidden md:flex items-center gap-4 text-sm">
+        {country && (
+          <a
+            href={`/${country}/quiz`}
+            class="text-brand font-medium hover:text-brand-dark"
+          >
+            {locale === "pt-BR" ? "Bussola" : "Brujula"}
+          </a>
+        )}
+        <a href="/metodologia" class="text-ink-soft hover:text-ink">
+          {t(locale, "nav.methodology")}
+        </a>
+        <a href="/sobre" class="text-ink-soft hover:text-ink">
+          {t(locale, "nav.about")}
+        </a>
+      </div>
+
+      <DarkModeToggle client:load />
+
+      <!-- Mobile menu -->
+      <details class="md:hidden relative">
+        <summary
+          class="list-none cursor-pointer p-1"
+          aria-label={locale === "pt-BR" ? "Abrir menu" : "Abrir menu"}
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <line x1="4" x2="20" y1="12" y2="12" />
+            <line x1="4" x2="20" y1="6" y2="6" />
+            <line x1="4" x2="20" y1="18" y2="18" />
+          </svg>
+        </summary>
+        <div
+          class="absolute right-0 top-8 bg-paper border border-line rounded-lg shadow-lg py-2 w-48 z-50"
+        >
+          {country && (
+            <a
+              href={`/${country}/quiz`}
+              class="block px-4 py-2 text-sm text-brand hover:bg-paper-warm"
+            >
+              {locale === "pt-BR" ? "Bussola" : "Brujula"}
+            </a>
+          )}
+          {country && (
+            <a
+              href={`/${country}/candidatos`}
+              class="block px-4 py-2 text-sm text-ink-soft hover:bg-paper-warm"
+            >
+              {t(locale, "candidates.title")}
+            </a>
+          )}
+          {country && (
+            <a
+              href={`/${country}/encuestas`}
+              class="block px-4 py-2 text-sm text-ink-soft hover:bg-paper-warm"
+            >
+              {t(locale, "polls.title")}
+            </a>
+          )}
+          <hr class="my-1 border-line" />
+          <a
+            href="/metodologia"
+            class="block px-4 py-2 text-sm text-ink-soft hover:bg-paper-warm"
+          >
+            {t(locale, "nav.methodology")}
+          </a>
+          <a
+            href="/sobre"
+            class="block px-4 py-2 text-sm text-ink-soft hover:bg-paper-warm"
+          >
+            {t(locale, "nav.about")}
+          </a>
+          <a
+            href="/privacidad"
+            class="block px-4 py-2 text-sm text-ink-soft hover:bg-paper-warm"
+          >
+            {t(locale, "nav.privacy")}
+          </a>
+        </div>
+      </details>
+    </div>
+  </nav>
+</header>
