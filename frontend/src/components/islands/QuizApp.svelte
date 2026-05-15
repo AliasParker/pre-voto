@@ -1,0 +1,477 @@
+<script lang="ts">
+  import { t, type Locale } from "../../lib/i18n";
+  import { computeAffinity } from "../../lib/quiz";
+  import ResultsShare from "./ResultsShare.svelte";
+  import type {
+    StatementOut,
+    CandidateOut,
+    CandidateDetail,
+    CandidateAffinity,
+    PositionOut,
+  } from "../../lib/types";
+
+  interface Props {
+    country: string;
+    locale?: Locale;
+  }
+
+  let { country, locale = "es" }: Props = $props();
+
+  type Screen = "welcome" | "quiz" | "results";
+
+  let screen = $state<Screen>("welcome");
+  let currentIndex = $state(0);
+  let answers = $state<Map<string, number | null>>(new Map());
+  let statements = $state<StatementOut[]>([]);
+  let candidates = $state<CandidateOut[]>([]);
+  let candidatePositions = $state<Map<string, PositionOut[]>>(new Map());
+  let results = $state<CandidateAffinity[]>([]);
+  let loading = $state(true);
+  let error = $state<string | null>(null);
+  let showBreakdown = $state(false);
+
+  const STORAGE_KEY = $derived(`prevoto-quiz-${country}`);
+  const baseUrl = "/api";
+
+  const answerOptions = [
+    { value: 2, key: "quiz.stronglyAgree" },
+    { value: 1, key: "quiz.agree" },
+    { value: 0, key: "quiz.neutral" },
+    { value: -1, key: "quiz.disagree" },
+    { value: -2, key: "quiz.stronglyDisagree" },
+  ];
+
+  // Load data on mount
+  $effect(() => {
+    loadData();
+  });
+
+  // Keyboard navigation
+  $effect(() => {
+    if (screen !== "quiz") return;
+
+    function handleKeydown(e: KeyboardEvent) {
+      if (e.key >= "1" && e.key <= "5") {
+        e.preventDefault();
+        const idx = parseInt(e.key) - 1;
+        selectAnswer(answerOptions[idx].value);
+      } else if (e.key === "ArrowLeft" && currentIndex > 0) {
+        e.preventDefault();
+        currentIndex--;
+      }
+    }
+
+    window.addEventListener("keydown", handleKeydown);
+    return () => window.removeEventListener("keydown", handleKeydown);
+  });
+
+  async function loadData() {
+    loading = true;
+    error = null;
+    try {
+      const [stmtRes, candRes] = await Promise.all([
+        fetch(`${baseUrl}/quiz/${country}/statements`),
+        fetch(`${baseUrl}/candidates/${country}`),
+      ]);
+
+      if (!stmtRes.ok || !candRes.ok) {
+        error = t(locale, "common.error");
+        loading = false;
+        return;
+      }
+
+      statements = await stmtRes.json();
+      candidates = await candRes.json();
+
+      // Fetch positions for each candidate in parallel
+      const positionPromises = candidates.map(async (c) => {
+        try {
+          const res = await fetch(
+            `${baseUrl}/candidates/${country}/${c.slug}`
+          );
+          if (res.ok) {
+            const detail: CandidateDetail = await res.json();
+            return { slug: c.slug, positions: detail.positions };
+          }
+        } catch {}
+        return { slug: c.slug, positions: [] as PositionOut[] };
+      });
+
+      const posResults = await Promise.all(positionPromises);
+      const posMap = new Map<string, PositionOut[]>();
+      for (const { slug, positions } of posResults) {
+        posMap.set(slug, positions);
+      }
+      candidatePositions = posMap;
+
+      // Restore session
+      restoreSession();
+      loading = false;
+    } catch {
+      error = t(locale, "common.error");
+      loading = false;
+    }
+  }
+
+  function saveSession() {
+    try {
+      const data = {
+        currentIndex,
+        answers: Array.from(answers.entries()),
+        screen,
+      };
+      sessionStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+    } catch {}
+  }
+
+  function restoreSession() {
+    try {
+      const raw = sessionStorage.getItem(STORAGE_KEY);
+      if (!raw) return;
+      const data = JSON.parse(raw);
+      if (data.answers) {
+        answers = new Map(data.answers);
+      }
+      if (typeof data.currentIndex === "number") {
+        currentIndex = data.currentIndex;
+      }
+      if (data.screen === "quiz" || data.screen === "results") {
+        screen = data.screen;
+      }
+      if (data.screen === "results") {
+        computeResults();
+      }
+    } catch {}
+  }
+
+  function selectAnswer(value: number) {
+    const stmt = statements[currentIndex];
+    if (!stmt) return;
+
+    answers.set(stmt.id, value);
+    answers = new Map(answers); // trigger reactivity
+
+    if (currentIndex < statements.length - 1) {
+      currentIndex++;
+      saveSession();
+    } else {
+      // Last question
+      screen = "results";
+      saveSession();
+      computeResults();
+      submitToServer();
+    }
+  }
+
+  function computeResults() {
+    const statementWeights: Record<string, number> = {};
+    for (const s of statements) {
+      statementWeights[s.id] = s.weight;
+    }
+
+    const userAnswers: Record<string, number | null> = {};
+    for (const [k, v] of answers) {
+      userAnswers[k] = v;
+    }
+
+    const affinities: CandidateAffinity[] = candidates.map((c) => {
+      const positions = candidatePositions.get(c.slug) || [];
+      const candPositions: Record<string, number> = {};
+      for (const p of positions) {
+        candPositions[p.statement_id] = p.value;
+      }
+      const affinity = computeAffinity(userAnswers, candPositions, statementWeights);
+      return {
+        candidate_id: c.id,
+        slug: c.slug,
+        name: c.name,
+        party: c.party,
+        party_acronym: c.party_acronym,
+        photo_url: c.photo_url,
+        color: c.color,
+        affinity,
+      };
+    });
+
+    affinities.sort((a, b) => b.affinity - a.affinity);
+    results = affinities;
+  }
+
+  async function submitToServer() {
+    try {
+      const answersObj: Record<string, number | null> = {};
+      for (const [k, v] of answers) {
+        answersObj[k] = v;
+      }
+      const res = await fetch(`${baseUrl}/quiz/${country}/submit`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ answers: answersObj }),
+      });
+      if (res.ok) {
+        const serverResult = await res.json();
+        if (serverResult.results) {
+          results = serverResult.results;
+        }
+      }
+    } catch {
+      // Keep optimistic results
+    }
+  }
+
+  function restart() {
+    sessionStorage.removeItem(STORAGE_KEY);
+    answers = new Map();
+    currentIndex = 0;
+    results = [];
+    showBreakdown = false;
+    screen = "welcome";
+  }
+
+  function goBack() {
+    if (currentIndex > 0) {
+      currentIndex--;
+    } else {
+      screen = "welcome";
+    }
+    saveSession();
+  }
+
+  function getPositionLabel(value: number): string {
+    return t(locale, `position.${value}`);
+  }
+
+  const currentStatement = $derived(statements[currentIndex]);
+  const progressPct = $derived(
+    statements.length > 0
+      ? ((currentIndex + (answers.has(currentStatement?.id ?? "") ? 1 : 0)) / statements.length) * 100
+      : 0
+  );
+  const topResult = $derived(results[0]);
+  const shareUrl = $derived(
+    typeof window !== "undefined" ? window.location.href : `https://pre.voto/${country}/quiz`
+  );
+</script>
+
+<div class="max-w-2xl mx-auto px-4 py-8">
+  {#if loading}
+    <div class="text-center py-20">
+      <p class="text-ink-faint">{t(locale, "common.loading")}</p>
+    </div>
+
+  {:else if error}
+    <div class="text-center py-20">
+      <p class="text-brand">{error}</p>
+    </div>
+
+  {:else if screen === "welcome"}
+    <!-- Welcome screen -->
+    <div class="text-center py-8">
+      <h1 class="text-3xl font-bold mb-3">{t(locale, "quiz.title")}</h1>
+      <p class="text-lg text-ink-soft mb-6">{t(locale, "quiz.welcomeDesc")}</p>
+
+      <div class="flex justify-center gap-4 mb-8 text-sm text-ink-faint">
+        <span class="bg-paper-warm px-3 py-1 rounded-full">{t(locale, "quiz.time")}</span>
+        <span class="bg-paper-warm px-3 py-1 rounded-full">{t(locale, "quiz.noRegistration")}</span>
+        <span class="bg-paper-warm px-3 py-1 rounded-full">{t(locale, "quiz.localProcessing")}</span>
+      </div>
+
+      <button
+        onclick={() => { screen = "quiz"; saveSession(); }}
+        class="px-8 py-3 bg-brand text-white rounded-lg font-medium text-lg hover:bg-brand-dark transition-colors"
+      >
+        {t(locale, "quiz.start")}
+      </button>
+
+      <div class="mt-8 max-w-md mx-auto">
+        <aside class="bg-paper-warm border border-line rounded-lg p-4 text-sm text-ink-soft text-left">
+          <p>{t(locale, "disclaimer.quiz")}</p>
+        </aside>
+      </div>
+    </div>
+
+  {:else if screen === "quiz" && currentStatement}
+    <!-- Quiz screen -->
+    <div>
+      <!-- Progress -->
+      <div class="mb-6">
+        <div class="flex justify-between text-sm text-ink-faint mb-2">
+          <span>{t(locale, "quiz.questionOf", { current: currentIndex + 1, total: statements.length })}</span>
+          {#if currentStatement.category}
+            <span class="text-ink-soft">{currentStatement.category}</span>
+          {/if}
+        </div>
+        <div class="h-1.5 bg-paper-warm rounded-full overflow-hidden">
+          <div
+            class="h-full bg-brand rounded-full transition-all duration-300"
+            style="width: {progressPct}%"
+          ></div>
+        </div>
+      </div>
+
+      <!-- Statement -->
+      <div class="py-8 text-center" aria-live="polite">
+        <p class="text-xl md:text-2xl font-medium leading-relaxed">
+          {currentStatement.text}
+        </p>
+      </div>
+
+      <!-- Answer buttons -->
+      <div class="space-y-2 mb-6">
+        {#each answerOptions as opt}
+          {@const isSelected = answers.get(currentStatement.id) === opt.value}
+          <button
+            onclick={() => selectAnswer(opt.value)}
+            class="w-full py-3 px-4 rounded-lg border text-left transition-all {isSelected
+              ? 'border-brand bg-brand/10 text-brand font-medium'
+              : 'border-line hover:border-ink-faint'}"
+          >
+            {t(locale, opt.key)}
+          </button>
+        {/each}
+      </div>
+
+      <!-- Back button -->
+      <button
+        onclick={goBack}
+        class="text-sm text-ink-faint hover:text-ink"
+      >
+        &larr; {t(locale, "quiz.back")}
+      </button>
+
+      <!-- Keyboard hint (desktop only) -->
+      <p class="hidden md:block text-xs text-ink-faint text-center mt-4">
+        {locale === "pt-BR"
+          ? "Teclas 1-5 para responder, setas para navegar"
+          : "Teclas 1-5 para responder, flechas para navegar"}
+      </p>
+    </div>
+
+  {:else if screen === "results" && results.length > 0}
+    <!-- Results screen -->
+    <div>
+      <h2 class="text-2xl font-bold mb-6 text-center">{t(locale, "quiz.yourResults")}</h2>
+
+      <div class="space-y-4 mb-8">
+        {#each results as result, i}
+          {@const color = result.color || "#737373"}
+          {@const initials = result.name.split(" ").map((w) => w[0]).slice(0, 2).join("").toUpperCase()}
+          <div class="border border-line rounded-lg p-4">
+            <div class="flex items-center gap-3 mb-2">
+              {#if result.photo_url}
+                <img
+                  src={result.photo_url}
+                  alt={result.name}
+                  width="40"
+                  height="40"
+                  class="w-10 h-10 rounded-full object-cover"
+                />
+              {:else}
+                <div
+                  class="w-10 h-10 rounded-full flex items-center justify-center text-white text-sm font-bold"
+                  style="background-color: {color}"
+                >
+                  {initials}
+                </div>
+              {/if}
+              <div class="flex-1 min-w-0">
+                <div class="flex items-baseline justify-between">
+                  <span class="font-medium">{result.name}</span>
+                  <span class="font-bold text-lg" style="color: {color}">
+                    {result.affinity}%
+                  </span>
+                </div>
+                {#if result.party_acronym || result.party}
+                  <span class="text-sm text-ink-faint">
+                    {result.party_acronym || result.party}
+                  </span>
+                {/if}
+              </div>
+            </div>
+            <div class="h-2 bg-paper-warm rounded-full overflow-hidden">
+              <div
+                class="h-full rounded-full transition-all duration-700"
+                style="width: {result.affinity}%; background-color: {color}"
+              ></div>
+            </div>
+          </div>
+        {/each}
+      </div>
+
+      <!-- Statement breakdown -->
+      <div class="mb-8">
+        <button
+          onclick={() => showBreakdown = !showBreakdown}
+          class="text-sm text-brand hover:text-brand-dark font-medium"
+        >
+          {showBreakdown ? "▲" : "▼"} {t(locale, "quiz.statementBreakdown")}
+        </button>
+
+        {#if showBreakdown}
+          <div class="mt-4 space-y-4">
+            {#each statements as stmt}
+              {@const userAnswer = answers.get(stmt.id)}
+              <div class="border border-line rounded-lg p-4">
+                <p class="font-medium mb-3">{stmt.text}</p>
+                {#if userAnswer !== undefined && userAnswer !== null}
+                  <p class="text-sm mb-2">
+                    <span class="text-ink-faint">{t(locale, "quiz.yourAnswer")}:</span>
+                    <span class="font-medium"> {getPositionLabel(userAnswer)}</span>
+                  </p>
+                {/if}
+                <div class="space-y-1">
+                  {#each results as result}
+                    {@const positions = candidatePositions.get(result.slug) || []}
+                    {@const pos = positions.find((p) => p.statement_id === stmt.id)}
+                    <div class="flex items-center gap-2 text-sm">
+                      <span
+                        class="w-2 h-2 rounded-full flex-shrink-0"
+                        style="background-color: {result.color || '#737373'}"
+                      ></span>
+                      <span class="text-ink-soft w-32 flex-shrink-0 truncate">{result.name}</span>
+                      {#if pos}
+                        <span>{getPositionLabel(pos.value)}</span>
+                        {#if pos.source_url}
+                          <a
+                            href={pos.source_url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="text-brand text-xs hover:underline ml-auto"
+                          >
+                            {t(locale, "common.source")}
+                          </a>
+                        {/if}
+                      {:else}
+                        <span class="text-ink-faint italic">{t(locale, "quiz.noPosition")}</span>
+                      {/if}
+                    </div>
+                  {/each}
+                </div>
+              </div>
+            {/each}
+          </div>
+        {/if}
+      </div>
+
+      <!-- Share -->
+      {#if topResult}
+        <ResultsShare
+          url={shareUrl}
+          topCandidate={topResult.name}
+          affinity={topResult.affinity}
+          {locale}
+        />
+      {/if}
+
+      <!-- Restart -->
+      <div class="text-center mt-6">
+        <button
+          onclick={restart}
+          class="text-sm text-ink-faint hover:text-ink underline"
+        >
+          {t(locale, "quiz.restart")}
+        </button>
+      </div>
+    </div>
+  {/if}
+</div>
