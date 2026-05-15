@@ -2,6 +2,7 @@
   import { t, type Locale } from "../../lib/i18n";
   import { computeAffinity } from "../../lib/quiz";
   import ResultsShare from "./ResultsShare.svelte";
+  import { ChevronDown, ChevronUp } from "lucide-svelte";
   import type {
     StatementOut,
     CandidateOut,
@@ -402,9 +403,10 @@
       <div class="mb-8">
         <button
           onclick={() => showBreakdown = !showBreakdown}
-          class="text-sm text-brand hover:text-brand-dark font-medium"
+          class="text-sm text-brand hover:text-brand-dark font-medium inline-flex items-center gap-1"
         >
-          {showBreakdown ? "▲" : "▼"} {t(locale, "quiz.statementBreakdown")}
+          {#if showBreakdown}<ChevronUp size={16} />{:else}<ChevronDown size={16} />{/if}
+          {t(locale, "quiz.statementBreakdown")}
         </button>
 
         {#if showBreakdown}
