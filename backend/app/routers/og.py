@@ -6,8 +6,8 @@ Two routers are exposed:
 - share_router (no prefix): serves a minimal HTML page with OG meta tags
   for social-media crawlers, plus a client-side redirect for real users.
 
-Caddy routes /{country}/quiz?top=...&pct=... to the backend path
-/share/quiz/{country}?top=...&pct=..., which is handled by share_router.
+Caddy rewrites /{country}/quiz?top=...&pct=... to /share/{country}/quiz?...
+and proxies to the backend, which is handled by share_router.
 """
 
 from fastapi import APIRouter, Depends, HTTPException, Query
@@ -135,7 +135,7 @@ _SHARE_HTML_TEMPLATE = """\
 """
 
 
-@share_router.get("/share/quiz/{country}")
+@share_router.get("/share/{country}/quiz")
 async def quiz_share_html(
     country: str,
     top: str = Query(..., min_length=1),

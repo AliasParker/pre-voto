@@ -6,6 +6,18 @@ pre.voto, www.pre.voto {
 		uri strip_prefix /api
 		reverse_proxy api:8000
 	}
+
+	# Quiz share pages: when /{country}/quiz has a "top" query param,
+	# rewrite to the backend share endpoint and proxy there.
+	@quiz_share {
+		path_regexp quizpath ^/([a-z]{2})/quiz$
+		query top=*
+	}
+	handle @quiz_share {
+		rewrite * /share{path}?{query}
+		reverse_proxy api:8000
+	}
+
 	handle {
 		reverse_proxy frontend:3000
 	}
