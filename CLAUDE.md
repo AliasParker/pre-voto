@@ -108,6 +108,21 @@ Trigger `update_updated_at_column()` fires BEFORE UPDATE on tables with `updated
 
 3. **OG text localization**: Use neutral, language-agnostic patterns for OG card text (e.g., `"pre.voto · {country} {year}"` instead of `"Elecciones {country} {year}"`) to avoid localization issues across multiple LATAM countries.
 
+4. **Never rationalize unexpected errors — verify against known-good state**: When an endpoint returns an unexpected error code (e.g., 404 for a route that worked in the previous phase), do NOT invent plausible explanations ("404 in dev mode because X isn't in static paths"). Instead: (a) identify the last known-good state (the closing commit of the previous phase), (b) verify whether the route worked there, (c) bisect to find what broke it. A rationalized explanation prevents investigation and lets bugs reach main.
+
+5. **Docker image cache invalidation**: When adding a Python dependency to `pyproject.toml` and regenerating `uv.lock`, Docker's build cache may not detect the file change. Always use `docker compose build --no-cache api` after modifying `uv.lock` to ensure the new dependency is installed. Verify the API container starts without import errors before proceeding.
+
+6. **Astro dev server caches `getStaticPaths()` per page**: If the API is down when a page is first requested in dev mode, `getStaticPaths()` returns empty paths (because `apiFetch` silently returns `[]` on error), and the dev server caches that empty result. Subsequent requests to that route will 404 even after the API recovers. Fix: restart the frontend container (`docker compose restart frontend`) to clear the cache. This is dev-mode only; production builds fail visibly if the API is unreachable at build time.
+
+7. **Pre-close route validation script**: Before declaring any phase complete, run this verification against all critical routes and report the results:
+   ```bash
+   for p in "/" "/co/" "/co/quiz" "/co/candidatos" "/co/candidatos/candidata-demo-alfa" "/co/articulos" "/co/encuestas" "/metodologia" "/sobre" "/privacidad"; do
+     s=$(curl -s -o /dev/null -w "%{http_code}" "http://localhost$p")
+     echo "$s  $p"
+   done
+   ```
+   Condition: 10/10 must return 200. Any non-200 is a blocker.
+
 ## File structure
 
 ```
