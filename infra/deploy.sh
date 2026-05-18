@@ -39,12 +39,12 @@ echo "  API stack started."
 echo "[4/8] Waiting for API to be healthy..."
 SECONDS_WAITED=0
 while [ $SECONDS_WAITED -lt $MAX_WAIT ]; do
-  STATUS=$($COMPOSE ps -q api 2>/dev/null | head -1 | xargs -I{} docker inspect --format='{{.State.Health.Status}}' {} 2>/dev/null || echo "starting")
-  if [ "$STATUS" = "healthy" ]; then
-    echo "  API is healthy."
+  HTTP_STATUS=$($COMPOSE exec -T api python -c "import urllib.request; print(urllib.request.urlopen('http://localhost:8000/health').status)" 2>/dev/null || echo "0")
+  if [ "$HTTP_STATUS" = "200" ]; then
+    echo "  API is healthy (HTTP 200)."
     break
   fi
-  echo "  Waiting... ($STATUS) [${SECONDS_WAITED}s]"
+  echo "  Waiting... (HTTP $HTTP_STATUS) [${SECONDS_WAITED}s]"
   sleep "$HEALTH_INTERVAL"
   SECONDS_WAITED=$((SECONDS_WAITED + HEALTH_INTERVAL))
 done
