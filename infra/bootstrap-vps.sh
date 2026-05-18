@@ -39,9 +39,11 @@ echo "[3/12] Hardening SSH..."
 SSHD_CONFIG="/etc/ssh/sshd_config"
 sed -i 's/^#\?PermitRootLogin.*/PermitRootLogin no/' "$SSHD_CONFIG"
 sed -i 's/^#\?PasswordAuthentication.*/PasswordAuthentication no/' "$SSHD_CONFIG"
-sed -i 's/^#\?ChallengeResponseAuthentication.*/ChallengeResponseAuthentication no/' "$SSHD_CONFIG"
-sed -i 's/^#\?UsePAM.*/UsePAM no/' "$SSHD_CONFIG"
-systemctl restart sshd
+sed -i 's/^#\?KbdInteractiveAuthentication.*/KbdInteractiveAuthentication no/' "$SSHD_CONFIG"
+# Keep UsePAM yes — Ubuntu relies on PAM for systemd-logind sessions,
+# MOTD, /etc/environment, and ulimits. Disabling it breaks those.
+sed -i 's/^#\?UsePAM.*/UsePAM yes/' "$SSHD_CONFIG"
+systemctl restart ssh
 echo "  SSH hardened: root login disabled, password auth disabled."
 
 # ---- 4. Configure UFW ----
