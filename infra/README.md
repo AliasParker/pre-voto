@@ -11,10 +11,31 @@ Zero-to-production guide for deploying pre.voto on a Hetzner VPS with Cloudflare
 - **Domain** — `pre.voto` added to Cloudflare
 - **Cloudflare R2 bucket** — `prevoto-backups` for database backups
 - **Mac (or Linux)** — for running SSH commands locally
+- **GitHub Personal Access Token (PAT)** — for cloning the private repo (see below)
 
 ---
 
-## 1. Generate SSH Key
+## 1. Generate GitHub PAT
+
+The repository is private. The bootstrap script needs a GitHub Personal Access Token to clone it.
+
+1. Go to **GitHub** → **Settings** → **Developer settings** → **Personal access tokens** → **Fine-grained tokens** → **Generate new token**
+2. Configure:
+   - **Token name**: `prevoto-deploy`
+   - **Expiration**: 1 year (you will need to rotate it — see [Rotating the PAT](#rotating-the-pat))
+   - **Repository access**: Only select repositories → `AliasParker/Work-Space-Pre-Voto`
+   - **Permissions**: Repository permissions → **Contents** → **Read-only** (nothing else)
+3. Click **Generate token** and copy the value (starts with `github_pat_`)
+4. Save it somewhere safe (password manager). You'll need it for the bootstrap command.
+
+> **Security notes:**
+> - The PAT is passed as an environment variable during bootstrap only — it is **not** stored in `.env` or any config file committed to the repo.
+> - The bootstrap script stores it in `~deploy/.git-credentials` (chmod 600) so that `deploy.sh` can `git pull` for future deployments.
+> - The PAT **never** appears in any git remote URL or log file.
+
+---
+
+## 2. Generate SSH Key
 
 On your Mac:
 
@@ -40,7 +61,7 @@ EOF
 
 ---
 
-## 2. Create VPS on Hetzner
+## 3. Create VPS on Hetzner
 
 1. Go to [Hetzner Cloud Console](https://console.hetzner.cloud) > **New Project** > "pre.voto"
 2. **Add Server**:
@@ -53,20 +74,24 @@ EOF
 
 ---
 
-## 3. Bootstrap the VPS
+## 4. Bootstrap the VPS
 
-From your Mac, run the bootstrap script on the fresh VPS:
+From your Mac, run the bootstrap script on the fresh VPS. Pass the GitHub PAT as an environment variable:
 
 ```bash
-ssh -i ~/.ssh/prevoto root@YOUR_VPS_IP 'bash -s' < infra/bootstrap-vps.sh
+GITHUB_DEPLOY_PAT="github_pat_xxx" \
+  ssh -i ~/.ssh/prevoto deploy@YOUR_VPS_IP 'sudo -E bash -s' < infra/bootstrap-vps.sh
 ```
+
+> `-E` preserves environment variables through `sudo` so the script can read `GITHUB_DEPLOY_PAT`.
 
 This will:
 - Create `deploy` user with your SSH key
 - Harden SSH (disable root login, password auth)
 - Configure firewall (ports 22, 80, 443)
 - Install Docker, rclone, unattended-upgrades
-- Clone the repo to `/opt/prevoto`
+- Clone the repo to `/opt/prevoto` (using the PAT for authentication)
+- Store git credentials in `~deploy/.git-credentials` for future pulls
 - Create `.env` from the production template
 - Configure 2GB swap, UTC timezone
 
@@ -78,7 +103,7 @@ ssh -i ~/.ssh/prevoto deploy@YOUR_VPS_IP
 
 ---
 
-## 4. Cloudflare Setup
+## 5. Cloudflare Setup
 
 ### 4.1 DNS
 
@@ -153,7 +178,7 @@ Go to **Security** > **WAF** > **Rate limiting rules** > **Create rule**:
 
 ---
 
-## 5. Configure Environment
+## 6. Configure Environment
 
 SSH into the VPS and edit the environment file:
 
@@ -185,7 +210,7 @@ SMTP_PORT=587
 
 ---
 
-## 6. First Deploy
+## 7. First Deploy
 
 From your Mac:
 
@@ -222,7 +247,7 @@ curl -s -o /dev/null -w "%{http_code}" https://pre.voto/
 
 ---
 
-## 7. Backup Cron
+## 8. Backup Cron
 
 Set up daily automated backups at 3 AM UTC:
 
@@ -260,7 +285,7 @@ bash /opt/prevoto/infra/restore-postgres.sh 20260518
 
 ---
 
-## 8. Monitoring
+## 9. Monitoring
 
 ### UptimeRobot (free tier)
 
@@ -290,7 +315,7 @@ cd /opt/prevoto && docker compose logs -f api caddy
 
 ---
 
-## 9. Routine Operations
+## 10. Routine Operations
 
 ### Deploy an Update
 
@@ -325,7 +350,34 @@ ssh -i ~/.ssh/prevoto deploy@YOUR_VPS_IP 'docker system prune -af --volumes'
 
 ---
 
-## 10. Troubleshooting
+## 11. Rotating the PAT
+
+The GitHub PAT expires after 1 year. When it expires, `deploy.sh` will fail on `git pull`. To rotate:
+
+1. Generate a new fine-grained PAT in GitHub (same settings as step 1)
+2. SSH into the VPS and update the credential file:
+
+```bash
+ssh -i ~/.ssh/prevoto deploy@YOUR_VPS_IP
+
+# Replace the credential (the file has exactly one line)
+echo "https://oauth2:NEW_PAT_HERE@github.com" > ~/.git-credentials
+chmod 600 ~/.git-credentials
+```
+
+3. Verify it works:
+
+```bash
+cd /opt/prevoto && git pull --ff-only
+```
+
+4. Delete the old PAT in GitHub → Settings → Developer settings → Personal access tokens
+
+> **Reminder:** Set a calendar reminder for 11 months from now to rotate before expiration.
+
+---
+
+## 12. Troubleshooting
 
 ### DNS propagation delay
 

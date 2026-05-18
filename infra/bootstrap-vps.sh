@@ -12,10 +12,31 @@ export DEBIAN_FRONTEND=noninteractive
 export GIT_TERMINAL_PROMPT=0
 export GCM_INTERACTIVE=never
 
-REPO_URL="https://github.com/AliasParker/Work-Space-Pre-Voto.git"
+REPO_OWNER="AliasParker"
+REPO_NAME="Work-Space-Pre-Voto"
+REPO_URL_PUBLIC="https://github.com/${REPO_OWNER}/${REPO_NAME}.git"
 LOG="/var/log/prevoto-bootstrap.log"
 exec > >(tee -a "$LOG") 2>&1
 echo "=== pre.voto bootstrap started at $(date -u) ==="
+
+# ---- 0. Validate required env vars ----
+if [ -z "${GITHUB_DEPLOY_PAT:-}" ]; then
+  echo ""
+  echo "ERROR: GITHUB_DEPLOY_PAT is not set."
+  echo ""
+  echo "  The repository is private and requires a GitHub Personal Access Token."
+  echo "  Generate one at: GitHub → Settings → Developer settings → Fine-grained tokens"
+  echo "    - Repository access: Only select repositories → ${REPO_OWNER}/${REPO_NAME}"
+  echo "    - Permissions: Contents → Read-only"
+  echo "    - Expiration: 1 year"
+  echo ""
+  echo "  Then run:"
+  echo "    GITHUB_DEPLOY_PAT=\"github_pat_xxx\" ssh -i ~/.ssh/prevoto deploy@VPS 'sudo -E bash -s' < infra/bootstrap-vps.sh"
+  echo ""
+  exit 1
+fi
+# PAT is never embedded in a URL — only stored in credential files.
+# This prevents leaking the token in git error messages or logs.
 
 # ---- 1. System update ----
 echo "[1/12] Updating system packages..."
@@ -153,20 +174,31 @@ echo "  Timezone set to UTC."
 
 # ---- 11. Clone repository ----
 echo "[11/12] Setting up /opt/prevoto..."
+
+# Set up git credential store BEFORE clone so the PAT is never embedded
+# in a URL (which would leak in git error output → log file).
+CRED_FILE="/home/deploy/.git-credentials"
+echo "https://oauth2:${GITHUB_DEPLOY_PAT}@github.com" > "$CRED_FILE"
+chown deploy:deploy "$CRED_FILE"
+chmod 600 "$CRED_FILE"
+sudo -u deploy git config --global credential.helper store
+
 if [ -d /opt/prevoto/.git ]; then
   echo "  Repository already cloned, pulling latest..."
   cd /opt/prevoto
-  git pull --ff-only || echo "  Warning: git pull failed, continuing with existing code."
+  sudo -u deploy git pull --ff-only || echo "  Warning: git pull failed, continuing with existing code."
 else
   # Clean up incomplete clone from a previous failed attempt
   if [ -d /opt/prevoto ]; then
     echo "  Removing incomplete /opt/prevoto from previous attempt..."
     rm -rf /opt/prevoto
   fi
-  git clone --depth 1 "$REPO_URL" /opt/prevoto
+  # Clone via public URL — git reads PAT from credential store, not from the URL
+  git -c "credential.helper=store --file=$CRED_FILE" clone --depth 1 "$REPO_URL_PUBLIC" /opt/prevoto
 fi
+
 chown -R deploy:deploy /opt/prevoto
-echo "  /opt/prevoto ready."
+echo "  /opt/prevoto ready (credentials in ~deploy/.git-credentials)."
 
 # ---- 12. Copy env template ----
 echo "[12/12] Setting up environment file..."
