@@ -18,7 +18,7 @@
 
   let { country, locale = "es" }: Props = $props();
 
-  type Screen = "welcome" | "quiz" | "results";
+  type Screen = "welcome" | "quiz" | "results" | "shared";
 
   let screen = $state<Screen>("welcome");
   let currentIndex = $state(0);
@@ -30,6 +30,10 @@
   let loading = $state(true);
   let error = $state<string | null>(null);
   let showBreakdown = $state(false);
+
+  // Shared result state (populated from hash fragment)
+  let sharedCandidate = $state<CandidateOut | null>(null);
+  let sharedPct = $state<number>(0);
 
   const STORAGE_KEY = $derived(`prevoto-quiz-${country}`);
   const baseUrl = "/api";
@@ -104,6 +108,25 @@
         posMap.set(slug, positions);
       }
       candidatePositions = posMap;
+
+      // Check for shared result in hash fragment (e.g. #top=slug&pct=82)
+      if (typeof window !== "undefined" && window.location.hash) {
+        const hashParams = new URLSearchParams(window.location.hash.slice(1));
+        const topSlug = hashParams.get("top");
+        const pctStr = hashParams.get("pct");
+        if (topSlug && pctStr) {
+          const matched = candidates.find((c) => c.slug === topSlug);
+          if (matched) {
+            sharedCandidate = matched;
+            sharedPct = parseInt(pctStr, 10) || 0;
+            screen = "shared";
+            // Clean hash from URL without triggering navigation
+            history.replaceState(null, "", window.location.pathname);
+            loading = false;
+            return;
+          }
+        }
+      }
 
       // Restore session
       restoreSession();
@@ -250,7 +273,9 @@
   );
   const topResult = $derived(results[0]);
   const shareUrl = $derived(
-    typeof window !== "undefined" ? window.location.href : `https://pre.voto/${country}/quiz`
+    topResult && typeof window !== "undefined"
+      ? `${window.location.origin}/${country}/quiz?top=${topResult.slug}&pct=${Math.round(topResult.affinity)}`
+      : `https://pre.voto/${country}/quiz`
   );
 </script>
 
@@ -346,6 +371,50 @@
           ? "Teclas 1-5 para responder, setas para navegar"
           : "Teclas 1-5 para responder, flechas para navegar"}
       </p>
+    </div>
+
+  {:else if screen === "shared" && sharedCandidate}
+    <!-- Shared result screen -->
+    <div class="text-center py-8">
+      <h2 class="text-2xl font-bold mb-6">{t(locale, "shared.title")}</h2>
+
+      <div class="border border-line rounded-lg p-6 mb-8 max-w-md mx-auto">
+        {@const color = sharedCandidate.color || "#737373"}
+        {@const initials = sharedCandidate.name.split(" ").map((w) => w[0]).slice(0, 2).join("").toUpperCase()}
+        <div class="flex flex-col items-center gap-3">
+          {#if sharedCandidate.photo_url}
+            <img
+              src={sharedCandidate.photo_url}
+              alt={sharedCandidate.name}
+              width="64"
+              height="64"
+              class="w-16 h-16 rounded-full object-cover"
+            />
+          {:else}
+            <div
+              class="w-16 h-16 rounded-full flex items-center justify-center text-white text-lg font-bold"
+              style="background-color: {color}"
+            >
+              {initials}
+            </div>
+          {/if}
+          <p class="text-4xl font-bold" style="color: {color}">{sharedPct}%</p>
+          <p class="text-lg font-medium">{sharedCandidate.name}</p>
+          {#if sharedCandidate.party_acronym || sharedCandidate.party}
+            <p class="text-sm text-ink-faint">
+              {sharedCandidate.party_acronym || sharedCandidate.party}
+            </p>
+          {/if}
+        </div>
+      </div>
+
+      <p class="text-ink-soft mb-6">{t(locale, "shared.cta")}</p>
+      <button
+        onclick={() => { screen = "welcome"; }}
+        class="px-8 py-3 bg-brand text-white rounded-lg font-medium text-lg hover:bg-brand-dark transition-colors"
+      >
+        {t(locale, "country.startQuiz")}
+      </button>
     </div>
 
   {:else if screen === "results" && results.length > 0}

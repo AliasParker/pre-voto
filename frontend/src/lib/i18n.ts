@@ -85,6 +85,10 @@ const translations: Record<Locale, Record<string, string>> = {
       "Mi candidato mas afin es {name} con {pct}%. Descubre tu afinidad en pre.voto",
     "results.newsletter": "Recibe analisis y actualizaciones",
 
+    // Shared result
+    "shared.title": "Resultado compartido",
+    "shared.cta": "Quieres descubrir tu afinidad con los candidatos?",
+
     // Newsletter
     "newsletter.title": "Mantente informado",
     "newsletter.desc":
@@ -219,6 +223,10 @@ const translations: Record<Locale, Record<string, string>> = {
     "results.shareText":
       "Meu candidato mais compativel e {name} com {pct}%. Descubra sua afinidade em pre.voto",
     "results.newsletter": "Receba analises e atualizacoes",
+
+    // Shared result
+    "shared.title": "Resultado compartilhado",
+    "shared.cta": "Quer descobrir sua afinidade com os candidatos?",
 
     // Newsletter
     "newsletter.title": "Fique informado",
