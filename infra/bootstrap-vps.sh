@@ -6,6 +6,13 @@
 # =============================================================================
 set -euo pipefail
 
+# Non-interactive mode: prevent any tool from prompting for input.
+# This script runs via `bash -s` over SSH without a TTY.
+export DEBIAN_FRONTEND=noninteractive
+export GIT_TERMINAL_PROMPT=0
+export GCM_INTERACTIVE=never
+
+REPO_URL="https://github.com/AliasParker/Work-Space-Pre-Voto.git"
 LOG="/var/log/prevoto-bootstrap.log"
 exec > >(tee -a "$LOG") 2>&1
 echo "=== pre.voto bootstrap started at $(date -u) ==="
@@ -13,7 +20,7 @@ echo "=== pre.voto bootstrap started at $(date -u) ==="
 # ---- 1. System update ----
 echo "[1/12] Updating system packages..."
 apt-get update -qq
-DEBIAN_FRONTEND=noninteractive apt-get upgrade -y -qq
+apt-get upgrade -y -qq
 
 # ---- 2. Create deploy user ----
 echo "[2/12] Creating deploy user..."
@@ -151,8 +158,12 @@ if [ -d /opt/prevoto/.git ]; then
   cd /opt/prevoto
   git pull --ff-only || echo "  Warning: git pull failed, continuing with existing code."
 else
-  mkdir -p /opt/prevoto
-  git clone https://github.com/AliasParker/prevoto.git /opt/prevoto
+  # Clean up incomplete clone from a previous failed attempt
+  if [ -d /opt/prevoto ]; then
+    echo "  Removing incomplete /opt/prevoto from previous attempt..."
+    rm -rf /opt/prevoto
+  fi
+  git clone --depth 1 "$REPO_URL" /opt/prevoto
 fi
 chown -R deploy:deploy /opt/prevoto
 echo "  /opt/prevoto ready."
