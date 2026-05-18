@@ -49,3 +49,10 @@ coverage.xml
 # Testing
 .pytest_cache/
 .mypy_cache/
+
+# Secret notes (R2 credentials, server info)
+R2-API.MD
+r2-api.md
+server.md
+*.credentials
+secrets/
