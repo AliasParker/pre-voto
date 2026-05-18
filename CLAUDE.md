@@ -12,7 +12,8 @@ pre.voto is a pan-LATAM voting advice application (VAA) that helps citizens comp
 - **Phase 4** (Worker & jobs): Complete — merged to main
 - **Phase 5** (Frontend): Complete — merged to main
 - **Phase 6** (OG cards & sharing): Complete — feature/fase-6-og-cards
-- **Phase 7–9**: Not started
+- **Phase 7** (Deployment to production): Complete — infra/ scripts and docs
+- **Phase 8–9**: Not started
 
 ## Tech stack
 
@@ -55,6 +56,20 @@ cd frontend && npm run dev
 
 # Frontend build
 cd frontend && npm run build
+
+# ---- Production (VPS) ----
+
+# Bootstrap a fresh VPS (run as root)
+ssh root@VPS_IP 'bash -s' < infra/bootstrap-vps.sh
+
+# Deploy (pull + build + migrate + health check)
+ssh deploy@VPS_IP 'bash /opt/prevoto/infra/deploy.sh'
+
+# Manual backup
+ssh deploy@VPS_IP 'bash /opt/prevoto/infra/backup-postgres.sh'
+
+# Restore from backup
+ssh deploy@VPS_IP 'bash /opt/prevoto/infra/restore-postgres.sh 20260518'
 ```
 
 **Note:** Publishing new articles or updating candidate data requires a frontend rebuild (`npm run build` or redeploy) since the frontend uses static site generation.
@@ -130,6 +145,13 @@ Trigger `update_updated_at_column()` fires BEFORE UPDATE on tables with `updated
 ├── SPEC.md                    # Complete specification
 ├── docker-compose.yml         # Development services
 ├── docker-compose.prod.yml    # Production overrides
+├── infra/
+│   ├── README.md              # Zero-to-production deployment guide
+│   ├── bootstrap-vps.sh       # Idempotent VPS setup (Ubuntu 24.04)
+│   ├── deploy.sh              # Pull + build + migrate + health check
+│   ├── backup-postgres.sh     # pg_dump → gzip → R2 (cron daily)
+│   ├── restore-postgres.sh    # Restore from R2 backup
+│   └── .env.production.template  # Production env with secure defaults
 ├── backend/
 │   ├── app/
 │   │   ├── main.py            # FastAPI app
