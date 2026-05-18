@@ -10,8 +10,9 @@ pre.voto is a pan-LATAM voting advice application (VAA) that helps citizens comp
 - **Phase 2** (Schema & migrations): Complete
 - **Phase 3** (API REST): Complete — merged to main (PR #4, fc7e0fe)
 - **Phase 4** (Worker & jobs): Complete — merged to main
-- **Phase 5** (Frontend): Complete — feature/fase-5-frontend
-- **Phase 6–9**: Not started
+- **Phase 5** (Frontend): Complete — merged to main
+- **Phase 6** (OG cards & sharing): Complete — feature/fase-6-og-cards
+- **Phase 7–9**: Not started
 
 ## Tech stack
 
@@ -99,6 +100,14 @@ Trigger `update_updated_at_column()` fires BEFORE UPDATE on tables with `updated
 
 2. **Post-phase validation**: `astro check` only validates TypeScript — it does not detect missing Svelte runtime dependencies or broken rendering. Before declaring a phase complete, the app must be running and every critical page must be verified in runtime (curl with HTTP 200, or browser). This final browser validation is done by the user; Claude Code's pre-close report must include curl evidence (status codes) for each critical page.
 
+## Lessons from Phase 6 (apply in all future phases)
+
+1. **Caddy routing for SSG + dynamic OG**: Static site generation (Astro SSG) cannot serve per-user OG meta tags. The solution is conditional Caddy routing: when a quiz URL has share query params (`?top=...&pct=...`), Caddy rewrites to `/share/{country}/quiz` and proxies to the backend, which serves minimal HTML with correct og:image meta tags + a JS redirect via hash fragment (`#top=...&pct=...`). Without the query params, the request falls through to the static frontend. This pattern is reusable for any future SSG page that needs dynamic OG meta.
+
+2. **Font format compatibility**: Pillow requires TTF/OTF fonts — WOFF2 (used by the frontend) is not compatible. Keep separate font files in `backend/app/static/fonts/` for image generation. Both the frontend woff2 and backend TTF should come from the same font family version to ensure visual consistency.
+
+3. **OG text localization**: Use neutral, language-agnostic patterns for OG card text (e.g., `"pre.voto · {country} {year}"` instead of `"Elecciones {country} {year}"`) to avoid localization issues across multiple LATAM countries.
+
 ## File structure
 
 ```
@@ -114,7 +123,8 @@ Trigger `update_updated_at_column()` fires BEFORE UPDATE on tables with `updated
 │   │   ├── tasks.py           # spawn_background_task() helper
 │   │   ├── worker.py          # APScheduler worker process
 │   │   ├── models/            # 13 SQLAlchemy models
-│   │   ├── routers/           # API endpoints (7 routers)
+│   │   ├── routers/           # API endpoints (8 routers)
+│   │   │   └── og.py          # OG image (og_router) + share HTML (share_router)
 │   │   ├── schemas/           # Pydantic schemas
 │   │   ├── services/          # Business logic
 │   │   │   ├── matching.py    # Quiz affinity computation
@@ -122,7 +132,10 @@ Trigger `update_updated_at_column()` fires BEFORE UPDATE on tables with `updated
 │   │   │   ├── rss_aggregator.py  # RSS feed fetching + dedup
 │   │   │   ├── wikimedia.py   # Candidate photo search
 │   │   │   ├── poll_compute.py    # Weighted poll averages
-│   │   │   └── newsletter.py  # Digest generation + send
+│   │   │   ├── newsletter.py  # Digest generation + send
+│   │   │   └── og_image.py    # Pillow-based OG card PNG generation
+│   │   ├── static/
+│   │   │   └── fonts/         # Inter TTF for Pillow (Regular + Bold)
 │   │   ├── jobs/              # Job wrappers + scheduler config
 │   │   │   ├── pull_rss.py
 │   │   │   ├── refresh_photos.py
