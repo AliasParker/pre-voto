@@ -11,6 +11,7 @@ import type {
   PollAverageOut,
   SubscriberOut,
 } from "./types";
+import { countries as countryMeta } from "./countries";
 
 function getBaseUrl(): string {
   if (import.meta.env.SSR) {
@@ -30,7 +31,29 @@ async function apiFetch<T>(path: string, init?: RequestInit): Promise<T | null> 
 }
 
 export async function fetchCountries(): Promise<CountryOut[]> {
-  return (await apiFetch<CountryOut[]>("/countries")) ?? [];
+  const result = await apiFetch<CountryOut[]>("/countries");
+  if (result && result.length > 0) return result;
+
+  // Fallback: if API is unreachable during build, return minimal country
+  // objects from hardcoded metadata so getStaticPaths() generates routes.
+  // Pages will render with empty data but won't 404.
+  if (import.meta.env.SSR) {
+    console.warn(
+      "[api] fetchCountries failed — using fallback country list for route generation",
+    );
+    return Object.entries(countryMeta)
+      .filter(([, meta]) => meta.active)
+      .map(([code, meta]) => ({
+        id: code,
+        code,
+        name: meta.name.es,
+        language: meta.locale === "pt-BR" ? "pt" : meta.locale,
+        is_active: meta.active,
+        next_election: null,
+      }));
+  }
+
+  return [];
 }
 
 export async function fetchCountry(code: string): Promise<CountryDetail | null> {
