@@ -34,6 +34,12 @@
   // Shared result state (populated from hash fragment)
   let sharedCandidate = $state<CandidateOut | null>(null);
   let sharedPct = $state<number>(0);
+  const sharedColor = $derived(sharedCandidate?.color || "#737373");
+  const sharedInitials = $derived(
+    sharedCandidate
+      ? sharedCandidate.name.split(" ").map((w: string) => w[0]).slice(0, 2).join("").toUpperCase()
+      : ""
+  );
 
   const STORAGE_KEY = $derived(`prevoto-quiz-${country}`);
   const baseUrl = "/api";
@@ -379,8 +385,6 @@
       <h2 class="text-2xl font-bold mb-6">{t(locale, "shared.title")}</h2>
 
       <div class="border border-line rounded-lg p-6 mb-8 max-w-md mx-auto">
-        {@const color = sharedCandidate.color || "#737373"}
-        {@const initials = sharedCandidate.name.split(" ").map((w) => w[0]).slice(0, 2).join("").toUpperCase()}
         <div class="flex flex-col items-center gap-3">
           {#if sharedCandidate.photo_url}
             <img
@@ -393,12 +397,12 @@
           {:else}
             <div
               class="w-16 h-16 rounded-full flex items-center justify-center text-white text-lg font-bold"
-              style="background-color: {color}"
+              style="background-color: {sharedColor}"
             >
-              {initials}
+              {sharedInitials}
             </div>
           {/if}
-          <p class="text-4xl font-bold" style="color: {color}">{sharedPct}%</p>
+          <p class="text-4xl font-bold" style="color: {sharedColor}">{sharedPct}%</p>
           <p class="text-lg font-medium">{sharedCandidate.name}</p>
           {#if sharedCandidate.party_acronym || sharedCandidate.party}
             <p class="text-sm text-ink-faint">
