@@ -51,6 +51,18 @@ const stmtMap = new Map(statements.map((s) => [s.id, s]));
 function getPositionLabel(value: number): string {
   return t(locale, `position.${value}`);
 }
+
+function getConfidenceLabel(confidence: string | undefined): string {
+  if (confidence === "high") return "Alta";
+  if (confidence === "medium") return "Media";
+  return "Baja";
+}
+
+function getConfidenceColor(confidence: string | undefined): string {
+  if (confidence === "high") return "bg-candidate-1/20 text-candidate-1";
+  if (confidence === "medium") return "bg-ocre/20 text-ocre";
+  return "bg-ink-faint/20 text-ink-faint";
+}
 ---
 
 <BaseLayout
@@ -60,7 +72,7 @@ function getPositionLabel(value: number): string {
 >
   <article class="max-w-3xl mx-auto px-4 py-12">
     <!-- Candidate header -->
-    <div class="flex items-start gap-4 mb-8">
+    <div class="flex items-start gap-4 mb-6">
       {candidate.photo_url ? (
         <img
           src={candidate.photo_url}
@@ -69,7 +81,7 @@ function getPositionLabel(value: number): string {
           height="96"
           loading="eager"
           decoding="async"
-          class="w-24 h-24 rounded-full object-cover"
+          class="w-24 h-24 rounded-full object-cover flex-shrink-0"
         />
       ) : (
         <div
@@ -89,11 +101,11 @@ function getPositionLabel(value: number): string {
         )}
         {candidate.running_mate && (
           <p class="text-ink-soft text-sm">
-            Fórmula VP: {candidate.running_mate}
+            VP: {candidate.running_mate}
           </p>
         )}
         {candidate.bio_short && (
-          <p class="text-ink-soft mt-2">{candidate.bio_short}</p>
+          <p class="text-ink-soft mt-2 leading-relaxed">{candidate.bio_short}</p>
         )}
       </div>
     </div>
@@ -112,22 +124,27 @@ function getPositionLabel(value: number): string {
     {candidate.positions.length > 0 && (
       <section>
         <h2 class="text-xl font-bold mb-4">{t(locale, "candidates.positions")}</h2>
-        <div class="space-y-4">
+        <div class="space-y-3">
           {candidate.positions.map((pos) => {
             const stmt = stmtMap.get(pos.statement_id);
             return (
               <div class="border border-line rounded-lg p-4">
                 <p class="font-medium mb-2">{stmt?.text || pos.statement_id}</p>
-                <div class="flex items-center gap-2 mb-2">
+                <div class="flex items-center gap-2 mb-2 flex-wrap">
                   <span
                     class="w-3 h-3 rounded-full flex-shrink-0"
                     style={`background-color: ${color}`}
                   />
                   <span class="font-medium">{getPositionLabel(pos.value)}</span>
+                  {pos.confidence && (
+                    <span class={`text-xs px-2 py-0.5 rounded-full font-medium ${getConfidenceColor(pos.confidence)}`}>
+                      {getConfidenceLabel(pos.confidence)}
+                    </span>
+                  )}
                 </div>
                 {pos.source_quote && (
                   <blockquote class="text-sm text-ink-soft border-l-2 border-line pl-3 my-2 italic">
-                    "{pos.source_quote}"
+                    &ldquo;{pos.source_quote}&rdquo;
                   </blockquote>
                 )}
                 <div class="flex items-center gap-3 text-xs text-ink-faint">

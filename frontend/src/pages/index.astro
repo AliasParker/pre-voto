@@ -12,12 +12,12 @@ const jsonLd = {
   name: "pre.voto",
   url: "https://pre.voto",
   description:
-    "Compara tus posiciones con las de los candidatos. Voto informado para Latinoamerica.",
+    "Compara tus posiciones con las de los candidatos. Voto informado para Latinoamérica.",
 };
 ---
 
 <BaseLayout
-  title="pre.voto — Voto informado para Latinoamerica"
+  title="pre.voto — Voto informado para Latinoamérica"
   description="Compara tus posiciones con las de los candidatos. Sin registro, sin datos personales."
   jsonLd={jsonLd}
 >
@@ -26,7 +26,7 @@ const jsonLd = {
     <h1 class="text-4xl md:text-4xl font-bold mb-4">
       {t("es", "home.hero")}
     </h1>
-    <p class="text-lg text-ink-soft max-w-2xl mx-auto">
+    <p class="text-lg text-ink-soft max-w-2xl mx-auto leading-relaxed">
       {t("es", "home.subtitle")}
     </p>
   </section>
@@ -46,18 +46,18 @@ const jsonLd = {
         return isActive ? (
           <a
             href={`/${code}/`}
-            class="border border-line rounded-lg p-4 hover:border-brand hover:shadow-sm transition-all text-center"
+            class="border border-line rounded-lg p-5 hover:border-brand hover:shadow-sm transition-all text-center group"
           >
             <span class="text-3xl block mb-2">{meta.flag}</span>
-            <span class="font-medium block">{meta.name.es}</span>
+            <span class="font-semibold block group-hover:text-brand transition-colors">{meta.name.es}</span>
             {electionDate && (
               <span class="text-sm text-ink-faint block mt-1">{electionDesc || electionDate}</span>
             )}
           </a>
         ) : (
-          <div class="border border-line rounded-lg p-4 opacity-50 text-center">
+          <div class="border border-line rounded-lg p-5 opacity-50 text-center">
             <span class="text-3xl block mb-2">{meta.flag}</span>
-            <span class="font-medium block">{meta.name.es}</span>
+            <span class="font-semibold block">{meta.name.es}</span>
             <span class="text-sm text-ink-faint block mt-1">
               {t("es", "common.soon")}
             </span>
@@ -81,7 +81,7 @@ const jsonLd = {
             </svg>
           </div>
           <h3 class="font-semibold mb-2">{t("es", "home.step1Title")}</h3>
-          <p class="text-sm text-ink-soft">{t("es", "home.step1Desc", { count: "8" })}</p>
+          <p class="text-sm text-ink-soft">{t("es", "home.step1Desc", { count: "20" })}</p>
         </div>
         <div class="text-center">
           <div class="w-12 h-12 mx-auto mb-4 rounded-full bg-brand/10 text-brand flex items-center justify-center">

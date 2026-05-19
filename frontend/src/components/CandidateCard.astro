@@ -18,7 +18,7 @@ const color = candidate.color || "#737373";
 
 <a
   href={`/${country}/candidatos/${candidate.slug}`}
-  class="block border border-line rounded-lg p-4 hover:border-brand hover:shadow-sm transition-all"
+  class="block border border-line rounded-lg p-4 hover:border-brand hover:shadow-sm transition-all group"
   style={`border-left: 4px solid ${color}`}
 >
   <div class="flex items-center gap-3">
@@ -40,11 +40,16 @@ const color = candidate.color || "#737373";
         {initials}
       </div>
     )}
-    <div>
-      <span class="font-medium block">{candidate.name}</span>
+    <div class="min-w-0">
+      <span class="font-semibold block group-hover:text-brand transition-colors">{candidate.name}</span>
       {(candidate.coalition || candidate.party_acronym || candidate.party) && (
-        <span class="text-sm text-ink-faint">
+        <span class="text-sm text-ink-faint block truncate">
           {candidate.coalition || candidate.party_acronym || candidate.party}
+        </span>
+      )}
+      {candidate.running_mate && (
+        <span class="text-xs text-ink-faint block truncate">
+          VP: {candidate.running_mate}
         </span>
       )}
     </div>
