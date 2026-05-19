@@ -29,3 +29,34 @@ def compute_affinity(
     if total_weight == 0:
         return 0.0
     return round((1 - weighted_distance / total_weight) * 100, 1)
+
+
+def compute_affinity_high_confidence(
+    user_answers: dict[uuid.UUID, int | None],
+    candidate_positions: dict[uuid.UUID, int],
+    high_confidence_sids: set[uuid.UUID],
+    statement_weights: dict[uuid.UUID, int],
+) -> float | None:
+    """
+    Compute affinity using ONLY positions with confidence='high'.
+
+    Returns None if candidate has no high-confidence positions that overlap
+    with the user's answered statements.
+    """
+    total_weight = 0
+    weighted_distance = 0
+    for sid, user_v in user_answers.items():
+        if user_v is None:
+            continue
+        if sid not in candidate_positions:
+            continue
+        if sid not in high_confidence_sids:
+            continue
+        cand_v = candidate_positions[sid]
+        w = statement_weights.get(sid, 1)
+        distance = abs(user_v - cand_v)
+        weighted_distance += distance * w
+        total_weight += 4 * w
+    if total_weight == 0:
+        return None
+    return round((1 - weighted_distance / total_weight) * 100, 1)

@@ -21,8 +21,10 @@ class Statement(TimestampMixin, Base):
     election_id: Mapped[uuid.UUID] = mapped_column(
         ForeignKey("elections.id"), nullable=False
     )
+    slug: Mapped[str | None] = mapped_column()
     text: Mapped[str] = mapped_column(nullable=False)
     category: Mapped[str | None] = mapped_column()
+    short_label: Mapped[str | None] = mapped_column()
     weight: Mapped[int] = mapped_column(
         Integer, server_default="1"
     )

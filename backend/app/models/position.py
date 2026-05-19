@@ -1,10 +1,17 @@
 import uuid
 from datetime import date, datetime
 
-from sqlalchemy import CheckConstraint, Date, DateTime, ForeignKey, Integer, UniqueConstraint, func
+from sqlalchemy import CheckConstraint, Date, DateTime, Enum, ForeignKey, Integer, UniqueConstraint, func
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.models.base import Base, TimestampMixin
+
+# PostgreSQL enum types — must match migration 0004
+ConfidenceLevel = Enum("high", "medium", "low", name="confidence_level", create_type=False)
+SourceType = Enum(
+    "plan_oficial", "entrevista", "cuenta_oficial", "trayectoria", "inferencia",
+    name="source_type", create_type=False,
+)
 
 
 class CandidatePosition(TimestampMixin, Base):
@@ -30,6 +37,10 @@ class CandidatePosition(TimestampMixin, Base):
     coded_by: Mapped[str | None] = mapped_column()
     coded_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), server_default=func.now())
     notes: Mapped[str | None] = mapped_column()
+
+    # Fase 8 additions
+    confidence: Mapped[str | None] = mapped_column(ConfidenceLevel)
+    source_type: Mapped[str | None] = mapped_column(SourceType)
 
     # relationships
     candidate: Mapped["Candidate"] = relationship(back_populates="positions")  # noqa: F821

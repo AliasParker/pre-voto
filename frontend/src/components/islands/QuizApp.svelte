@@ -204,24 +204,38 @@
       userAnswers[k] = v;
     }
 
-    const affinities: CandidateAffinity[] = candidates.map((c) => {
-      const positions = candidatePositions.get(c.slug) || [];
-      const candPositions: Record<string, number> = {};
-      for (const p of positions) {
-        candPositions[p.statement_id] = p.value;
-      }
-      const affinity = computeAffinity(userAnswers, candPositions, statementWeights);
-      return {
-        candidate_id: c.id,
-        slug: c.slug,
-        name: c.name,
-        party: c.party,
-        party_acronym: c.party_acronym,
-        photo_url: c.photo_url,
-        color: c.color,
-        affinity,
-      };
-    });
+    const affinities: CandidateAffinity[] = candidates
+      .filter((c) => !c.withdrawn)
+      .map((c) => {
+        const positions = candidatePositions.get(c.slug) || [];
+        const candPositions: Record<string, number> = {};
+        const highConfPositions: Record<string, number> = {};
+        for (const p of positions) {
+          candPositions[p.statement_id] = p.value;
+          if (p.confidence === "high") {
+            highConfPositions[p.statement_id] = p.value;
+          }
+        }
+        const affinity = computeAffinity(userAnswers, candPositions, statementWeights);
+        const affinityHc = Object.keys(highConfPositions).length > 0
+          ? computeAffinity(userAnswers, highConfPositions, statementWeights)
+          : null;
+        return {
+          candidate_id: c.id,
+          slug: c.slug,
+          name: c.name,
+          party: c.party,
+          party_acronym: c.party_acronym,
+          coalition: c.coalition,
+          photo_url: c.photo_url,
+          color: c.color,
+          affinity,
+          affinity_high_confidence: affinityHc,
+          high_confidence_pct: c.high_confidence_pct,
+          running_mate: c.running_mate,
+          ballot_position: c.ballot_position,
+        };
+      });
 
     affinities.sort((a, b) => b.affinity - a.affinity);
     results = affinities;
@@ -404,9 +418,9 @@
           {/if}
           <p class="text-4xl font-bold" style="color: {sharedColor}">{sharedPct}%</p>
           <p class="text-lg font-medium">{sharedCandidate.name}</p>
-          {#if sharedCandidate.party_acronym || sharedCandidate.party}
+          {#if sharedCandidate.coalition || sharedCandidate.party_acronym || sharedCandidate.party}
             <p class="text-sm text-ink-faint">
-              {sharedCandidate.party_acronym || sharedCandidate.party}
+              {sharedCandidate.coalition || sharedCandidate.party_acronym || sharedCandidate.party}
             </p>
           {/if}
         </div>
@@ -455,9 +469,9 @@
                     {result.affinity}%
                   </span>
                 </div>
-                {#if result.party_acronym || result.party}
+                {#if result.coalition || result.party_acronym || result.party}
                   <span class="text-sm text-ink-faint">
-                    {result.party_acronym || result.party}
+                    {result.coalition || result.party_acronym || result.party}
                   </span>
                 {/if}
               </div>

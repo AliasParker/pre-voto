@@ -32,9 +32,15 @@ export interface CandidateOut {
   name: string;
   party: string | null;
   party_acronym: string | null;
+  coalition: string | null;
   bio_short: string | null;
   photo_url: string | null;
   color: string | null;
+  ballot_position: number | null;
+  running_mate: string | null;
+  positioning: string | null;
+  high_confidence_pct: number | null;
+  withdrawn: boolean;
 }
 
 export interface PositionOut {
@@ -44,6 +50,9 @@ export interface PositionOut {
   source_quote: string | null;
   source_url: string | null;
   source_date: string | null;
+  confidence: string | null;
+  source_type: string | null;
+  notes: string | null;
 }
 
 export interface CandidateDetail {
@@ -52,6 +61,7 @@ export interface CandidateDetail {
   name: string;
   party: string | null;
   party_acronym: string | null;
+  coalition: string | null;
   bio_short: string | null;
   photo_url: string | null;
   photo_author: string | null;
@@ -60,12 +70,23 @@ export interface CandidateDetail {
   color: string | null;
   sources: Record<string, unknown> | unknown[];
   positions: PositionOut[];
+  ballot_position: number | null;
+  running_mate: string | null;
+  positioning: string | null;
+  age: number | null;
+  plan_url: string | null;
+  high_confidence_pct: number | null;
+  withdrawn: boolean;
+  withdrawn_date: string | null;
+  endorses: string | null;
 }
 
 export interface StatementOut {
   id: string;
   text: string;
   category: string | null;
+  slug: string | null;
+  short_label: string | null;
   weight: number;
   display_order: number | null;
 }
@@ -80,9 +101,14 @@ export interface CandidateAffinity {
   name: string;
   party: string | null;
   party_acronym: string | null;
+  coalition: string | null;
   photo_url: string | null;
   color: string | null;
   affinity: number;
+  affinity_high_confidence: number | null;
+  high_confidence_pct: number | null;
+  running_mate: string | null;
+  ballot_position: number | null;
 }
 
 export interface QuizResult {

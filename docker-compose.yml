@@ -40,6 +40,7 @@ services:
       - ./backend/migrations:/app/migrations
       - ./backend/tests:/app/tests
       - ./backend/pyproject.toml:/app/pyproject.toml:ro
+      - ./seeds:/app/seeds:ro
     networks:
       - prevoto
     depends_on:

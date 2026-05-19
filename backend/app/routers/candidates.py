@@ -22,7 +22,7 @@ async def list_candidates(
     result = await db.execute(
         select(Candidate)
         .where(Candidate.election_id == election.id)
-        .order_by(Candidate.name)
+        .order_by(Candidate.ballot_position, Candidate.name)
     )
     return result.scalars().all()
 
