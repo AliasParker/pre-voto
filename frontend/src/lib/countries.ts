@@ -15,7 +15,7 @@ export const countries: Record<string, CountryMeta> = {
     active: true,
   },
   mx: {
-    name: { es: "Mexico", "pt-BR": "Mexico" },
+    name: { es: "México", "pt-BR": "México" },
     flag: "\uD83C\uDDF2\uD83C\uDDFD",
     locale: "es",
     active: false,
@@ -33,7 +33,7 @@ export const countries: Record<string, CountryMeta> = {
     active: false,
   },
   pe: {
-    name: { es: "Peru", "pt-BR": "Peru" },
+    name: { es: "Perú", "pt-BR": "Peru" },
     flag: "\uD83C\uDDF5\uD83C\uDDEA",
     locale: "es",
     active: false,
