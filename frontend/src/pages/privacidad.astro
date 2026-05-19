@@ -7,18 +7,15 @@ import BaseLayout from "../layouts/BaseLayout.astro";
   description="Politica de privacidad de pre.voto: que datos se recopilan, como se procesan y tus derechos."
 >
   <article class="max-w-3xl mx-auto px-4 py-12">
-    <div class="bg-brand/10 text-brand-dark border border-brand/20 rounded-lg px-4 py-3 mb-8 text-sm font-medium">
-      [BORRADOR — pendiente de revision editorial]
-    </div>
-
     <h1 class="text-3xl font-bold mb-8">Privacidad</h1>
 
     <div class="prose">
       <h2>Datos que recopilamos</h2>
       <p>
         pre.voto esta disenado para funcionar sin recopilar datos personales
-        individuales. No requerimos registro, no usamos cookies de rastreo y no
-        almacenamos las respuestas del quiz de forma asociada a un usuario.
+        individuales. No requerimos registro, no almacenamos las respuestas del
+        quiz de forma asociada a un usuario, y solo usamos cookies de analitica
+        si el usuario lo autoriza expresamente.
       </p>
 
       <h2>El quiz</h2>
@@ -37,30 +34,123 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 
       <h2>Cookies y almacenamiento local</h2>
       <p>
-        Utilizamos <code>localStorage</code> unicamente para guardar tu preferencia de
-        tema (modo claro/oscuro). No utilizamos cookies de seguimiento ni cookies de
-        terceros.
+        pre.voto utiliza las siguientes cookies y mecanismos de almacenamiento local:
+      </p>
+      <ul>
+        <li>
+          <strong>Preferencia de tema</strong> (<code>prevoto-theme</code> en localStorage):
+          guarda tu eleccion de modo claro u oscuro. No se transmite a ningun servidor.
+        </li>
+        <li>
+          <strong>Consentimiento de cookies</strong> (<code>prevoto_cookie_consent</code> en localStorage):
+          registra si aceptaste o rechazaste las cookies de analitica. Valores posibles:
+          <code>accepted</code> o <code>rejected</code>.
+        </li>
+      </ul>
+
+      <h2>Google Analytics (GA4)</h2>
+      <p>
+        Si aceptas el banner de cookies, pre.voto carga Google Analytics 4
+        (propiedad <code>G-2ZPYJ7FQJV</code>) para entender que paginas son mas
+        utiles y como mejorar el contenido. Esta es la unica herramienta de analitica
+        que usamos.
+      </p>
+      <p>
+        <strong>Si rechazas el banner, Google Analytics no se carga en absoluto.</strong>
+        Ningun script de Google se ejecuta, ninguna cookie de Google se instala, y
+        ningun dato se transmite a Google. El sitio funciona exactamente igual.
+      </p>
+      <p>
+        Cuando GA4 esta activo, Google establece las siguientes cookies:
+      </p>
+      <ul>
+        <li>
+          <code>_ga</code>: identificador anonimo de usuario. Duracion: 2 anos.
+        </li>
+        <li>
+          <code>_ga_&lt;ID&gt;</code>: estado de sesion. Duracion: 2 anos.
+        </li>
+      </ul>
+      <p>
+        Usamos Google Analytics con la funcion Consent Mode v2 activada. Esto
+        significa que GA4 respeta tu decision de consentimiento y no almacena
+        datos de analitica hasta que aceptas. Las categorias de consentimiento
+        para publicidad (<code>ad_storage</code>, <code>ad_user_data</code>,
+        <code>ad_personalization</code>) estan permanentemente en "denegado"
+        porque pre.voto no muestra publicidad.
+      </p>
+      <p>
+        <strong>Datos que recopila GA4 cuando esta activo</strong>: paginas visitadas,
+        duracion de sesion, pais de origen (aproximado), tipo de dispositivo y navegador.
+        No recopilamos datos demograficos, intereses ni datos de remarketing.
+      </p>
+      <p>
+        <strong>Eventos personalizados</strong> que registramos (solo cuando GA4 esta activo):
+      </p>
+      <ul>
+        <li><code>quiz_started</code>: se registro que alguien inicio el quiz (sin datos personales).</li>
+        <li><code>quiz_completed</code>: se registro que alguien completo el quiz.</li>
+        <li><code>result_shared</code>: se registro que alguien compartio su resultado.</li>
+        <li><code>candidate_view</code>: se registro la visita a una ficha de candidato.</li>
+        <li><code>article_view</code>: se registro la visita a un articulo.</li>
+      </ul>
+      <p>
+        Ningun evento contiene informacion que permita identificar al usuario.
       </p>
 
-      <h2>Analitica</h2>
+      <h2>Compartimos datos con terceros?</h2>
       <p>
-        Registramos datos agregados y anonimos sobre el uso de la plataforma, como
-        el numero total de quizzes completados por pais, para mejorar el servicio. Estos
-        datos no permiten identificar usuarios individuales.
+        El unico tercero que recibe datos de navegacion es <strong>Google</strong>
+        (como procesador de Google Analytics), y solo si aceptas el banner de cookies.
+        No vendemos, alquilamos ni compartimos datos con ningun otro tercero.
+        No mostramos publicidad.
       </p>
 
       <h2>Newsletter</h2>
       <p>
         Si te suscribes al newsletter, almacenamos tu direccion de correo electronico
-        y el pais seleccionado. Puedes darte de baja en cualquier momento a traves del
-        enlace incluido en cada correo.
+        y el pais seleccionado a traves de Beehiiv (nuestro proveedor de email).
+        Puedes darte de baja en cualquier momento a traves del enlace incluido en
+        cada correo.
       </p>
+
+      <h2>Como revocar tu consentimiento</h2>
+      <p>
+        Podes cambiar tu decision sobre las cookies en cualquier momento:
+      </p>
+      <ul>
+        <li>
+          <strong>Borrar la cookie de consentimiento</strong>: abri las herramientas de
+          desarrollador de tu navegador, anda a Application &gt; Local Storage &gt;
+          pre.voto, y elimina la clave <code>prevoto_cookie_consent</code>. Al
+          recargar la pagina, el banner volvera a aparecer.
+        </li>
+        <li>
+          <strong>Borrar todas las cookies</strong>: en la configuracion de tu navegador,
+          busca "borrar datos de navegacion" y selecciona "cookies y datos de sitios".
+          Esto elimina tanto las cookies de GA4 como tu preferencia de consentimiento.
+        </li>
+      </ul>
 
       <h2>Tus derechos</h2>
       <p>
-        Tienes derecho a solicitar la eliminacion de tus datos (correo del newsletter)
-        en cualquier momento. Como no recopilamos datos personales del quiz, no hay datos
-        individuales que eliminar en ese contexto.
+        De acuerdo con la Ley 1581 de 2012 (Colombia) y la normativa aplicable,
+        tenes derecho a:
+      </p>
+      <ul>
+        <li>Conocer que datos tenemos sobre vos (en el caso del newsletter, tu email).</li>
+        <li>Solicitar la correccion o eliminacion de tus datos.</li>
+        <li>Revocar tu consentimiento en cualquier momento.</li>
+      </ul>
+      <p>
+        Para ejercer estos derechos, escribi a
+        <a href="mailto:hola@pre.voto">hola@pre.voto</a>.
+      </p>
+
+      <h2>Contacto</h2>
+      <p>
+        Si tenes preguntas sobre esta politica, escribi a
+        <a href="mailto:hola@pre.voto">hola@pre.voto</a>.
       </p>
     </div>
   </article>

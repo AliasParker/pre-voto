@@ -163,4 +163,9 @@ function getPositionLabel(value: number): string {
       </a>
     </div>
   </article>
+
+  <!-- GA4: candidate_view event -->
+  <script is:inline define:vars={{ candidateSlug: candidate.slug }}>
+    if (window.__pvEvent) window.__pvEvent("candidate_view", { candidate_slug: candidateSlug });
+  </script>
 </BaseLayout>

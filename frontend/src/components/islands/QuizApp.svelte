@@ -178,6 +178,11 @@
     const stmt = statements[currentIndex];
     if (!stmt) return;
 
+    // Fire quiz_started on first answer
+    if (answers.size === 0 && typeof window !== "undefined" && (window as any).__pvEvent) {
+      (window as any).__pvEvent("quiz_started", { country: country });
+    }
+
     answers.set(stmt.id, value);
     answers = new Map(answers); // trigger reactivity
 
@@ -190,6 +195,14 @@
       saveSession();
       computeResults();
       submitToServer();
+
+      // Fire quiz_completed
+      if (typeof window !== "undefined" && (window as any).__pvEvent) {
+        (window as any).__pvEvent("quiz_completed", {
+          country: country,
+          statements_answered: answers.size,
+        });
+      }
     }
   }
 
