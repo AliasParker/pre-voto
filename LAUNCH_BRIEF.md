@@ -6,6 +6,7 @@
 
 ## Changelog
 
+- **v1.2 — 19 mayo 2026 (tarde)**: correcciones de arquitectura tras inspeccionar el repo real. (a) Los 3 JSON ya están commiteados en `seeds/co_2026/`, no se piden al humano. (b) Los artículos viven en backend (tabla `articles` via `backend/app/models/article.py` + router `backend/app/routers/articles.py`), NO en Astro Content Collections. (c) URL real es `/co/articulos/:slug` en español, NO `/co/blog/:slug`. (d) Sección nueva "Estado de producción operativa" con IP, SSH, paths y aviso sobre seed demo existente. (e) Saqué la referencia confusa a "cuenta expira el 26".
 - **v1.1 — 19 mayo 2026**: actualización de porcentajes de confianza por candidato con datos reales del archivo `positions.json` validado. Reemplaza el 80%/13% original por 52%/14% promedio, con rango por candidato. Ajustes asociados en artículos 2, 3 y 5, en hilo de redes, y en pitch a periodistas (los cambios editoriales están documentados aparte, este brief solo refleja los datos correctos).
 - **v1.0 — 18 mayo 2026**: versión inicial.
 
@@ -17,10 +18,14 @@ Hola, Claude. Estás abriendo Claude Code para terminar la implementación técn
 
 1. **Leé este documento completo.** Tiene todas las decisiones ya tomadas, los datos a importar y las tareas pendientes en orden.
 2. **No reescribas el contenido editorial.** Los 5 artículos, los 20 statements, las 240 codificaciones, los 3 emails de Beehiiv y los copys de redes están **validados por el humano**. Cualquier ajuste textual menor lo proponés y esperás confirmación.
-3. **El repo es `Work-Space-Pre-Voto`.** No conocés su estructura interna. Explorala con `view` y `bash` antes de tocar archivos. La arquitectura general está descrita más abajo en la sección "Estado del proyecto", pero confirmá contra el código real.
+3. **El repo es `Work-Space-Pre-Voto`.** No conocés su estructura interna en detalle. Explorala con `view` y `bash` antes de tocar archivos. La arquitectura general está descrita más abajo, pero confirmá contra el código real. Datos clave ya verificados:
+   - Router de artículos en backend: `backend/app/routers/articles.py`
+   - Modelo de artículo: `backend/app/models/article.py`
+   - Schema: `backend/app/schemas/article.py`
+   - Páginas frontend: `frontend/src/pages/[country]/{articulos,candidatos,quiz.astro,encuestas.astro,index.astro}`
 4. **Hay restricciones legales reales (Ley 2494/2025).** No las relajes ni las simplifiques. Si tenés dudas, ver la sección "Restricciones legales".
 5. **El humano se mueve entre Claude Code (vos) y el chat web** para decisiones de producto, redacción y planificación. Si te pide algo que parece estratégico más que técnico, sugerí gentilmente que lo discuta en el chat web y volvé acá con la decisión tomada.
-6. **Tiempos**: hoy es 19 de mayo de 2026. Lanzamiento soft: 25-26 de mayo. Primera vuelta: 31 de mayo. Cuenta del humano expira el 26 de mayo. Trabajá con esa urgencia en mente.
+6. **Tiempos**: hoy es 19 de mayo de 2026. Lanzamiento soft: 26-27 de mayo. Primera vuelta: 31 de mayo. Quedan 12 días al lanzamiento y 12 días a la elección.
 
 ---
 
@@ -36,6 +41,7 @@ Hola, Claude. Estás abriendo Claude Code para terminar la implementación técn
 - **Email**: hola@pre.voto (consultas), errores@pre.voto (correcciones)
 - **Firma editorial**: "Equipo pre.voto" (el humano no quiere exponer su nombre individual por ahora)
 - **Newsletter**: Beehiiv, publication "pre.voto", plan Launch gratis
+- **Redes sociales**: cuenta X `@prevotoLATAM` ya creada por el humano.
 
 **Lo que pre.voto NO es**:
 - No es una encuesta (no mide intención de voto)
@@ -59,7 +65,8 @@ Hola, Claude. Estás abriendo Claude Code para terminar la implementación técn
 
 ### Fase 8: EN CURSO (lo que falta)
 
-- ❌ Import a DB de producción de los 12 candidatos + 20 statements + 240 codificaciones + 5 artículos
+- ❌ Import a DB de producción de los 12 candidatos + 20 statements + 240 codificaciones (datos ya en `seeds/co_2026/`)
+- ❌ Import de los 5 artículos a tabla `articles` (textos los pasa el humano cuando Claude Code los pida)
 - ❌ Disclaimers Ley 2494 en `/co/quiz`, `/co/resultados/*`, y footer global
 - ❌ Feature flag `quiz_disabled_during_veda` (backend + frontend)
 - ❌ Integración Beehiiv: trigger desde backend post-quiz → API Beehiiv con custom fields y automation_id
@@ -67,6 +74,48 @@ Hola, Claude. Estás abriendo Claude Code para terminar la implementación técn
 - ❌ Doble métrica de afinidad: con todas las posiciones / solo con confianza alta
 - ❌ QA end-to-end del flujo completo
 - ❌ Deploy final + smoke test post-deploy
+
+---
+
+## Estado de producción operativa
+
+**Importante para Claude Code**: pre.voto ya está corriendo en producción con datos demo. NO es un environment vacío. Tenés que reemplazar el seed demo por el seed real.
+
+### Acceso al server
+
+- **IP**: `157.180.44.127`
+- **Comando SSH**: `ssh -i ~/.ssh/prevoto deploy@157.180.44.127`
+- **Usuario operativo**: `deploy` (no root)
+- **Path del proyecto en el server**: `/opt/prevoto/`
+- **Path del `.env` en producción**: `/opt/prevoto/.env`
+- **Permiso explícito**: tenés autorización del humano para conectarte por SSH y operar diagnóstico/fix directamente (modo "Camino B" del trabajo de Fase 7). Para acciones destructivas, confirmar antes.
+
+### Seed demo actual en producción (a reemplazar)
+
+La DB de producción tiene actualmente un seed demo de Colombia 2026 que **debe ser reemplazado** por el seed real:
+
+- 1 país: Colombia
+- 5 candidatos demo: Alfa, Beta, Gamma, Delta, Epsilon
+- 8 statements demo
+- 40 posiciones demo
+- 5 sources demo
+
+**Consideración crítica**: tu script de import debe ser **idempotente** y manejar el caso de que ya exista una elección de Colombia 2026 en la DB. Opciones razonables: (a) borrar registros demo y reinsertar reales, (b) hacer UPSERT por slug. La decisión va contigo, pero hacelo seguro: backup de DB antes, transacción atómica, rollback si algo falla.
+
+### Disciplina de git
+
+- Branch principal: `main`
+- **NO push directo a `main`**. Siempre branch + PR + merge desde GitHub web.
+- Branch naming: `feat/fase8-<descripcion>`, `fix/fase8-<descripcion>`, `chore/<descripcion>`.
+- Conventional Commits.
+- El humano mergea los PR, no Claude Code.
+
+### Servicios externos en producción ya configurados
+
+- Cloudflare (DNS + TLS Origin Cert + WAF + cache): no tocar.
+- R2 (backups diarios automáticos a las 3 AM UTC al bucket `prevoto-backups`): operativo.
+- UptimeRobot (monitor a `https://pre.voto/api/health` cada 5 min, status page pública en https://stats.uptimerobot.com/PrvgGmP387): operativo.
+- Beehiiv: cuenta creada con publication "pre.voto", API key pendiente de configurar en `.env`.
 
 ---
 
@@ -81,7 +130,7 @@ Estas decisiones están tomadas. No las cuestiones, implementálas.
 
 ### Sobre el nivel de evidencia documental por candidato
 
-**Esta es información actualizada de v1.1. Los porcentajes reflejan el archivo `positions.json` validado.**
+**Los porcentajes reflejan el archivo `positions.json` validado en `seeds/co_2026/`.**
 
 Los porcentajes de codificaciones con **cita directa** (confianza alta) varían mucho por candidato:
 
@@ -154,16 +203,27 @@ Texto fijo del footer:
 Adicional en el footer de páginas del quiz:
 > Pre.voto NO es una encuesta de opinión electoral en el sentido de la Ley 2494 de 2025. Es una herramienta pedagógica individual.
 
-### Sobre las URLs
+### Sobre las URLs del frontend
 
 - `/` → landing pan-LATAM
 - `/co` → landing Colombia (selector de país)
 - `/co/quiz` → quiz
 - `/co/resultados/:token` → página de resultados (token único por usuario)
+- `/co/candidatos/` → listado de candidatos
 - `/co/candidatos/:slug` → ficha individual de candidato
-- `/co/blog/:slug` → artículos
+- `/co/articulos/` → listado de artículos
+- `/co/articulos/:slug` → artículo individual
+- `/co/encuestas` → página de encuestas
 - `/metodologia` → metodología general (no por país)
-- `/equipo` → "Equipo pre.voto" + valores + qué NO somos
+- `/equipo` o `/sobre` → "Equipo pre.voto" + valores + qué NO somos
+- `/privacidad` → política de privacidad
+
+**Confirmación de arquitectura frontend** (verificada contra el repo):
+- `frontend/src/pages/[country]/index.astro` → landing por país
+- `frontend/src/pages/[country]/quiz.astro` → quiz
+- `frontend/src/pages/[country]/encuestas.astro` → encuestas
+- `frontend/src/pages/[country]/candidatos/` → fichas (carpeta con rutas dinámicas)
+- `frontend/src/pages/[country]/articulos/` → artículos (carpeta con rutas dinámicas)
 
 ### Sobre la firma de los artículos
 
@@ -173,11 +233,13 @@ Todos firmados por **"Equipo pre.voto"**. Nunca por nombre individual.
 
 ## Datos a importar
 
-Los 3 archivos JSON validados están en mano del humano y se entregan a Claude Code en el momento del import:
+### Los 3 archivos JSON validados (YA en el repo)
 
-- `statements.json` — 20 statements con eje, slug, texto y label corto
-- `candidates.json` — 12 candidatos activos + 2 retirados con metadata (incluye `high_confidence_pct` por candidato)
-- `positions.json` — 240 codificaciones con posición, confianza, fuente y cita textual
+Los 3 archivos están commiteados en `seeds/co_2026/` desde el último PR (chore: add Fase 8 launch brief and Colombia 2026 seeds). Claude Code los lee directamente del filesystem, no los pide al humano:
+
+- `seeds/co_2026/statements.json` — 20 statements con eje, slug, texto y label corto
+- `seeds/co_2026/candidates.json` — 12 candidatos activos + 2 retirados con metadata (incluye `high_confidence_pct` por candidato)
+- `seeds/co_2026/positions.json` — 240 codificaciones con posición, confianza, fuente y cita textual
 
 ### Validaciones que se aplicaron al JSON antes de pasarlo
 
@@ -189,9 +251,14 @@ Los 3 archivos JSON validados están en mano del humano y se entregan a Claude C
 
 ### Estructura del schema de DB (referencia)
 
+Verificar contra el código real antes de generar la migración. Los campos esperados según el diseño del producto:
+
 - Tabla `statements`: id, slug, axis, text, short_label
 - Tabla `candidates`: id, ballot_position, slug, full_name, running_mate, coalition, age, positioning, bio_short, withdrawn (bool), withdrawn_date, endorses (FK opcional a otro candidato), plan_url, high_confidence_pct
 - Tabla `candidate_positions`: candidate_id (FK), statement_id (FK), position (enum), confidence (enum), source_quote (text nullable), source_url (text nullable), source_type (enum: plan_oficial, entrevista, cuenta_oficial, trayectoria, inferencia), notes (text nullable)
+- Tabla `articles`: ver `backend/app/models/article.py` para el schema real
+
+Si el schema actual no tiene algún campo esperado (ej: `high_confidence_pct` en `candidates`, o `confidence` enum en `candidate_positions`), Claude Code propone una migración Alembic que lo agregue antes del seed. Avisa al humano si encuentra discrepancias significativas.
 
 ### Los 5 artículos
 
@@ -205,7 +272,16 @@ Todos firmados por "Equipo pre.voto". Slugs y fechas de publicación:
 | `como-se-vota` | Cómo se vota el 31 de mayo: guía rápida del sistema electoral colombiano | 26 mayo 2026 |
 | `lanzamiento` | Por qué construimos pre.voto: una brújula electoral pan-LATAM, sin medio detrás | 27 mayo 2026 |
 
-Los textos completos los tiene el humano en el chat web. **Importante para Claude Code**: en v1.1 hubo ajustes editoriales en los artículos 3 y 5 (y en notas internas del 2) para reflejar los porcentajes reales de confianza. El humano va a pasar las versiones definitivas como archivos `.md` o `.mdx` para que las importes a `src/content/blog/`. No re-redactes los artículos vos.
+**Importante para Claude Code**: los 5 artículos NO viven en `src/content/blog/` (Astro Content Collections). Viven en la tabla `articles` del backend (model en `backend/app/models/article.py`, router en `backend/app/routers/articles.py`).
+
+**Flujo de import de artículos**:
+1. Claude Code pide al humano los 5 archivos `.md` con frontmatter (title, slug, publication_date, author "Equipo pre.voto", description ≤160 chars, country "CO").
+2. El humano los pasa como archivos individuales o como bloque.
+3. Claude Code escribe un script (`scripts/import_articles_co_2026.py` o similar) que parsea el frontmatter, lee el body markdown, y hace INSERT/UPSERT en la tabla `articles`.
+4. Los artículos renderean en `/co/articulos/:slug`.
+5. OG cards (ya implementadas en Fase 7) deben tomar el frontmatter correcto — verificar después del import.
+
+En v1.1 hubo ajustes editoriales en los artículos 3 y 5 (y en notas internas del 2) para reflejar los porcentajes reales de confianza. El humano va a pasar las versiones definitivas con esos ajustes incorporados. **No re-redactes los artículos vos**.
 
 ---
 
@@ -218,23 +294,35 @@ Los textos completos los tiene el humano en el chat web. **Importante para Claud
 - Tabla `statements` con los 20 statements
 - Tabla `candidate_positions` con 240 codificaciones (12 candidatos × 20 statements)
 - Los retirados NO tienen registros en `candidate_positions`
+- Seed demo previo (Alfa/Beta/Gamma/Delta/Epsilon) ha sido reemplazado limpiamente, no coexiste con el seed real
 - Tests del backend (que ya existen, 64+) siguen pasando después del import
-- Migración Alembic reversible
+- Operación reversible (rollback de migración o restore desde backup)
 
 **Pasos sugeridos**:
-1. Verificar el schema actual con `bash` (psql, ver tablas existentes)
-2. Pedir al humano los 3 archivos JSON (`statements.json`, `candidates.json`, `positions.json`)
-3. Generar migration Alembic con seed data (o script `scripts/seed_co_2026.py` que ejecute el seed por separado de las migrations)
-4. Aplicar a staging primero, después a producción
-5. Validar con queries SQL que el import fue completo: contar registros, verificar que cada candidato activo tenga 20 posiciones, verificar que ningún `candidate_position` apunte a un retirado
+1. Verificar el schema actual con `bash` (psql en el server, o local contra Postgres dev): ver tablas existentes, columnas, enums. Confirmar que el schema soporta los campos esperados (especialmente `high_confidence_pct`, enums de confianza y source_type, flag `withdrawn`).
+2. Leer los 3 archivos JSON de `seeds/co_2026/` y validar estructura.
+3. Si faltan columnas o enums, generar migración Alembic primero. Si el schema ya soporta todo, ir directo al seed.
+4. Script `scripts/seed_co_2026.py` idempotente que:
+   - Hace backup de DB antes de tocar nada (o asume que ya hay backup diario en R2).
+   - En una transacción atómica: borra registros del seed demo (candidatos Alfa-Epsilon + sus posiciones + statements demo si están específicamente marcados como demo), inserta los 12+2 candidatos reales, los 20 statements reales, las 240 posiciones reales.
+   - Si algo falla, rollback completo.
+5. Aplicar primero en local/staging si existe, después en producción vía SSH.
+6. Validar con queries SQL: contar registros, verificar que cada candidato activo tenga exactamente 20 posiciones, verificar que ningún `candidate_position` apunte a un retirado, verificar que `high_confidence_pct` coincide con el JSON.
 
-### Tarea 2 — Import a CMS/blog de los 5 artículos (CRÍTICO)
+### Tarea 2 — Import a DB de los 5 artículos (CRÍTICO)
 
 **Criterios de aceptación**:
-- Cada artículo en MDX o markdown según la convención del proyecto (Astro suele usar `.md` o `.mdx` en `src/content/blog/`)
-- Frontmatter con: title, slug, publication_date, author ("Equipo pre.voto"), description (preview de 160 chars), country (CO)
-- Renderizan en `/co/blog/:slug`
-- OG cards funcionan (ya implementadas en Fase 7, solo verificar que toman el frontmatter correcto)
+- 5 filas en la tabla `articles` con frontmatter parseado correctamente.
+- Renderean en `/co/articulos/:slug` (verificar los 5 slugs).
+- OG cards funcionan (ya implementadas en Fase 7, solo verificar que toman los campos correctos).
+- Listado en `/co/articulos/` muestra los 5 ordenados por fecha de publicación.
+
+**Pasos sugeridos**:
+1. Mirar el schema real de la tabla `articles` (en `backend/app/models/article.py`) para conocer los campos exactos.
+2. Pedir al humano los 5 archivos `.md` con frontmatter. El humano los va a pasar uno por uno o como bloque.
+3. Escribir `scripts/import_articles_co_2026.py` que parsea cada `.md`, separa frontmatter (YAML) del body (markdown), valida los campos requeridos, y hace UPSERT por slug+country.
+4. Aplicar en producción vía SSH.
+5. Verificar visualmente en https://pre.voto/co/articulos/ que los 5 renderean.
 
 **Importante**: pedir los textos al humano en el chat web. No inventes el contenido. Los textos definitivos incorporan los ajustes editoriales de v1.1.
 
@@ -242,7 +330,7 @@ Los textos completos los tiene el humano en el chat web. **Importante para Claud
 
 **Criterios de aceptación**:
 - **Footer global** (todas las páginas): texto fijo de pre.voto (ver "Decisiones de producto")
-- **Footer de `/co/quiz`, `/co/resultados/*`, `/co/candidatos/*`**: adicional sobre Ley 2494
+- **Footer de `/co/quiz`, `/co/resultados/*`, `/co/candidatos/*`, `/co/articulos/*`**: adicional sobre Ley 2494
 - **Aviso destacado** al inicio de `/co/quiz` antes del primer statement:
   > Pre.voto es una herramienta pedagógica individual. No es una encuesta de opinión electoral. Tu resultado es para tu uso personal y no se agrega ni se publica como estadística colectiva.
 - Aviso destacado en `/co/resultados/:token`:
@@ -329,7 +417,8 @@ Hasta que la automation esté creada, no se puede testear end-to-end. Pero el c�
   - [ ] El aviso especial para Macollins se muestra en su ficha
   - [ ] El aviso para candidatos con <30% high se muestra correctamente
   - [ ] El link a cada ficha funciona
-  - [ ] Los 5 artículos renderean
+  - [ ] Los 5 artículos renderean en `/co/articulos/:slug`
+  - [ ] El listado `/co/articulos/` muestra los 5 artículos
   - [ ] OG cards de cada artículo y de cada resultado pasan Twitter Card Validator
   - [ ] Disclaimers Ley 2494 visibles en footer y página de quiz
   - [ ] Aviso de candidatos retirados visible en el quiz
@@ -344,12 +433,14 @@ Hasta que la automation esté creada, no se puede testear end-to-end. Pero el c�
 ### Tarea 8 — Deploy final + smoke test
 
 **Criterios de aceptación**:
-- Backup pre-deploy de la DB de producción
+- Backup pre-deploy de la DB de producción (si no hay confianza en el backup diario reciente, forzar uno manual antes de aplicar la migración)
 - Push a `main` → CI/CD a producción Hetzner
 - Smoke test post-deploy:
-  - [ ] Homepage carga
-  - [ ] `/co` carga
+  - [ ] Homepage carga (https://pre.voto)
+  - [ ] `/co` carga (https://pre.voto/co)
   - [ ] `/co/quiz` funciona
+  - [ ] `/co/articulos/` lista los 5 artículos
+  - [ ] `/co/candidatos/` lista los 12 candidatos activos
   - [ ] Crear un quiz completo desde un browser real
   - [ ] Recibir el email de Beehiiv (a una cuenta de test)
 - Notificar al humano cuando esté listo para anuncio público
@@ -358,13 +449,14 @@ Hasta que la automation esté creada, no se puede testear end-to-end. Pero el c�
 
 ## Configuración crítica
 
-### Variables de entorno (`.env` en producción)
+### Variables de entorno (`.env` en producción, path `/opt/prevoto/.env`)
 
 Las que ya existen (no tocar):
 - `DATABASE_URL`
 - `SECRET_KEY`
 - `CORS_ALLOWED_ORIGINS`
 - `R2_*` (backups)
+- `ADMIN_API_KEY`
 
 Nuevas que hay que agregar:
 - `BEEHIIV_API_KEY` (secret, el humano la va a pasar)
@@ -436,6 +528,8 @@ Cosas que **no** debe hacer Claude Code, aunque parezcan razonables:
 - **No abrir cuenta de Instagram automatizada** ni "auto-generar" contenido para redes. Las redes las maneja el humano.
 - **No habilitar donaciones** todavía. Es una decisión que el humano va a tomar después de julio.
 - **No "ajustar hacia arriba" los niveles de confianza** de las codificaciones para que cuadren con porcentajes promedio mejores. La distribución actual es honesta y refleja la materia prima disponible. Si una codificación parece subestimada, hay un proceso: el humano propone la revisión en el chat web con la fuente nueva, y se actualiza.
+- **No mover los artículos a `src/content/blog/`** ni a Astro Content Collections. Los artículos viven en la tabla `articles` del backend, no como archivos estáticos en el frontend. Si dudás, mirá `backend/app/models/article.py` y `backend/app/routers/articles.py`.
+- **No usar `/co/blog/` como URL**. La URL real en el frontend es `/co/articulos/` (en español). Verificá contra `frontend/src/pages/[country]/articulos/`.
 
 ---
 
@@ -450,6 +544,7 @@ Cosas que **no** debe hacer Claude Code, aunque parezcan razonables:
 - **Confianza alta/media/baja**: en el contexto de codificaciones, mide qué tan respaldada está una posición. Alta = cita directa al candidato. Media = inferida de línea explícita. Baja = inferida sin cita específica.
 - **`high_confidence_pct`**: campo en `candidates.json` con el porcentaje de codificaciones del candidato que están marcadas con confianza alta. Es el dato que se muestra al usuario como "% de respaldo documental".
 - **Posicionamiento**: etiqueta descriptiva (no evaluativa) que pre.voto le asigna a cada candidato. Ejemplos: "el outsider de la mano dura", "el matemático del centro". **Importante**: no son juicios, son descripciones funcionales.
+- **Seed demo**: registros de candidatos Alfa/Beta/Gamma/Delta/Epsilon + 8 statements de prueba que actualmente están en producción y deben ser reemplazados por los datos reales de Colombia 2026.
 
 ---
 
@@ -462,8 +557,9 @@ Esto va a Claude Code (vos), no al humano:
 - Configuración de CI/CD
 - Optimización de queries SQL
 - Estilos CSS y mejoras de UX menores
+- Diagnóstico y fix en producción vía SSH (no destructivos)
 
-Esto va al humano (chat web o WhatsApp si está habilitado):
+Esto va al humano (chat web):
 - Cualquier decisión sobre **contenido editorial** (texto, codificaciones, posiciones)
 - Cambios al diseño de cálculo de afinidad
 - Decisiones sobre Brasil/México/Argentina
@@ -471,6 +567,7 @@ Esto va al humano (chat web o WhatsApp si está habilitado):
 - Quejas de candidatos o sus campañas
 - Errores reportados a errores@pre.voto que parecen sustanciales
 - Decisiones de presupuesto (compra de herramientas, contratación)
+- Cualquier acción destructiva en producción (DROP, DELETE masivos, override de seed)
 
 ---
 
@@ -480,12 +577,13 @@ Esto va al humano (chat web o WhatsApp si está habilitado):
 - Repo: `github.com/AliasParker/Work-Space-Pre-Voto`
 - Producción: https://pre.voto
 - Email proyecto: hola@pre.voto
+- Server: `ssh -i ~/.ssh/prevoto deploy@157.180.44.127`, path `/opt/prevoto/`
 
 ---
 
 ## Última actualización
 
-- **Fecha**: 19 de mayo de 2026
-- **Versión**: 1.1
+- **Fecha**: 19 de mayo de 2026 (tarde)
+- **Versión**: 1.2
 - **Por**: Equipo pre.voto (asistencia editorial Claude vía chat web)
 - **Próxima revisión**: post-lanzamiento (31 de mayo de 2026)
