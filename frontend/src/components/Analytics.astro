@@ -1,0 +1,78 @@
+---
+/**
+ * GA4 with Consent Mode v2.
+ *
+ * - Sets all consent categories to "denied" by default.
+ * - Listens for `cookie-consent-changed` CustomEvent from CookieBanner.
+ * - Only loads the gtag.js script when the user accepts.
+ * - On page load, checks localStorage for prior acceptance.
+ * - Fires custom events: quiz_started, quiz_completed, result_shared,
+ *   candidate_view, article_view, with country_focus dimension.
+ */
+const GA4_ID = import.meta.env.PUBLIC_GA4_MEASUREMENT_ID;
+---
+
+{GA4_ID && (
+  <script is:inline define:vars={{ GA4_ID }}>
+    // --- Consent Mode v2 defaults (before any gtag loads) ---
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag("consent", "default", {
+      ad_storage: "denied",
+      ad_user_data: "denied",
+      ad_personalization: "denied",
+      analytics_storage: "denied",
+      wait_for_update: 500,
+    });
+
+    // --- Country focus dimension from URL ---
+    var pathParts = window.location.pathname.split("/").filter(Boolean);
+    var countryFocus = (pathParts.length > 0 && pathParts[0].length === 2)
+      ? pathParts[0]
+      : "global";
+
+    // --- Load gtag.js script dynamically ---
+    var gtagLoaded = false;
+    function loadGtag() {
+      if (gtagLoaded) return;
+      gtagLoaded = true;
+      var s = document.createElement("script");
+      s.async = true;
+      s.src = "https://www.googletagmanager.com/gtag/js?id=" + GA4_ID;
+      document.head.appendChild(s);
+      gtag("js", new Date());
+      gtag("config", GA4_ID, {
+        country_focus: countryFocus,
+      });
+    }
+
+    // --- Handle consent ---
+    function handleConsent(consent) {
+      if (consent === "accepted") {
+        gtag("consent", "update", {
+          analytics_storage: "granted",
+        });
+        loadGtag();
+      }
+      // ad_* stays "denied" always — we don't use Ads
+    }
+
+    // Check stored preference on page load
+    var stored = localStorage.getItem("prevoto_cookie_consent");
+    if (stored === "accepted") {
+      handleConsent("accepted");
+    }
+
+    // Listen for banner events
+    window.addEventListener("cookie-consent-changed", function (e) {
+      handleConsent(e.detail.consent);
+    });
+
+    // --- Custom event helpers ---
+    window.__pvEvent = function (name, params) {
+      if (typeof gtag === "function" && gtagLoaded) {
+        gtag("event", name, Object.assign({ country_focus: countryFocus }, params || {}));
+      }
+    };
+  </script>
+)}

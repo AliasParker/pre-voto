@@ -6,6 +6,7 @@
 
 ## Changelog
 
+- **v1.3 — 19 mayo 2026 (noche)**: decisiones de producto finalizadas y tracking implementado. (a) Proyecto confirmado como **Proyecto A: cívico independiente** — monetización por donaciones (Stripe + Mercado Pago a futuro), sin Ads. (b) GA4 implementado con Consent Mode v2 (measurement ID `G-2ZPYJ7FQJV`), banner de cookies con consentimiento explícito, página de privacidad actualizada. (c) Stripe en test mode con cuenta MX individual, monedas USD+MXN habilitadas, COP/BRL/ARS posteriores. (d) Mercado Pago pendiente de activación (no bloqueante). (e) Schema migration + seed real de CO 2026 aplicados (PR #16 mergeado). (f) Inventario de servicios documentado en `docs/services-inventory.md`.
 - **v1.2 — 19 mayo 2026 (tarde)**: correcciones de arquitectura tras inspeccionar el repo real. (a) Los 3 JSON ya están commiteados en `seeds/co_2026/`, no se piden al humano. (b) Los artículos viven en backend (tabla `articles` via `backend/app/models/article.py` + router `backend/app/routers/articles.py`), NO en Astro Content Collections. (c) URL real es `/co/articulos/:slug` en español, NO `/co/blog/:slug`. (d) Sección nueva "Estado de producción operativa" con IP, SSH, paths y aviso sobre seed demo existente. (e) Saqué la referencia confusa a "cuenta expira el 26".
 - **v1.1 — 19 mayo 2026**: actualización de porcentajes de confianza por candidato con datos reales del archivo `positions.json` validado. Reemplaza el 80%/13% original por 52%/14% promedio, con rango por candidato. Ajustes asociados en artículos 2, 3 y 5, en hilo de redes, y en pitch a periodistas (los cambios editoriales están documentados aparte, este brief solo refleja los datos correctos).
 - **v1.0 — 18 mayo 2026**: versión inicial.
@@ -47,7 +48,7 @@ Hola, Claude. Estás abriendo Claude Code para terminar la implementación técn
 - No es una encuesta (no mide intención de voto)
 - No es un medio (no tiene redacción)
 - No es un partido (no recomienda voto)
-- No es un negocio (no monetiza)
+- No es un negocio (se financia por donaciones voluntarias, sin publicidad ni contenido patrocinado)
 
 ---
 
@@ -583,7 +584,7 @@ Esto va al humano (chat web):
 
 ## Última actualización
 
-- **Fecha**: 19 de mayo de 2026 (tarde)
-- **Versión**: 1.2
+- **Fecha**: 19 de mayo de 2026 (noche)
+- **Versión**: 1.3
 - **Por**: Equipo pre.voto (asistencia editorial Claude vía chat web)
 - **Próxima revisión**: post-lanzamiento (31 de mayo de 2026)

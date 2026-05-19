@@ -108,4 +108,9 @@ const jsonLd = {
       <NewsletterSignup country={country.code} />
     </div>
   </article>
+
+  <!-- GA4: article_view event -->
+  <script is:inline define:vars={{ articleSlug: article.slug }}>
+    if (window.__pvEvent) window.__pvEvent("article_view", { article_slug: articleSlug });
+  </script>
 </BaseLayout>

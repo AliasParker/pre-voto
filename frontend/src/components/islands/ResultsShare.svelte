@@ -34,6 +34,9 @@
       await navigator.clipboard.writeText(url);
       copied = true;
       setTimeout(() => (copied = false), 2000);
+      if (typeof window !== "undefined" && (window as any).__pvEvent) {
+        (window as any).__pvEvent("result_shared", { method: "copy_link" });
+      }
     } catch {}
   }
 </script>
@@ -47,6 +50,7 @@
       rel="noopener noreferrer"
       class="flex items-center gap-2 px-3 py-2 bg-[#25D366]/10 text-[#25D366] rounded-lg text-sm hover:bg-[#25D366]/20 transition-colors"
       aria-label="Compartir en WhatsApp"
+      onclick={() => { if (typeof window !== "undefined" && (window as any).__pvEvent) (window as any).__pvEvent("result_shared", { method: "whatsapp" }); }}
     >
       <MessageCircle size={16} />
       <span>WhatsApp</span>
@@ -57,6 +61,7 @@
       rel="noopener noreferrer"
       class="flex items-center gap-2 px-3 py-2 bg-ink/5 text-ink-soft rounded-lg text-sm hover:bg-ink/10 transition-colors"
       aria-label="Compartir en X"
+      onclick={() => { if (typeof window !== "undefined" && (window as any).__pvEvent) (window as any).__pvEvent("result_shared", { method: "x" }); }}
     >
       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
       <span>X</span>
@@ -67,6 +72,7 @@
       rel="noopener noreferrer"
       class="flex items-center gap-2 px-3 py-2 bg-[#0088cc]/10 text-[#0088cc] rounded-lg text-sm hover:bg-[#0088cc]/20 transition-colors"
       aria-label="Compartir en Telegram"
+      onclick={() => { if (typeof window !== "undefined" && (window as any).__pvEvent) (window as any).__pvEvent("result_shared", { method: "telegram" }); }}
     >
       <Send size={16} />
       <span>Telegram</span>
