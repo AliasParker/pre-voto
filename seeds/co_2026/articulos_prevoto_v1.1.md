@@ -308,7 +308,7 @@ description: "Guía corta y desideologizada de lo que conviene saber antes de sa
 
 *Por Equipo pre.voto · Publicado el 26 de mayo de 2026*
 
-**Faltan cinco días para la primera vuelta presidencial. Más de 41 millones de colombianos están habilitados para votar. Esta es una guía corta y desideologizada de lo que conviene saber antes de salir al puesto, sin importar a quién pienses votar: dónde, cuándo, cómo se cuenta, qué pasa con el voto en blanco y con las casillas de quienes renunciaron, qué dice la Ley 2494 sobre lo que se puede y no se puede publicar antes del día de la elección, y qué viene después.**
+**Faltan cinco días para la primera vuelta presidencial. Más de 41.4 millones de colombianos están habilitados para votar. Esta es una guía corta y desideologizada de lo que conviene saber antes de salir al puesto, sin importar a quién pienses votar: dónde, cuándo, cómo se cuenta, qué pasa con el voto en blanco y con las casillas de quienes renunciaron, qué dice la Ley 2494 sobre lo que se puede y no se puede publicar antes del día de la elección, y qué viene después.**
 
 ## Cuándo y dónde
 
