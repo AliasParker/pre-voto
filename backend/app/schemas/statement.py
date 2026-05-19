@@ -7,5 +7,7 @@ class StatementCreate(BaseModel):
     election_id: uuid.UUID
     text: str
     category: str | None = None
+    slug: str | None = None
+    short_label: str | None = None
     weight: int = 1
     display_order: int | None = None

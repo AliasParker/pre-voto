@@ -3,6 +3,7 @@ from app.models.base import Base
 from app.models.candidate import Candidate
 from app.models.country import Country
 from app.models.election import Election
+from app.models.feature_flag import FeatureFlag
 from app.models.news_item import NewsItem
 from app.models.newsletter_send import NewsletterSend
 from app.models.poll import Poll
@@ -28,4 +29,5 @@ __all__ = [
     "PollAverage",
     "Subscriber",
     "QuizCompletion",
+    "FeatureFlag",
 ]

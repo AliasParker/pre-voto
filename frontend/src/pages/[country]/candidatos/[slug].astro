@@ -81,10 +81,15 @@ function getPositionLabel(value: number): string {
       )}
       <div>
         <h1 class="text-3xl font-bold">{candidate.name}</h1>
-        {(candidate.party_acronym || candidate.party) && (
+        {(candidate.coalition || candidate.party_acronym || candidate.party) && (
           <p class="text-ink-soft text-lg">
-            {candidate.party}
+            {candidate.coalition || candidate.party}
             {candidate.party_acronym && ` (${candidate.party_acronym})`}
+          </p>
+        )}
+        {candidate.running_mate && (
+          <p class="text-ink-soft text-sm">
+            Fórmula VP: {candidate.running_mate}
           </p>
         )}
         {candidate.bio_short && (

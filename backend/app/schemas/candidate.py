@@ -12,9 +12,15 @@ class CandidateOut(BaseModel):
     name: str
     party: str | None = None
     party_acronym: str | None = None
+    coalition: str | None = None
     bio_short: str | None = None
     photo_url: str | None = None
     color: str | None = None
+    ballot_position: int | None = None
+    running_mate: str | None = None
+    positioning: str | None = None
+    high_confidence_pct: int | None = None
+    withdrawn: bool = False
 
 
 class PositionOut(BaseModel):
@@ -26,6 +32,9 @@ class PositionOut(BaseModel):
     source_quote: str | None = None
     source_url: str | None = None
     source_date: date | None = None
+    confidence: str | None = None
+    source_type: str | None = None
+    notes: str | None = None
 
 
 class CandidateDetail(BaseModel):
@@ -36,6 +45,7 @@ class CandidateDetail(BaseModel):
     name: str
     party: str | None = None
     party_acronym: str | None = None
+    coalition: str | None = None
     bio_short: str | None = None
     photo_url: str | None = None
     photo_author: str | None = None
@@ -44,6 +54,15 @@ class CandidateDetail(BaseModel):
     color: str | None = None
     sources: dict | list = []
     positions: list[PositionOut] = []
+    ballot_position: int | None = None
+    running_mate: str | None = None
+    positioning: str | None = None
+    age: int | None = None
+    plan_url: str | None = None
+    high_confidence_pct: int | None = None
+    withdrawn: bool = False
+    withdrawn_date: date | None = None
+    endorses: str | None = None
 
 
 class CandidateCreate(BaseModel):
@@ -52,6 +71,7 @@ class CandidateCreate(BaseModel):
     name: str
     party: str | None = None
     party_acronym: str | None = None
+    coalition: str | None = None
     bio_short: str | None = None
     photo_url: str | None = None
     color: str | None = None
@@ -61,6 +81,7 @@ class CandidateUpdate(BaseModel):
     name: str | None = None
     party: str | None = None
     party_acronym: str | None = None
+    coalition: str | None = None
     bio_short: str | None = None
     photo_url: str | None = None
     photo_author: str | None = None

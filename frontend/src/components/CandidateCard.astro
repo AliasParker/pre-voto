@@ -42,9 +42,9 @@ const color = candidate.color || "#737373";
     )}
     <div>
       <span class="font-medium block">{candidate.name}</span>
-      {(candidate.party_acronym || candidate.party) && (
+      {(candidate.coalition || candidate.party_acronym || candidate.party) && (
         <span class="text-sm text-ink-faint">
-          {candidate.party_acronym || candidate.party}
+          {candidate.coalition || candidate.party_acronym || candidate.party}
         </span>
       )}
     </div>

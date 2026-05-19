@@ -1,4 +1,5 @@
 import hashlib
+from datetime import date
 
 from fastapi import APIRouter, Depends, Request
 from sqlalchemy import select
@@ -13,7 +14,7 @@ from app.models.election import Election
 from app.models.quiz_completion import QuizCompletion
 from app.models.statement import Statement
 from app.schemas.quiz import CandidateAffinity, QuizResult, QuizSubmitRequest, StatementOut
-from app.services.matching import compute_affinity
+from app.services.matching import compute_affinity, compute_affinity_high_confidence
 
 router = APIRouter(prefix="/quiz", tags=["quiz"])
 
@@ -41,11 +42,14 @@ async def submit_quiz(
 ):
     _, election = country_election
 
-    # Fetch candidates with their positions
+    # Fetch candidates with their positions — exclude withdrawn
     result = await db.execute(
         select(Candidate)
         .options(selectinload(Candidate.positions))
-        .where(Candidate.election_id == election.id)
+        .where(
+            Candidate.election_id == election.id,
+            Candidate.withdrawn == False,  # noqa: E712
+        )
     )
     candidates = result.scalars().all()
 
@@ -56,11 +60,20 @@ async def submit_quiz(
     statements = stmt_result.scalars().all()
     statement_weights = {s.id: s.weight for s in statements}
 
-    # Compute affinity per candidate
+    # Compute affinity per candidate (both metrics)
     affinities: list[CandidateAffinity] = []
     for candidate in candidates:
         cand_positions = {p.statement_id: p.value for p in candidate.positions}
+        high_confidence_sids = {
+            p.statement_id for p in candidate.positions
+            if p.confidence == "high"
+        }
+
         affinity = compute_affinity(body.answers, cand_positions, statement_weights)
+        affinity_hc = compute_affinity_high_confidence(
+            body.answers, cand_positions, high_confidence_sids, statement_weights,
+        )
+
         affinities.append(
             CandidateAffinity(
                 candidate_id=candidate.id,
@@ -68,9 +81,14 @@ async def submit_quiz(
                 name=candidate.name,
                 party=candidate.party,
                 party_acronym=candidate.party_acronym,
+                coalition=candidate.coalition,
                 photo_url=candidate.photo_url,
                 color=candidate.color,
                 affinity=affinity,
+                affinity_high_confidence=affinity_hc,
+                high_confidence_pct=candidate.high_confidence_pct,
+                running_mate=candidate.running_mate,
+                ballot_position=candidate.ballot_position,
             )
         )
 
@@ -85,7 +103,6 @@ async def submit_quiz(
     if not ip and request.client:
         ip = request.client.host
     ua = request.headers.get("user-agent", "")
-    from datetime import date
 
     day_str = date.today().isoformat()
     session_hash = hashlib.sha256(f"{ip}{ua}{day_str}".encode()).hexdigest()[:16]
