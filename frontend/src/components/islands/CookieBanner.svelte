@@ -45,7 +45,7 @@
       <p class="text-sm text-ink-soft flex-1">
         Pre.voto usa cookies de Google Analytics para entender qué páginas son útiles.
         No vendemos datos ni mostramos publicidad.
-        Podés rechazar y el sitio funciona igual.
+        Puedes rechazar y el sitio funciona igual.
       </p>
       <div class="flex items-center gap-2 flex-shrink-0">
         <button
