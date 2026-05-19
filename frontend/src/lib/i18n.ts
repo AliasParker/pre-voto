@@ -124,6 +124,15 @@ const translations: Record<Locale, Record<string, string>> = {
     // Footer
     "footer.license": "Contenido bajo licencia CC-BY 4.0",
     "footer.github": "Codigo fuente",
+    "footer.description":
+      "Brujula electoral independiente para Latinoamerica. Compara tus posiciones con las de los candidatos.",
+    "footer.navTitle": "Navegacion",
+    "footer.contactTitle": "Contacto",
+    "footer.support": "Apoyar",
+    "footer.independence":
+      "Pre.voto es una iniciativa independiente, sin afiliacion partidaria, sin pauta comercial y sin contenido patrocinado. Para consultas: hola@pre.voto. Para corregir errores: errores@pre.voto.",
+    "footer.ley2494":
+      "Pre.voto NO es una encuesta de opinion electoral en el sentido de la Ley 2494 de 2025. Es una herramienta pedagogica individual.",
 
     // Disclaimer
     "disclaimer.quiz":
@@ -263,6 +272,15 @@ const translations: Record<Locale, Record<string, string>> = {
     // Footer
     "footer.license": "Conteudo sob licenca CC-BY 4.0",
     "footer.github": "Codigo fonte",
+    "footer.description":
+      "Bussola eleitoral independente para a America Latina. Compare suas posicoes com as dos candidatos.",
+    "footer.navTitle": "Navegacao",
+    "footer.contactTitle": "Contato",
+    "footer.support": "Apoiar",
+    "footer.independence":
+      "Pre.voto e uma iniciativa independente, sem afiliacao partidaria, sem publicidade e sem conteudo patrocinado. Para consultas: hola@pre.voto. Para corrigir erros: errores@pre.voto.",
+    "footer.ley2494":
+      "Pre.voto NAO e uma pesquisa de opiniao eleitoral. E uma ferramenta pedagogica individual.",
 
     // Disclaimer
     "disclaimer.quiz":
