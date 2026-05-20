@@ -144,10 +144,25 @@ const translations: Record<Locale, Record<string, string>> = {
     // Disclaimer
     "disclaimer.quiz":
       "Esta herramienta es un instrumento pedagógico, no una encuesta ni una recomendación de voto. Los resultados reflejan la cercanía entre tus respuestas y las posiciones documentadas de los candidatos. Verifica siempre las fuentes originales.",
+    "disclaimer.ley2494Quiz":
+      "Pre.voto es una herramienta pedagógica individual. No es una encuesta de opinión electoral en el sentido de la Ley 2494 de 2025. Tu resultado es para tu uso personal y no se agrega ni se publica como estadística colectiva. Pre.voto no mide intención de voto.",
+    "disclaimer.withdrawnTitle": "Sobre el tarjetón",
+    "disclaimer.withdrawnCandidates":
+      "Dos candidatos del tarjetón presidencial — Clara López (casilla 2) y Luis Gilberto Murillo (casilla 14) — renunciaron a su candidatura y sus votos no se cuentan a su nombre. Pre.voto no los incluye en este quiz porque ya no están en contienda activa.",
+    "disclaimer.resultsTitle": "Cómo interpretar este resultado",
+    "disclaimer.resultsInterpretation":
+      "Este resultado representa tu coincidencia con las posiciones declaradas o inferidas de cada candidato sobre 20 temas específicos. No es una recomendación de voto. Variables como viabilidad electoral, confianza en el equipo, manejo de crisis, o pesos personales por tema no entran al cálculo. La decisión final es tuya.",
     "disclaimer.polls":
       "Los promedios se calculan con ponderación por fecha y tamaño de muestra. Las encuestas tienen márgenes de error y limitaciones metodológicas. No son predicciones.",
     "disclaimer.methodology":
       "La metodología está en revisión continua. Si encuentras un error o quieres sugerir mejoras, abre un issue en GitHub.",
+
+    // Candidates — withdrawn
+    "candidates.withdrawnTitle": "Candidatura retirada",
+    "candidates.withdrawnNotice":
+      "{name} renunció a su candidatura. Su nombre permanece en el tarjetón porque ya estaba impreso, pero los votos en su casilla no se cuentan a su nombre. Sus posiciones no están codificadas en pre.voto porque ya no participa de la contienda activa.",
+    "candidates.endorses":
+      "{name} apoya públicamente la candidatura de {endorsee}.",
 
     // Position values
     "position.-2": "Totalmente en desacuerdo",
@@ -299,10 +314,25 @@ const translations: Record<Locale, Record<string, string>> = {
     // Disclaimer
     "disclaimer.quiz":
       "Esta ferramenta é um instrumento pedagógico, não uma pesquisa nem uma recomendação de voto. Os resultados refletem a proximidade entre suas respostas e as posições documentadas dos candidatos. Verifique sempre as fontes originais.",
+    "disclaimer.ley2494Quiz":
+      "Pre.voto é uma ferramenta pedagógica individual. Não é uma pesquisa de opinião eleitoral. Seu resultado é para uso pessoal e não é agregado nem publicado como estatística coletiva. Pre.voto não mede intenção de voto.",
+    "disclaimer.withdrawnTitle": "Sobre a cédula",
+    "disclaimer.withdrawnCandidates":
+      "Dois candidatos da cédula presidencial renunciaram à sua candidatura e seus votos não são contabilizados em seu nome. Pre.voto não os inclui neste quiz porque não estão mais na disputa ativa.",
+    "disclaimer.resultsTitle": "Como interpretar este resultado",
+    "disclaimer.resultsInterpretation":
+      "Este resultado representa sua coincidência com as posições declaradas ou inferidas de cada candidato sobre 20 temas específicos. Não é uma recomendação de voto. Variáveis como viabilidade eleitoral, confiança na equipe, gestão de crises ou pesos pessoais por tema não entram no cálculo. A decisão final é sua.",
     "disclaimer.polls":
       "As médias são calculadas com ponderação por data e tamanho da amostra. As pesquisas possuem margens de erro e limitações metodológicas. Não são previsões.",
     "disclaimer.methodology":
       "A metodologia está em revisão contínua. Se encontrar um erro ou quiser sugerir melhorias, abra uma issue no GitHub.",
+
+    // Candidates — withdrawn
+    "candidates.withdrawnTitle": "Candidatura retirada",
+    "candidates.withdrawnNotice":
+      "{name} renunciou à sua candidatura. Seu nome permanece na cédula porque já estava impresso, mas os votos em sua posição não são contabilizados em seu nome. Suas posições não estão codificadas no pre.voto porque não participa mais da disputa ativa.",
+    "candidates.endorses":
+      "{name} apoia publicamente a candidatura de {endorsee}.",
 
     // Position values
     "position.-2": "Discordo totalmente",

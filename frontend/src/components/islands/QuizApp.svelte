@@ -335,15 +335,36 @@
         <span class="bg-paper-warm px-3 py-1 rounded-full">{t(locale, "quiz.localProcessing")}</span>
       </div>
 
+      <!-- Bloque A: Ley 2494 disclaimer -->
+      <div class="mt-8 max-w-lg mx-auto text-left">
+        <aside class="bg-ocre/5 border border-ocre/30 rounded-lg px-6 py-5">
+          <p class="text-sm leading-relaxed text-ink-soft">
+            {t(locale, "disclaimer.ley2494Quiz")}
+          </p>
+        </aside>
+      </div>
+
+      <!-- Bloque B: Withdrawn candidates -->
+      <div class="mt-4 max-w-lg mx-auto text-left">
+        <aside class="bg-paper-warm border border-steel/20 rounded-lg px-6 py-5">
+          <p class="text-sm font-semibold text-ink mb-1">
+            {t(locale, "disclaimer.withdrawnTitle")}
+          </p>
+          <p class="text-sm leading-relaxed text-ink-soft">
+            {t(locale, "disclaimer.withdrawnCandidates")}
+          </p>
+        </aside>
+      </div>
+
       <button
         onclick={() => { screen = "quiz"; saveSession(); }}
-        class="px-8 py-3 bg-brand text-white rounded-lg font-medium text-lg hover:bg-brand-dark transition-colors"
+        class="mt-8 px-8 py-3 bg-brand text-white rounded-lg font-medium text-lg hover:bg-brand-dark transition-colors"
       >
         {t(locale, "quiz.start")}
       </button>
 
-      <div class="mt-8 max-w-md mx-auto">
-        <aside class="bg-paper-warm border border-line rounded-lg p-4 text-sm text-ink-soft text-left">
+      <div class="mt-6 max-w-md mx-auto">
+        <aside class="text-xs text-ink-faint text-left leading-relaxed">
           <p>{t(locale, "disclaimer.quiz")}</p>
         </aside>
       </div>
