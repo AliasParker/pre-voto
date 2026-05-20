@@ -1,7 +1,7 @@
 import hashlib
 from datetime import date
 
-from fastapi import APIRouter, Depends, Request
+from fastapi import APIRouter, Depends, HTTPException, Request
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import selectinload
@@ -15,6 +15,7 @@ from app.models.quiz_completion import QuizCompletion
 from app.models.statement import Statement
 from app.schemas.quiz import CandidateAffinity, QuizResult, QuizSubmitRequest, StatementOut
 from app.services.matching import compute_affinity, compute_affinity_high_confidence
+from app.services.veda import is_quiz_disabled
 
 router = APIRouter(prefix="/quiz", tags=["quiz"])
 
@@ -40,7 +41,14 @@ async def submit_quiz(
     country_election: tuple[Country, Election] = Depends(get_country_with_election),
     db: AsyncSession = Depends(get_db),
 ):
-    _, election = country_election
+    country_obj, election = country_election
+
+    # Veda check — quiz disabled during election day voting hours
+    if is_quiz_disabled(country_obj.code):
+        raise HTTPException(
+            status_code=423,
+            detail="Quiz is temporarily disabled during the electoral veda period",
+        )
 
     # Fetch candidates with their positions — exclude withdrawn
     result = await db.execute(

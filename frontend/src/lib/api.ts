@@ -128,6 +128,14 @@ export async function fetchArticlePreview(
   );
 }
 
+export async function fetchQuizStatus(
+  country: string,
+): Promise<{ quiz_disabled: boolean } | null> {
+  return apiFetch<{ quiz_disabled: boolean }>(
+    `/feature-flags/quiz-status?country=${encodeURIComponent(country)}`,
+  );
+}
+
 export async function fetchPolls(country: string): Promise<PollOut[]> {
   return (await apiFetch<PollOut[]>(`/polls/${country}`)) ?? [];
 }

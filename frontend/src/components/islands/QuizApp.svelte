@@ -270,6 +270,9 @@
         if (serverResult.results) {
           results = serverResult.results;
         }
+      } else if (res.status === 423) {
+        // Veda: quiz is temporarily disabled
+        window.location.replace(`/${country}/veda`);
       }
     } catch {
       // Keep optimistic results

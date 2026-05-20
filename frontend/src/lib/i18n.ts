@@ -164,6 +164,19 @@ const translations: Record<Locale, Record<string, string>> = {
     "candidates.endorses":
       "{name} apoya públicamente la candidatura de {endorsee}.",
 
+    // Veda
+    "veda.title": "Jornada electoral en curso",
+    "veda.heading": "El quiz está pausado temporalmente",
+    "veda.body":
+      "Durante la jornada electoral, la brújula de pre.voto está temporalmente inhabilitada. Podrás usarla de nuevo una vez se cierren las urnas.",
+    "veda.closingTime": "Cierre de urnas: 4:00 p.m. hora Colombia",
+    "veda.meanwhile": "Mientras tanto, puedes:",
+    "veda.viewCandidates": "Ver las fichas de los candidatos",
+    "veda.readArticles": "Leer nuestros artículos",
+    "veda.quizDisabled": "La brújula estará disponible después de la jornada electoral.",
+    "veda.submitBlocked":
+      "El quiz está temporalmente pausado durante la jornada electoral. Intenta de nuevo después del cierre de urnas.",
+
     // Position values
     "position.-2": "Totalmente en desacuerdo",
     "position.-1": "En desacuerdo",
@@ -333,6 +346,19 @@ const translations: Record<Locale, Record<string, string>> = {
       "{name} renunciou à sua candidatura. Seu nome permanece na cédula porque já estava impresso, mas os votos em sua posição não são contabilizados em seu nome. Suas posições não estão codificadas no pre.voto porque não participa mais da disputa ativa.",
     "candidates.endorses":
       "{name} apoia publicamente a candidatura de {endorsee}.",
+
+    // Veda
+    "veda.title": "Jornada eleitoral em andamento",
+    "veda.heading": "O quiz está pausado temporariamente",
+    "veda.body":
+      "Durante a jornada eleitoral, a bússola do pre.voto está temporariamente desabilitada. Você poderá usá-la novamente após o fechamento das urnas.",
+    "veda.closingTime": "Fechamento das urnas: 16:00 hora local",
+    "veda.meanwhile": "Enquanto isso, você pode:",
+    "veda.viewCandidates": "Ver as fichas dos candidatos",
+    "veda.readArticles": "Ler nossos artigos",
+    "veda.quizDisabled": "A bússola estará disponível após a jornada eleitoral.",
+    "veda.submitBlocked":
+      "O quiz está temporariamente pausado durante a jornada eleitoral. Tente novamente após o fechamento das urnas.",
 
     // Position values
     "position.-2": "Discordo totalmente",

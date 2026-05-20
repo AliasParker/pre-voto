@@ -180,6 +180,7 @@ from app.routers.admin import router as admin_router  # noqa: E402
 from app.routers.articles import router as articles_router  # noqa: E402
 from app.routers.candidates import router as candidates_router  # noqa: E402
 from app.routers.countries import router as countries_router  # noqa: E402
+from app.routers.feature_flags import router as feature_flags_router  # noqa: E402
 from app.routers.og import og_router, share_router  # noqa: E402
 from app.routers.polls import router as polls_router  # noqa: E402
 from app.routers.quiz import router as quiz_router  # noqa: E402
@@ -191,6 +192,7 @@ app.include_router(quiz_router)
 app.include_router(articles_router)
 app.include_router(polls_router)
 app.include_router(subscribers_router)
+app.include_router(feature_flags_router)
 app.include_router(admin_router)
 app.include_router(og_router)
 app.include_router(share_router)
