@@ -26,3 +26,7 @@ External services used by the project. No secrets or API keys here — only publ
 | Variable | Propósito | Dónde se configura |
 |----------|-----------|-------------------|
 | `ADMIN_PREVIEW_TOKEN` | Token para acceder a endpoints de preview de artículos no publicados | `.env` en backend |
+| `QUIZ_VEDA_START_CO` | Inicio de veda 1ra vuelta Colombia (ISO 8601, default `2026-05-31T00:00:00-05:00`) | `.env` en backend |
+| `QUIZ_VEDA_END_CO` | Fin de veda 1ra vuelta Colombia (ISO 8601, default `2026-05-31T16:00:00-05:00`) | `.env` en backend |
+| `QUIZ_VEDA_START_CO_2DA` | Inicio de veda 2da vuelta Colombia (ISO 8601, vacío por default) | `.env` en backend |
+| `QUIZ_VEDA_END_CO_2DA` | Fin de veda 2da vuelta Colombia (ISO 8601, vacío por default) | `.env` en backend |
