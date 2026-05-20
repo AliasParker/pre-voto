@@ -13,7 +13,7 @@ Idempotent — running twice does not create duplicates, only updates.
 import asyncio
 import re
 import sys
-from datetime import date, datetime, timezone
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 from sqlalchemy import text
@@ -39,8 +39,12 @@ def parse_frontmatter(yaml_str: str) -> dict:
     Handles the specific format used in the seed file:
       key: "value"          (quoted strings)
       key: value            (unquoted strings/dates)
-      key: 2026-05-23       (dates as YYYY-MM-DD)
+      key: 2026-05-23       (date-only → 08:00 Bogotá / UTC-5)
+      key: 2026-05-20T08:00:00-05:00  (full ISO 8601 with tz)
     """
+    # Bogotá timezone (UTC-5)
+    tz_bogota = timezone(timedelta(hours=-5))
+
     result: dict = {}
     for line in yaml_str.strip().splitlines():
         line = line.strip()
@@ -57,14 +61,17 @@ def parse_frontmatter(yaml_str: str) -> dict:
             value = value[1:-1]
         elif len(value) >= 2 and value[0] == "'" and value[-1] == "'":
             value = value[1:-1]
-        # Try to parse as date (YYYY-MM-DD)
-        date_match = re.match(r"^(\d{4})-(\d{2})-(\d{2})$", value)
-        if date_match:
-            result[key] = date(
-                int(date_match.group(1)),
-                int(date_match.group(2)),
-                int(date_match.group(3)),
-            )
+        # Try to parse as date/datetime using fromisoformat (Python 3.11+)
+        if re.match(r"^\d{4}-\d{2}-\d{2}", value):
+            try:
+                parsed = datetime.fromisoformat(value)
+                # If naive (no timezone), assume Bogotá (UTC-5) at 08:00
+                if parsed.tzinfo is None:
+                    # fromisoformat("2026-05-23") gives datetime(2026,5,23,0,0)
+                    parsed = parsed.replace(hour=8, tzinfo=tz_bogota)
+                result[key] = parsed
+            except ValueError:
+                result[key] = value
         else:
             result[key] = value
     return result
@@ -171,15 +178,10 @@ async def main() -> None:
         updated = 0
 
         for article in articles:
-            # Convert publication_date to timestamptz
-            pub_date = article["publication_date"]
-            if isinstance(pub_date, date) and not isinstance(pub_date, datetime):
-                pub_dt = datetime(pub_date.year, pub_date.month, pub_date.day,
-                                  tzinfo=timezone.utc)
-            elif isinstance(pub_date, datetime):
-                pub_dt = pub_date.replace(tzinfo=timezone.utc) if pub_date.tzinfo is None else pub_date
-            else:
-                print(f"ERROR: Invalid publication_date for '{article['slug']}': {pub_date}")
+            # publication_date is already a tz-aware datetime from parse_frontmatter
+            pub_dt = article["publication_date"]
+            if not isinstance(pub_dt, datetime) or pub_dt.tzinfo is None:
+                print(f"ERROR: Invalid publication_date for '{article['slug']}': {pub_dt}")
                 sys.exit(1)
 
             # UPSERT: INSERT ... ON CONFLICT (country_id, slug) DO UPDATE
