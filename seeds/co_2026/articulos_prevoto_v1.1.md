@@ -225,7 +225,7 @@ slug: "otros-siete-candidatos"
 publication_date: 2026-05-25
 author: "Equipo pre.voto"
 country: "CO"
-description: "El tarjetón presidencial del 31 de mayo tiene 13 casillas y 12 candidatos en contienda activa. Los siete que no están en el top concentran el 10% restante y suelen quedar fuera de los debates. Acá los repasamos."
+description: "Doce candidatos en el tarjetón. Cinco concentran el 90% del voto. Los otros siete, que se reparten el 10% restante y suelen quedar fuera de los debates, también merecen ser leídos antes del 31 de mayo."
 ---
 ```
 
@@ -399,7 +399,7 @@ slug: "lanzamiento"
 publication_date: 2026-05-27
 author: "Equipo pre.voto"
 country: "CO"
-description: "Hoy lanzamos pre.voto en Colombia. Es una brújula electoral que compara tus posiciones con las de los 12 candidatos en contienda activa. Esta nota explica por qué lo hicimos, qué tiene de distinto, y qué viene después."
+description: "Hoy lanzamos pre.voto en Colombia. Una brújula electoral que compara tus posiciones con las de los 12 candidatos. Acá explicamos por qué lo hicimos y qué viene después de la primera vuelta."
 ---
 ```
 
