@@ -1,10 +1,12 @@
 # Pre.voto — 5 artículos editoriales
 
-Versión 1.1 · 19 de mayo de 2026
+Versión 1.2 · 19 de mayo de 2026
 
 Este archivo contiene los 5 artículos editoriales de pre.voto para el lanzamiento en Colombia 2026, en orden de publicación. Cada artículo tiene su frontmatter Astro al inicio. Para importar al CMS: copiar cada bloque entre separadores (`---` con texto antes y después) a un archivo `.md` o `.mdx` independiente en `src/content/blog/`.
 
 Firma editorial: todos los artículos firman como "Equipo pre.voto".
+
+Tono: pan-LATAM neutro (tú/tienes/puedes). Las citas textuales de candidatos conservan el tono original que usaron.
 
 ---
 
@@ -105,17 +107,19 @@ Antes de cerrar, conviene decir explícitamente lo que pre.voto no pretende ser,
 
 ## Cómo corregir errores
 
-El correo **errores@pre.voto** está abierto desde el día uno. Si encontrás una codificación mal interpretada, una cita desactualizada, una fuente desaparecida, o un statement ambiguo, escribinos. Nuestro compromiso es revisar y, si la corrección procede, ajustar la base de datos en menos de 48 horas. Cuando una codificación cambia, dejamos visible cuál era la versión anterior, qué cambió, y por qué.
+El correo **errores@pre.voto** está abierto desde el día uno. Si encuentras una codificación mal interpretada, una cita desactualizada, una fuente desaparecida, o un statement ambiguo, escríbenos. Nuestro compromiso es revisar y, si la corrección procede, ajustar la base de datos en menos de 48 horas. Cuando una codificación cambia, dejamos visible cuál era la versión anterior, qué cambió, y por qué.
 
 No vamos a defender errores que sean errores. Y no vamos a esconder los cambios.
 
 ## Por qué publicamos esto
 
-Una brújula electoral cuya metodología vive dentro de una redacción cerrada es una caja negra. Si no podés cuestionar las decisiones que produjeron tu resultado, no podés decidir si confiar en el resultado. Pre.voto se construye sobre la premisa contraria: la metodología es pública porque tiene que serlo. Si no estuviéramos dispuestos a defenderla en público, no la usaríamos.
+Una brújula electoral cuya metodología vive dentro de una redacción cerrada es una caja negra. Si no puedes cuestionar las decisiones que produjeron tu resultado, no puedes decidir si confiar en el resultado. Pre.voto se construye sobre la premisa contraria: la metodología es pública porque tiene que serlo. Si no estuviéramos dispuestos a defenderla en público, no la usaríamos.
 
 ---
 
 **Pre.voto es una iniciativa independiente, sin afiliación partidaria, sin pauta comercial y sin contenido patrocinado. Para consultas: hola@pre.voto. Para corregir errores: errores@pre.voto.**
+
+*Este artículo está disponible bajo licencia [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). Puedes citarlo, traducirlo o republicarlo dando crédito a Equipo pre.voto.*
 
 ---
 
@@ -194,19 +198,21 @@ Para que veas las diferencias de un vistazo, aquí cinco posiciones clave que se
 | Glifosato para erradicar coca | Muy en contra | Muy a favor | Muy a favor | En contra | A favor |
 | Fracking | Prohibición definitiva | Reactivar | Reactivar | Pilotos con evidencia | Sin prohibir |
 | Aborto hasta 24 semanas (C-055) | Muy a favor | Muy en contra | En contra (acepta 3 causales) | A favor (respeta Corte) | Muy a favor |
-| Relaciones con gobierno de Venezuela | Continuar | Sólo vía EE.UU. | Romper | Contactos sí, no plenas | Romper |
+| Reconocimiento al gobierno de Maduro | Mantener | No reconocer | No reconocer | Solo contactos puntuales | No reconocer |
 
 ## Cómo usar este mapa
 
-Esto es un resumen, no un sustituto. Cada candidato tiene 20 posiciones codificadas en su ficha individual con cita a fuente: plan de gobierno oficial, declaraciones en medios verificables, pronunciamientos en cuentas oficiales. Si querés ver el detalle expandido de un tema, entrá a la ficha del candidato.
+Esto es un resumen, no un sustituto. Cada candidato tiene 20 posiciones codificadas en su ficha individual con cita a fuente: plan de gobierno oficial, declaraciones en medios verificables, pronunciamientos en cuentas oficiales. Si quieres ver el detalle expandido de un tema, entra a la ficha del candidato.
 
-Y si querés saber con cuál coincidís más vos —no entre cinco etiquetas, sino entre 20 temas concretos donde tus posiciones se cruzan con las de cada uno—, el quiz tarda menos de cinco minutos.
+Y si quieres saber con cuál coincides más tú —no entre cinco etiquetas, sino entre 20 temas concretos donde tus posiciones se cruzan con las de cada uno—, el quiz tarda menos de cinco minutos.
 
-Más allá del resultado, lo que importa es esto: el 31 de mayo, sea quien sea tu candidato, andá a votar. Que la elección la decidamos los que vamos a las urnas, no la decisión que tomemos por defecto.
+Más allá del resultado, lo que importa es esto: el 31 de mayo, sea quien sea tu candidato, ve a votar. Que la elección la decidamos quienes vamos a las urnas, no la decisión que tomemos por defecto.
 
 ---
 
 **Pre.voto es una iniciativa independiente, sin afiliación partidaria, sin pauta comercial y sin contenido patrocinado. Para consultas: hola@pre.voto.**
+
+*Este artículo está disponible bajo licencia [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). Puedes citarlo, traducirlo o republicarlo dando crédito a Equipo pre.voto.*
 
 ---
 
@@ -275,19 +281,23 @@ Lema de campaña: **"se acabó el desorden"**. Tres pilares declarados: segurida
 
 Pre.voto codificó a los 12 candidatos en contienda activa en los mismos 20 temas, con la misma metodología. Pero el grado de evidencia disponible varía mucho, tanto entre candidatos del top como entre los minoritarios.
 
-Para los cinco candidatos del top, el 52% de las codificaciones se hicieron con **cita directa al candidato** (plan de gobierno oficial, declaración en medios verificable, pronunciamiento en cuenta oficial). Pero ese promedio esconde diferencias importantes: Cepeda llega al 85% y De la Espriella al 80%, mientras que Fajardo está en el 30% y López en el 45%, no por falta de información política sobre ellos sino porque sus posiciones se inferieron de trayectoria y entrevistas no específicas más que de propuestas escritas tema por tema.
+Para los cinco candidatos del top, el 52% de las codificaciones se hicieron con **cita directa al candidato** (plan de gobierno oficial, declaración en medios verificable, pronunciamiento en cuenta oficial). Pero ese promedio esconde diferencias importantes: Cepeda llega al 85% y De la Espriella al 80%, mientras que Fajardo está en el 30% y López en el 45%, no por falta de información política sobre ellos sino porque sus posiciones se infirieron de trayectoria y entrevistas no específicas más que de propuestas escritas tema por tema.
 
-Para los siete candidatos que cubrimos en este artículo, el porcentaje de codificaciones con cita directa baja al 14% en promedio. La diferencia no es de método sino de materia prima: estos candidatos sencillamente no han hablado en público sobre la mayoría de los temas del quiz. Muchos centraron toda su campaña en una o dos banderas (la reestructuración territorial para Macollins, la mano dura para Matamoros, los "Templarios" para Botero). En el caso extremo, Sondra Macollins no tiene **ninguna** posición codificada como cita directa: las 20 codificaciones son inferencias.
+Para los siete candidatos que cubrimos en este artículo, el porcentaje de codificaciones con cita directa baja al 14% en promedio. La diferencia no es de método sino de materia prima: estos candidatos sencillamente no han hablado en público sobre la mayoría de los temas del quiz. Muchos centraron toda su campaña en una o dos banderas (la reestructuración territorial para Macollins, la mano dura para Matamoros, los "Templarios" para Botero).
 
-Por eso cada ficha en pre.voto muestra **el porcentaje de posiciones con cita directa vs. inferidas**. Cuando hagas el quiz y veas tu afinidad con un candidato minoritario, ese número va con su disclaimer al lado. La afinidad se calcula con todas las posiciones, pero también se muestra una segunda métrica: la afinidad sólo con las posiciones citadas. Vos decidís cuál te importa.
+El caso más extremo es el de Sondra Macollins. Sus 20 codificaciones son inferencias —ninguna se basa en cita directa, porque la candidata no ha tomado posición pública sobre la mayoría de los temas del quiz. Su campaña se ha centrado casi enteramente en una propuesta: la reestructuración territorial. Por eso su ficha en pre.voto incluye un aviso reforzado declarando que la afinidad que calculamos contigo es, en su caso, una aproximación cautelosa basada en su línea declarada, no en posiciones específicas que ella haya defendido sobre cada tema.
+
+Por eso cada ficha en pre.voto muestra **el porcentaje de posiciones con cita directa vs. inferidas**. Cuando hagas el quiz y veas tu afinidad con un candidato minoritario, ese número va con su disclaimer al lado. La afinidad se calcula con todas las posiciones, pero también se muestra una segunda métrica: la afinidad sólo con las posiciones citadas. Tú decides cuál te importa.
 
 ## Por qué cubrirlos
 
-Cubrir solo a los cinco favoritos haría a pre.voto cómplice de una elección reducida desde antes de votar. Hay ciudadanos cuya afinidad genuina está en un candidato que las encuestas marcan al 1%. Eso no es marginal: es información. Y en el cierre, el mensaje sigue siendo el de siempre: el 31 de mayo, sea quien sea tu candidato, andá a votar.
+Cubrir solo a los cinco favoritos haría a pre.voto cómplice de una elección reducida desde antes de votar. Hay ciudadanos cuya afinidad genuina está en un candidato que las encuestas marcan al 1%. Eso no es marginal: es información. Y en el cierre, el mensaje sigue siendo el de siempre: el 31 de mayo, sea quien sea tu candidato, ve a votar.
 
 ---
 
 **Pre.voto es una iniciativa independiente, sin afiliación partidaria, sin pauta comercial y sin contenido patrocinado. Para consultas: hola@pre.voto.**
+
+*Este artículo está disponible bajo licencia [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). Puedes citarlo, traducirlo o republicarlo dando crédito a Equipo pre.voto.*
 
 ---
 
@@ -312,15 +322,15 @@ description: "Guía corta y desideologizada de lo que conviene saber antes de sa
 
 ## Cuándo y dónde
 
-El domingo 31 de mayo de 2026, **de 8:00 de la mañana a 4:00 de la tarde**, en todo el país y en consulados habilitados en el exterior. El horario es estricto: si a las 4:00 p.m. estás en la fila pero aún no has llegado a la mesa, la Registraduría confirmó que **no podrás votar**. Esto sirve también de aviso práctico: andá temprano.
+El domingo 31 de mayo de 2026, **de 8:00 de la mañana a 4:00 de la tarde**, en todo el país y en consulados habilitados en el exterior. El horario es estricto: si a las 4:00 p.m. estás en la fila pero aún no has llegado a la mesa, la Registraduría confirmó que **no podrás votar**. Esto sirve también de aviso práctico: ve temprano.
 
-Antes de salir verificá tu puesto en la página oficial de la Registraduría —el portal pide cédula y un código de seguridad y devuelve departamento, municipio, dirección del puesto y número de mesa. El plazo para cambiar el puesto por cambio de residencia ya cerró el 31 de marzo, así que tu mesa es la que figure hoy en el censo electoral. Si cambiaste de ciudad después de marzo, te toca votar en el puesto antiguo.
+Antes de salir verifica tu puesto en la página oficial de la Registraduría —el portal pide cédula y un código de seguridad y devuelve departamento, municipio, dirección del puesto y número de mesa. El plazo para cambiar el puesto por cambio de residencia ya cerró el 31 de marzo, así que tu mesa es la que figure hoy en el censo electoral. Si cambiaste de ciudad después de marzo, te toca votar en el puesto antiguo.
 
-Los únicos dos documentos válidos para votar son la **cédula amarilla con hologramas** o la **cédula digital** en la aplicación oficial. Pasaporte, licencia de conducción o contraseña no sirven. En esta elección, además, alrededor de 60.000 mesas tendrán **biometría facial o dactilar** para validar identidad y combatir suplantación.
+Los únicos dos documentos válidos para votar son la **cédula amarilla con hologramas** o la **cédula digital** en la aplicación oficial. Pasaporte, licencia de conducción o contraseña no sirven. La Registraduría instalará un total de **120.527 mesas en 13.742 puestos de votación** distribuidos en todo el territorio nacional y en consulados en el exterior.
 
 ## Cómo se vota
 
-El tarjetón tiene **13 casillas** ordenadas por sorteo de la Registraduría, más una casilla adicional para el **voto en blanco**. Solo se puede marcar una opción: si marcás más de una, el voto se anula. La marcación correcta es una equis o una mancha clara dentro de la casilla del candidato que elegís.
+El tarjetón tiene **13 casillas** ordenadas por sorteo de la Registraduría, más una casilla adicional para el **voto en blanco**. Solo se puede marcar una opción: si marcas más de una, el voto se anula. La marcación correcta es una equis o una mancha clara dentro de la casilla del candidato que eliges.
 
 Hay una particularidad importante de este tarjetón: dos casillas corresponden a candidatos que **renunciaron después del inicio de la impresión** y cuya foto quedó en la boleta. Clara López (casilla 2) renunció el 6 de abril para sumarse a la campaña de Iván Cepeda; su espacio fue retirado del tarjetón final. Luis Gilberto Murillo (casilla 14) renunció más tarde, cuando los tarjetones ya estaban impresos, y por eso su foto sigue ahí. **Los votos que reciban estos candidatos retirados no se cuentan a su nombre** y no se transfieren a Cepeda: se contabilizan como votos no válidos. En total quedan **12 candidatos en contienda activa**.
 
@@ -370,11 +380,13 @@ El certificado se entrega físicamente el día de la votación. Conservarlo conv
 
 Pre.voto es una herramienta para llegar al puesto con más información sobre cuál es tu afinidad con cada candidato. No es un sustituto del criterio individual, de la lectura del plan de gobierno, ni del debate con tu gente. Lo que sí pretende es que el 31 de mayo nadie llegue a la urna con la sensación de que está votando a ciegas.
 
-Andá temprano, llevá la cédula amarilla o digital, verificá el puesto antes de salir y, sea cual sea tu candidato, **votá**. La elección la decidimos los que vamos a las urnas.
+Ve temprano, lleva la cédula amarilla o digital, verifica el puesto antes de salir y, sea cual sea tu candidato, **vota**. La elección la decidimos quienes vamos a las urnas.
 
 ---
 
 **Pre.voto es una iniciativa independiente, sin afiliación partidaria, sin pauta comercial y sin contenido patrocinado. Para consultas: hola@pre.voto.**
+
+*Este artículo está disponible bajo licencia [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). Puedes citarlo, traducirlo o republicarlo dando crédito a Equipo pre.voto.*
 
 ---
 
@@ -413,7 +425,7 @@ Para Colombia 2026 codificamos a los 12 candidatos en contienda activa sobre 20 
 
 Para los cinco candidatos con mayor intención de voto, en promedio el 52% de las codificaciones se apoya en cita directa al candidato: plan de gobierno oficial, entrevista verificable, pronunciamiento en cuenta verificada. Ese promedio esconde una variación importante entre candidatos: va desde el 85% de Iván Cepeda hasta el 30% de Sergio Fajardo, dependiendo de cuán explícito sea cada candidato en sus propuestas escritas. Para los siete candidatos minoritarios, ese porcentaje baja al 14% en promedio —no por falta de método sino porque no han hablado en público sobre la mayoría de los temas. Todo eso lo declaramos abiertamente en cada ficha, y cada usuario ve, junto a su porcentaje de afinidad con un candidato, el nivel de respaldo documental de las codificaciones detrás de ese cálculo.
 
-El quiz te muestra 20 afirmaciones y te pide que indiques tu nivel de acuerdo con cada una. Al final calcula tu afinidad porcentual con cada uno de los 12 candidatos, en orden de mayor a menor, y te permite ver tema por tema dónde coincidís y dónde diferís. La página de resultados tiene dos números visibles para cada candidato: tu afinidad calculada con todas las posiciones, y tu afinidad calculada solo con las posiciones que tienen cita directa. Vos decidís cuál te importa más.
+El quiz te muestra 20 afirmaciones y te pide que indiques tu nivel de acuerdo con cada una. Al final calcula tu afinidad porcentual con cada uno de los 12 candidatos, en orden de mayor a menor, y te permite ver tema por tema dónde coincides y dónde difieres. La página de resultados tiene dos números visibles para cada candidato: tu afinidad calculada con todas las posiciones, y tu afinidad calculada solo con las posiciones que tienen cita directa. Tú decides cuál te importa más.
 
 ## Por qué Colombia primero
 
@@ -429,7 +441,7 @@ Un usuario en Bogotá, en São Paulo, en Ciudad de México y en Buenos Aires va 
 
 ## Quiénes somos y qué no somos
 
-Pre.voto es un proyecto **pequeño, autofinanciado, sin medio detrás**. No recibimos financiamiento de partidos políticos ni de campañas. No vendemos pauta comercial. No publicamos contenido patrocinado. No aceptamos dinero de fondos cuyo objetivo declarado o evidente sea la injerencia electoral.
+Pre.voto es un proyecto **pequeño, sin pauta comercial, sin contenido patrocinado, financiado por las contribuciones voluntarias de quienes lo apoyan**. No recibimos financiamiento de partidos políticos ni de campañas. No vendemos publicidad. No aceptamos dinero de fondos cuyo objetivo declarado o evidente sea la injerencia electoral.
 
 Lo que sí aceptamos es feedback metodológico de académicos, periodistas y ciudadanos. Lo que sí queremos es que las correcciones de errores sean inmediatas y públicas: el correo **errores@pre.voto** está abierto desde el día uno, y nuestro compromiso es responder y corregir —si la corrección procede— en menos de 48 horas, con la modificación documentada en el repositorio público de metodología. Cuando una codificación cambie por evidencia nueva, vamos a decir qué cambió, por qué cambió, y dejar el cambio visible.
 
@@ -439,18 +451,20 @@ No tenemos lista de aliados famosos, ni respaldo institucional, ni una redacció
 
 Esta es la versión 1.0 de pre.voto. 240 codificaciones para 12 candidatos es mucho material, y algunas de esas codificaciones van a estar mal interpretadas. Algunos statements del quiz van a ser ambiguos para algunos lectores. Algunas fuentes van a quedar desactualizadas en los próximos días si un candidato cambia de posición.
 
-Nada de eso es excusa. Lo que ofrecemos es transparencia sobre el proceso de corrección. Si encontrás un error —en una codificación, en una cita, en una fuente, en la redacción de un statement— escribinos a errores@pre.voto y lo arreglamos. Si tu argumento es que una posición está mal interpretada, mostranos la fuente que la respalda mejor y la revisamos. Si tu objeción es metodológica, el documento público de metodología está en el sitio para discutirlo en concreto.
+Nada de eso es excusa. Lo que ofrecemos es transparencia sobre el proceso de corrección. Si encuentras un error —en una codificación, en una cita, en una fuente, en la redacción de un statement— escríbenos a errores@pre.voto y lo arreglamos. Si tu argumento es que una posición está mal interpretada, muéstranos la fuente que la respalda mejor y la revisamos. Si tu objeción es metodológica, el documento público de metodología está en el sitio para discutirlo en concreto.
 
 No vamos a defender errores que sean errores. Y no vamos a esconder los cambios.
 
 ## El cierre
 
-Si pre.voto te resulta útil, hacé el quiz, compartilo con tu gente, mandanos críticas concretas. Si no te resulta útil, criticálo, escribilo, recomendá una mejor alternativa —las hay, y son buenas. En cualquier caso, lo que más importa pasa el domingo 31 de mayo en el puesto de votación.
+Si pre.voto te resulta útil, haz el quiz, compártelo con tu gente, mándanos críticas concretas. Si no te resulta útil, critícalo, escríbelo, recomienda una mejor alternativa —las hay, y son buenas. En cualquier caso, lo que más importa pasa el domingo 31 de mayo en el puesto de votación.
 
-Que la elección la decidamos los que vamos a votar, no la decisión que tomemos por defecto. Andá a votar, sea quien sea tu candidato.
+Que la elección la decidamos quienes vamos a votar, no la decisión que tomemos por defecto. Ve a votar, sea quien sea tu candidato.
 
 Pre.voto Colombia abre hoy. Brasil, México y Argentina vienen después.
 
 ---
 
 **Pre.voto es una iniciativa independiente, sin afiliación partidaria, sin pauta comercial y sin contenido patrocinado. Para consultas: hola@pre.voto. Para corregir errores: errores@pre.voto. La metodología completa, los 20 statements y las codificaciones de los 12 candidatos están disponibles en pre.voto/metodologia.**
+
+*Este artículo está disponible bajo licencia [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). Puedes citarlo, traducirlo o republicarlo dando crédito a Equipo pre.voto.*
