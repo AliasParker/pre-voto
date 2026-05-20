@@ -16,7 +16,7 @@ Tono: pan-LATAM neutro (tú/tienes/puedes). Las citas textuales de candidatos co
 ---
 title: "Cómo construimos pre.voto: la metodología detrás del quiz"
 slug: "metodologia"
-publication_date: 2026-05-23
+publication_date: 2026-05-20T08:00:00-05:00
 author: "Equipo pre.voto"
 country: "CO"
 description: "Cada brújula electoral toma decisiones metodológicas que condicionan el resultado. Acá explicamos las nuestras, paso por paso, para que cualquier persona pueda cuestionarlas en concreto."
@@ -129,7 +129,7 @@ Una brújula electoral cuya metodología vive dentro de una redacción cerrada e
 ---
 title: "Cepeda, De la Espriella, Valencia, Fajardo y López: los cinco candidatos que se reparten el 90% del voto"
 slug: "comparativo-cinco-candidatos"
-publication_date: 2026-05-24
+publication_date: 2026-05-21T08:00:00-05:00
 author: "Equipo pre.voto"
 country: "CO"
 description: "Doce candidatos en el tarjetón. Cinco concentran más del 90% de la intención de voto. Acá los ponemos lado a lado en los temas que definen la elección."
@@ -222,7 +222,7 @@ Más allá del resultado, lo que importa es esto: el 31 de mayo, sea quien sea t
 ---
 title: "Más allá del top-5: los siete candidatos que también están en el tarjetón del 31 de mayo"
 slug: "otros-siete-candidatos"
-publication_date: 2026-05-25
+publication_date: 2026-05-22T08:00:00-05:00
 author: "Equipo pre.voto"
 country: "CO"
 description: "Doce candidatos en el tarjetón. Cinco concentran el 90% del voto. Los otros siete, que se reparten el 10% restante y suelen quedar fuera de los debates, también merecen ser leídos antes del 31 de mayo."
@@ -307,7 +307,7 @@ Cubrir solo a los cinco favoritos haría a pre.voto cómplice de una elección r
 ---
 title: "Cómo se vota el 31 de mayo: guía rápida del sistema electoral colombiano"
 slug: "como-se-vota"
-publication_date: 2026-05-26
+publication_date: 2026-05-23T08:00:00-05:00
 author: "Equipo pre.voto"
 country: "CO"
 description: "Guía corta y desideologizada de lo que conviene saber antes de salir al puesto de votación. Dónde, cuándo, cómo se cuenta, qué pasa con el voto en blanco."
@@ -396,7 +396,7 @@ Ve temprano, lleva la cédula amarilla o digital, verifica el puesto antes de sa
 ---
 title: "Por qué construimos pre.voto: una brújula electoral pan-LATAM, sin medio detrás"
 slug: "lanzamiento"
-publication_date: 2026-05-27
+publication_date: 2026-05-24T08:00:00-05:00
 author: "Equipo pre.voto"
 country: "CO"
 description: "Hoy lanzamos pre.voto en Colombia. Una brújula electoral que compara tus posiciones con las de los 12 candidatos. Acá explicamos por qué lo hicimos y qué viene después de la primera vuelta."
