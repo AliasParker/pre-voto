@@ -20,7 +20,7 @@ const dateStr = article.published_at
 
 <a
   href={`/${country}/articulos/${article.slug}`}
-  class="block border border-line rounded-lg overflow-hidden hover:border-brand hover:shadow-sm transition-all"
+  class="group block border border-line rounded-lg overflow-hidden hover:border-brand hover:shadow-sm transition-all"
 >
   {article.hero_image_url ? (
     <img
@@ -34,14 +34,14 @@ const dateStr = article.published_at
     <div class="w-full h-48 bg-gradient-to-br from-brand/20 to-brand/5" />
   )}
   <div class="p-4">
-    <h3 class="font-semibold mb-1">{article.title}</h3>
+    <h3 class="font-serif text-xl md:text-2xl font-semibold mb-1 group-hover:text-brand group-hover:underline transition-colors">{article.title}</h3>
     {article.dek && (
       <p class="text-sm text-ink-soft mb-2">{article.dek}</p>
     )}
     <div class="flex items-center gap-2 text-xs text-ink-faint">
       {article.author && <span>{article.author}</span>}
-      {article.author && dateStr && <span>·</span>}
-      {dateStr && <span>{dateStr}</span>}
+      {article.author && dateStr && <span>&middot;</span>}
+      {dateStr && <span class="font-medium text-steel">{dateStr}</span>}
     </div>
     {article.tags && article.tags.length > 0 && (
       <div class="flex gap-1 mt-2 flex-wrap">
