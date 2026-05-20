@@ -29,4 +29,19 @@ const name = getCountryName(country.code, locale);
   country={country.code}
 >
   <QuizApp client:load country={country.code} locale={locale} />
+
+  <!-- Client-side veda redirect: if quiz is disabled, send to /veda -->
+  <script is:inline define:vars={{ countryCode: country.code }}>
+    (async function checkVeda() {
+      try {
+        const res = await fetch(`/api/feature-flags/quiz-status?country=${countryCode}`);
+        if (res.ok) {
+          const data = await res.json();
+          if (data.quiz_disabled) {
+            window.location.replace(`/${countryCode}/veda`);
+          }
+        }
+      } catch {}
+    })();
+  </script>
 </BaseLayout>
