@@ -50,6 +50,15 @@ class Settings(BaseSettings):
     quiz_veda_start_co_2da: str = ""
     quiz_veda_end_co_2da: str = ""
 
+    # Stripe
+    stripe_secret_key: str = ""
+    stripe_publishable_key: str = ""
+    stripe_webhook_secret: str = ""
+    stripe_mode: str = "test"
+
+    # Frontend URL (used for Stripe success/cancel redirects)
+    frontend_url: str = "http://localhost"
+
     # SMTP (Mailpit in dev)
     smtp_host: str = "mailpit"
     smtp_port: int = 1025

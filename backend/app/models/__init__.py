@@ -1,6 +1,7 @@
 from app.models.article import Article
 from app.models.base import Base
 from app.models.candidate import Candidate
+from app.models.donation import Donation
 from app.models.country import Country
 from app.models.election import Election
 from app.models.feature_flag import FeatureFlag
@@ -17,6 +18,7 @@ from app.models.subscriber import Subscriber
 __all__ = [
     "Base",
     "Country",
+    "Donation",
     "Election",
     "Candidate",
     "Statement",

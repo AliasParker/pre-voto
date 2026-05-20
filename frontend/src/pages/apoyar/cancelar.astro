@@ -1,0 +1,36 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { t } from "../../lib/i18n";
+
+const locale = "es";
+---
+
+<BaseLayout
+  title={`${t(locale, "donate.cancelTitle")} | pre.voto`}
+  description="Tu pago fue cancelado."
+>
+  <article class="max-w-2xl mx-auto px-4 py-12 text-center">
+    <h1 class="text-3xl font-serif font-bold mb-6">
+      {t(locale, "donate.cancelTitle")}
+    </h1>
+
+    <p class="text-lg text-ink-soft leading-relaxed mb-8">
+      {t(locale, "donate.cancelBody")}
+    </p>
+
+    <div class="space-y-4">
+      <a
+        href="/apoyar"
+        class="inline-block px-6 py-3 rounded-lg bg-terracotta text-white
+          font-bold hover:bg-terracotta/90 transition-colors"
+      >
+        {t(locale, "donate.backToSupport")}
+      </a>
+      <p class="text-sm text-ink-soft">
+        <a href="/" class="text-terracotta hover:underline">
+          {t(locale, "common.backToHome")}
+        </a>
+      </p>
+    </div>
+  </article>
+</BaseLayout>
