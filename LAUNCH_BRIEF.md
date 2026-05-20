@@ -6,6 +6,7 @@
 
 ## Changelog
 
+- **v1.6 — 20 mayo 2026**: articles rendering refinements. (a) **Backend bugfixes**: `list_articles` y `get_article` ahora filtran `published_at <= NOW()` e `is_demo=False` — artículos futuros y demo ya no son visibles en la API pública. (b) **Preview endpoint**: `GET /articles/{country}/preview?token=<token>` y `GET /articles/{country}/preview/{slug}?token=<token>` permiten ver artículos sin publicar con `ADMIN_PREVIEW_TOKEN`. (c) **Frontend listing**: grid responsive 2 columnas en desktop, subtítulo descriptivo, empty state con link al quiz. (d) **ArticleCard**: título font-serif (Source Serif 4), fecha en color steel, hover con brand color + underline. (e) **Article detail**: breadcrumb de navegación, dek en serif italic, byline "Por X · Publicado el {fecha}", footer con disclaimer + link de retorno, OG type="article" con article:published_time y article:author. (f) **Preview page**: `/co/articulos/preview/{slug}` con banner de vista previa y noindex. (g) **GA4**: evento `article_view` ahora incluye `article_title` y `country`. Tests backend 75+.
 - **v1.5 — 19 mayo 2026**: import de 5 artículos editoriales de Colombia 2026 a tabla `articles`. Script reutilizable en `backend/app/scripts/import_articles_co_2026.py` lee el compendio `.md` (`seeds/co_2026/articulos_prevoto_v1.1.md`) y hace UPSERT por `(country_id, slug)`. Slugs: metodologia, comparativo-cinco-candidatos, otros-siete-candidatos, como-se-vota, lanzamiento. Publicación programada del 23 al 27 de mayo. No requirió migración Alembic (schema existente ya soportaba todos los campos). Tests backend 70/70.
 - **v1.4 — 19 mayo 2026 (noche, 2do push)**: refactor visual completo del frontend. (a) **Tipografía**: Public Sans (body/UI) + Source Serif 4 (headings/articles), self-hosted woff2, reemplaza Inter. (b) **Paleta**: paper warm #FAF8F4, terracotta brand #8B2626, steel blue #1F3A5F, ocre #B8860B; dark mode actualizado. (c) **Footer**: rediseñado con 3 columnas (marca, navegación, contacto), emails hola@ y errores@, @prevotoLATAM, disclaimer Ley 2494 en páginas del quiz/candidatos/artículos. (d) **Editorial**: normalización vos→tú (pan-LATAM neutro) y acentos completos en ES y PT-BR (~140 strings en i18n.ts + todas las páginas .astro). (e) **Página /apoyar**: placeholder para donaciones (sin Stripe aún). (f) Badges de confianza (Alta/Media/Baja) en ficha de candidato. (g) VP en tarjeta de candidato.
 - **v1.3 — 19 mayo 2026 (noche)**: decisiones de producto finalizadas y tracking implementado. (a) Proyecto confirmado como **Proyecto A: cívico independiente** — monetización por donaciones (Stripe + Mercado Pago a futuro), sin Ads. (b) GA4 implementado con Consent Mode v2 (measurement ID `G-2ZPYJ7FQJV`), banner de cookies con consentimiento explícito, página de privacidad actualizada. (c) Stripe en test mode con cuenta MX individual, monedas USD+MXN habilitadas, COP/BRL/ARS posteriores. (d) Mercado Pago pendiente de activación (no bloqueante). (e) Schema migration + seed real de CO 2026 aplicados (PR #16 mergeado). (f) Inventario de servicios documentado en `docs/services-inventory.md`.
@@ -586,7 +587,7 @@ Esto va al humano (chat web):
 
 ## Última actualización
 
-- **Fecha**: 19 de mayo de 2026
-- **Versión**: 1.5
+- **Fecha**: 20 de mayo de 2026
+- **Versión**: 1.6
 - **Por**: Equipo pre.voto (asistencia editorial Claude vía chat web)
 - **Próxima revisión**: post-lanzamiento (31 de mayo de 2026)
