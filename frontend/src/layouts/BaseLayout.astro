@@ -12,6 +12,9 @@ interface Props {
   country?: string;
   ogImage?: string;
   jsonLd?: Record<string, unknown>;
+  ogType?: string;
+  ogArticlePublishedTime?: string;
+  ogArticleAuthor?: string;
 }
 
 const {
@@ -20,6 +23,9 @@ const {
   country,
   ogImage = "/favicon.svg",
   jsonLd,
+  ogType = "website",
+  ogArticlePublishedTime,
+  ogArticleAuthor,
 } = Astro.props;
 
 const locale = country ? getLocaleFromCountry(country) : "es";
@@ -41,10 +47,16 @@ const canonicalUrl = new URL(Astro.url.pathname, Astro.site ?? "https://pre.voto
     <!-- Open Graph -->
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:type" content="website" />
+    <meta property="og:type" content={ogType} />
     <meta property="og:url" content={canonicalUrl.href} />
     <meta property="og:image" content={ogImage} />
     <meta property="og:site_name" content="pre.voto" />
+    {ogArticlePublishedTime && (
+      <meta property="article:published_time" content={ogArticlePublishedTime} />
+    )}
+    {ogArticleAuthor && (
+      <meta property="article:author" content={ogArticleAuthor} />
+    )}
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
