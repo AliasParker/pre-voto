@@ -26,6 +26,8 @@ async def list_articles(
         Article.country_id == country_obj.id,
         Article.deleted_at.is_(None),
         Article.published_at.is_not(None),
+        Article.published_at <= func.now(),
+        Article.is_demo.is_(False),
     )
 
     # Total count
@@ -58,6 +60,9 @@ async def get_article(
             Article.country_id == country_obj.id,
             Article.slug == slug,
             Article.deleted_at.is_(None),
+            Article.published_at.is_not(None),
+            Article.published_at <= func.now(),
+            Article.is_demo.is_(False),
         )
     )
     article = result.scalar_one_or_none()

@@ -42,3 +42,23 @@ class TestArticlesRouter:
     async def test_deleted_article_not_accessible(self, client):
         resp = await client.get("/articles/xt/deleted-article")
         assert resp.status_code == 404
+
+    async def test_future_article_not_in_list(self, client):
+        resp = await client.get("/articles/xt")
+        assert resp.status_code == 200
+        slugs = [a["slug"] for a in resp.json()]
+        assert "future-article" not in slugs
+
+    async def test_future_article_not_accessible_by_slug(self, client):
+        resp = await client.get("/articles/xt/future-article")
+        assert resp.status_code == 404
+
+    async def test_demo_article_not_in_list(self, client):
+        resp = await client.get("/articles/xt")
+        assert resp.status_code == 200
+        slugs = [a["slug"] for a in resp.json()]
+        assert "demo-article" not in slugs
+
+    async def test_demo_article_not_accessible_by_slug(self, client):
+        resp = await client.get("/articles/xt/demo-article")
+        assert resp.status_code == 404

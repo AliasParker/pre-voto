@@ -1,5 +1,5 @@
 import uuid
-from datetime import UTC, date, datetime
+from datetime import UTC, date, datetime, timedelta
 
 import pytest
 import pytest_asyncio
@@ -221,6 +221,25 @@ async def seed_articles(db_session, seed_data):
         deleted_at=datetime(2025, 6, 11, tzinfo=UTC),
     )
     db_session.add(deleted)
+
+    future = Article(
+        country_id=COUNTRY_ID,
+        slug="future-article",
+        title="Future Article",
+        body_markdown="This is scheduled for the future.",
+        published_at=datetime.now(UTC) + timedelta(days=30),
+    )
+    db_session.add(future)
+
+    demo = Article(
+        country_id=COUNTRY_ID,
+        slug="demo-article",
+        title="Demo Article",
+        body_markdown="This is a demo article.",
+        published_at=datetime(2025, 6, 1, tzinfo=UTC),
+        is_demo=True,
+    )
+    db_session.add(demo)
 
     await db_session.flush()
     return articles
