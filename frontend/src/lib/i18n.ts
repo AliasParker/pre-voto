@@ -177,6 +177,42 @@ const translations: Record<Locale, Record<string, string>> = {
     "veda.submitBlocked":
       "El quiz está temporalmente pausado durante la jornada electoral. Intenta de nuevo después del cierre de urnas.",
 
+    // Donations
+    "donate.title": "Apoyar pre.voto",
+    "donate.intro":
+      "Pre.voto es una iniciativa independiente. Sin pauta comercial. Sin partido detrás. Sin contenido patrocinado.",
+    "donate.body":
+      "Lo construimos para que cualquier persona pueda comparar sus posiciones con las de los candidatos, con metodología abierta y verificable.",
+    "donate.cta":
+      "Si quieres ayudar a que sigamos haciendo esto en Brasil, México y Argentina, puedes contribuir desde acá.",
+    "donate.sectionTitle": "Contribuir al proyecto",
+    "donate.customAmount": "Otro monto",
+    "donate.email": "Tu email",
+    "donate.newsletter": "Quiero recibir el newsletter mensual de pre.voto",
+    "donate.submit": "Contribuir",
+    "donate.submitting": "Procesando...",
+    "donate.errorMinAmount": "El monto mínimo es $1 USD",
+    "donate.errorEmail": "Ingresa un email válido",
+    "donate.errorGeneric": "No se pudo procesar la solicitud. Intenta de nuevo.",
+    "donate.howTitle": "Cómo se usa el dinero",
+    "donate.howBody":
+      "Hosting, dominios, herramientas técnicas. Documentación y traducción de codificaciones para próximos países. Nada de salarios todavía.",
+    "donate.transparencyTitle": "Transparencia",
+    "donate.transparencyBody":
+      "Publicaremos un reporte trimestral de ingresos y gastos. El código y las codificaciones son y serán abiertos.",
+    "donate.thanksTitle": "Gracias por contribuir",
+    "donate.thanksSucceeded":
+      "Tu apoyo nos ayuda a llevar pre.voto a más países.",
+    "donate.thanksPending":
+      "Tu pago está siendo procesado. Te llegará un email de confirmación.",
+    "donate.thanksFailed":
+      "Hubo un problema con tu pago. Intenta de nuevo o escríbenos a hola@pre.voto.",
+    "donate.confirmation": "Confirmación",
+    "donate.cancelTitle": "Pago cancelado",
+    "donate.cancelBody":
+      "Cancelaste el pago. Si tuviste algún problema, escríbenos a hola@pre.voto.",
+    "donate.backToSupport": "Volver a Apoyar",
+
     // Position values
     "position.-2": "Totalmente en desacuerdo",
     "position.-1": "En desacuerdo",
@@ -359,6 +395,42 @@ const translations: Record<Locale, Record<string, string>> = {
     "veda.quizDisabled": "A bússola estará disponível após a jornada eleitoral.",
     "veda.submitBlocked":
       "O quiz está temporariamente pausado durante a jornada eleitoral. Tente novamente após o fechamento das urnas.",
+
+    // Donations
+    "donate.title": "Apoiar pre.voto",
+    "donate.intro":
+      "Pre.voto é uma iniciativa independente. Sem publicidade. Sem partido. Sem conteúdo patrocinado.",
+    "donate.body":
+      "Construímos para que qualquer pessoa possa comparar suas posições com as dos candidatos, com metodologia aberta e verificável.",
+    "donate.cta":
+      "Se você quer ajudar a levar o pre.voto para o Brasil, México e Argentina, pode contribuir por aqui.",
+    "donate.sectionTitle": "Contribuir com o projeto",
+    "donate.customAmount": "Outro valor",
+    "donate.email": "Seu email",
+    "donate.newsletter": "Quero receber o newsletter mensal do pre.voto",
+    "donate.submit": "Contribuir",
+    "donate.submitting": "Processando...",
+    "donate.errorMinAmount": "O valor mínimo é $1 USD",
+    "donate.errorEmail": "Insira um email válido",
+    "donate.errorGeneric": "Não foi possível processar a solicitação. Tente novamente.",
+    "donate.howTitle": "Como o dinheiro é usado",
+    "donate.howBody":
+      "Hospedagem, domínios, ferramentas técnicas. Documentação e tradução de codificações para próximos países. Nenhum salário ainda.",
+    "donate.transparencyTitle": "Transparência",
+    "donate.transparencyBody":
+      "Publicaremos um relatório trimestral de receitas e despesas. O código e as codificações são e serão abertos.",
+    "donate.thanksTitle": "Obrigado por contribuir",
+    "donate.thanksSucceeded":
+      "Seu apoio nos ajuda a levar o pre.voto a mais países.",
+    "donate.thanksPending":
+      "Seu pagamento está sendo processado. Você receberá um email de confirmação.",
+    "donate.thanksFailed":
+      "Houve um problema com seu pagamento. Tente novamente ou escreva para hola@pre.voto.",
+    "donate.confirmation": "Confirmação",
+    "donate.cancelTitle": "Pagamento cancelado",
+    "donate.cancelBody":
+      "Você cancelou o pagamento. Se teve algum problema, escreva para hola@pre.voto.",
+    "donate.backToSupport": "Voltar para Apoiar",
 
     // Position values
     "position.-2": "Discordo totalmente",

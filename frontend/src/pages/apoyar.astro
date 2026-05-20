@@ -1,52 +1,47 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import { t } from "../lib/i18n";
+import DonationForm from "../components/islands/DonationForm.svelte";
+
+const locale = "es";
 ---
 
 <BaseLayout
-  title="Apoyar pre.voto | pre.voto"
-  description="pre.voto es un proyecto independiente que se financia con donaciones voluntarias. Pronto podrás contribuir."
+  title={`${t(locale, "donate.title")} | pre.voto`}
+  description="pre.voto es un proyecto independiente que se financia con donaciones voluntarias. Contribuye para que sigamos llevando brújulas electorales a más países."
 >
-  <article class="max-w-3xl mx-auto px-4 py-12 text-center">
-    <h1 class="text-3xl font-bold mb-4">Apoyar pre.voto</h1>
+  <article class="max-w-3xl mx-auto px-4 py-12">
+    <h1 class="text-3xl font-serif font-bold mb-6 text-center">
+      {t(locale, "donate.title")}
+    </h1>
 
-    <p class="text-lg text-ink-soft max-w-xl mx-auto mb-8 leading-relaxed">
-      pre.voto es un proyecto independiente, sin publicidad y sin contenido
-      patrocinado. Se financia con donaciones voluntarias de personas como tú.
-    </p>
-
-    <div class="border border-line rounded-lg p-8 max-w-md mx-auto mb-8 bg-paper-warm">
-      <p class="text-4xl mb-4">🗳️</p>
-      <h2 class="text-xl font-bold mb-2">Donaciones próximamente</h2>
-      <p class="text-ink-soft text-sm leading-relaxed">
-        Estamos terminando de configurar los pagos seguros.
-        Pronto podrás hacer una contribución desde cualquier país de Latinoamérica.
-      </p>
+    <div class="max-w-xl mx-auto mb-10 space-y-4 text-ink-soft leading-relaxed text-center">
+      <p>{t(locale, "donate.intro")}</p>
+      <p>{t(locale, "donate.body")}</p>
+      <p>{t(locale, "donate.cta")}</p>
     </div>
 
-    <div class="prose mx-auto text-left">
-      <h2>¿Qué financia tu donación?</h2>
-      <ul>
-        <li>Servidores e infraestructura (Hetzner, Cloudflare, dominio .voto)</li>
-        <li>Herramientas de monitoreo y respaldo (UptimeRobot, R2)</li>
-        <li>Expansión a nuevos países (Brasil, México, Argentina)</li>
-        <li>Mejoras al quiz, nuevas funcionalidades y accesibilidad</li>
-      </ul>
+    <section class="mb-12">
+      <h2 class="text-xl font-serif font-bold mb-6 text-center">
+        {t(locale, "donate.sectionTitle")}
+      </h2>
+      <DonationForm locale={locale} client:load />
+    </section>
 
-      <h2>¿Qué NO financia?</h2>
-      <ul>
-        <li>No se destinan fondos a campañas políticas ni candidatos</li>
-        <li>No se usa para publicidad política</li>
-        <li>No se pagan sueldos — el equipo es voluntario</li>
-      </ul>
+    <div class="prose mx-auto text-left max-w-xl">
+      <h2 class="font-serif">{t(locale, "donate.howTitle")}</h2>
+      <p>{t(locale, "donate.howBody")}</p>
 
-      <h2>Mientras tanto</h2>
-      <p>
-        Si quieres ayudar hoy, la mejor forma es compartir pre.voto con alguien
-        que vote el 31 de mayo. Cada persona informada cuenta.
-      </p>
+      <h2 class="font-serif">{t(locale, "donate.transparencyTitle")}</h2>
+      <p>{t(locale, "donate.transparencyBody")}</p>
+    </div>
+
+    <div class="mt-10 text-center text-sm text-ink-soft">
       <p>
         Para preguntas sobre donaciones, escribe a
-        <a href="mailto:hola@pre.voto">hola@pre.voto</a>.
+        <a href="mailto:hola@pre.voto" class="text-terracotta hover:underline">
+          hola@pre.voto</a
+        >.
       </p>
     </div>
   </article>
