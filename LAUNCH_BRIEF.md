@@ -6,6 +6,7 @@
 
 ## Changelog
 
+- **v1.5 — 19 mayo 2026**: import de 5 artículos editoriales de Colombia 2026 a tabla `articles`. Script reutilizable en `backend/app/scripts/import_articles_co_2026.py` lee el compendio `.md` (`seeds/co_2026/articulos_prevoto_v1.1.md`) y hace UPSERT por `(country_id, slug)`. Slugs: metodologia, comparativo-cinco-candidatos, otros-siete-candidatos, como-se-vota, lanzamiento. Publicación programada del 23 al 27 de mayo. No requirió migración Alembic (schema existente ya soportaba todos los campos). Tests backend 70/70.
 - **v1.4 — 19 mayo 2026 (noche, 2do push)**: refactor visual completo del frontend. (a) **Tipografía**: Public Sans (body/UI) + Source Serif 4 (headings/articles), self-hosted woff2, reemplaza Inter. (b) **Paleta**: paper warm #FAF8F4, terracotta brand #8B2626, steel blue #1F3A5F, ocre #B8860B; dark mode actualizado. (c) **Footer**: rediseñado con 3 columnas (marca, navegación, contacto), emails hola@ y errores@, @prevotoLATAM, disclaimer Ley 2494 en páginas del quiz/candidatos/artículos. (d) **Editorial**: normalización vos→tú (pan-LATAM neutro) y acentos completos en ES y PT-BR (~140 strings en i18n.ts + todas las páginas .astro). (e) **Página /apoyar**: placeholder para donaciones (sin Stripe aún). (f) Badges de confianza (Alta/Media/Baja) en ficha de candidato. (g) VP en tarjeta de candidato.
 - **v1.3 — 19 mayo 2026 (noche)**: decisiones de producto finalizadas y tracking implementado. (a) Proyecto confirmado como **Proyecto A: cívico independiente** — monetización por donaciones (Stripe + Mercado Pago a futuro), sin Ads. (b) GA4 implementado con Consent Mode v2 (measurement ID `G-2ZPYJ7FQJV`), banner de cookies con consentimiento explícito, página de privacidad actualizada. (c) Stripe en test mode con cuenta MX individual, monedas USD+MXN habilitadas, COP/BRL/ARS posteriores. (d) Mercado Pago pendiente de activación (no bloqueante). (e) Schema migration + seed real de CO 2026 aplicados (PR #16 mergeado). (f) Inventario de servicios documentado en `docs/services-inventory.md`.
 - **v1.2 — 19 mayo 2026 (tarde)**: correcciones de arquitectura tras inspeccionar el repo real. (a) Los 3 JSON ya están commiteados en `seeds/co_2026/`, no se piden al humano. (b) Los artículos viven en backend (tabla `articles` via `backend/app/models/article.py` + router `backend/app/routers/articles.py`), NO en Astro Content Collections. (c) URL real es `/co/articulos/:slug` en español, NO `/co/blog/:slug`. (d) Sección nueva "Estado de producción operativa" con IP, SSH, paths y aviso sobre seed demo existente. (e) Saqué la referencia confusa a "cuenta expira el 26".
@@ -68,7 +69,7 @@ Hola, Claude. Estás abriendo Claude Code para terminar la implementación técn
 ### Fase 8: EN CURSO (lo que falta)
 
 - ❌ Import a DB de producción de los 12 candidatos + 20 statements + 240 codificaciones (datos ya en `seeds/co_2026/`)
-- ❌ Import de los 5 artículos a tabla `articles` (textos los pasa el humano cuando Claude Code los pida)
+- ✅ Import de los 5 artículos a tabla `articles` (script: `backend/app/scripts/import_articles_co_2026.py`)
 - ❌ Disclaimers Ley 2494 en `/co/quiz`, `/co/resultados/*`, y footer global
 - ❌ Feature flag `quiz_disabled_during_veda` (backend + frontend)
 - ❌ Integración Beehiiv: trigger desde backend post-quiz → API Beehiiv con custom fields y automation_id
@@ -585,7 +586,7 @@ Esto va al humano (chat web):
 
 ## Última actualización
 
-- **Fecha**: 19 de mayo de 2026 (noche, 2do push)
-- **Versión**: 1.4
+- **Fecha**: 19 de mayo de 2026
+- **Versión**: 1.5
 - **Por**: Equipo pre.voto (asistencia editorial Claude vía chat web)
 - **Próxima revisión**: post-lanzamiento (31 de mayo de 2026)
