@@ -189,8 +189,11 @@ const translations: Record<Locale, Record<string, string>> = {
     "donate.showCustom": "¿Otro monto?",
     "donate.hideCustom": "Ocultar",
     "donate.submit": "Contribuir",
+    "donate.processing": "Procesando...",
     "donate.errorMinAmount": "El monto mínimo es $1 USD",
     "donate.errorGeneric": "No se pudo procesar la solicitud. Intenta de nuevo.",
+    "donate.errorTimeout":
+      "Algo salió mal. Probá de nuevo o escribinos a hola@pre.voto.",
     "donate.newsletterPostDonation":
       "Quiero recibir el newsletter mensual de pre.voto con actualizaciones del proyecto.",
     "donate.newsletterConfirm": "Confirmar",
@@ -408,8 +411,11 @@ const translations: Record<Locale, Record<string, string>> = {
     "donate.showCustom": "Outro valor?",
     "donate.hideCustom": "Ocultar",
     "donate.submit": "Contribuir",
+    "donate.processing": "Processando...",
     "donate.errorMinAmount": "O valor mínimo é $1 USD",
     "donate.errorGeneric": "Não foi possível processar a solicitação. Tente novamente.",
+    "donate.errorTimeout":
+      "Algo deu errado. Tente de novo ou escreva para hola@pre.voto.",
     "donate.newsletterPostDonation":
       "Quero receber o newsletter mensal do pre.voto com atualizações do projeto.",
     "donate.newsletterConfirm": "Confirmar",

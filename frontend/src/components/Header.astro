@@ -46,6 +46,13 @@ const countryMeta = country ? countries[country] : null;
         <a href="/sobre" class="text-ink-soft hover:text-ink">
           {t(locale, "nav.about")}
         </a>
+        <a
+          href="/apoyar"
+          class="px-3 py-1 rounded-md border border-terracotta text-terracotta
+            font-medium hover:bg-terracotta hover:text-white transition-colors"
+        >
+          {t(locale, "footer.support")}
+        </a>
       </div>
 
       <DarkModeToggle client:load />
@@ -117,6 +124,13 @@ const countryMeta = country ? countries[country] : null;
             class="block px-4 py-2 text-sm text-ink-soft hover:bg-paper-warm"
           >
             {t(locale, "nav.privacy")}
+          </a>
+          <hr class="my-1 border-line" />
+          <a
+            href="/apoyar"
+            class="block px-4 py-2 text-sm text-terracotta font-medium hover:bg-paper-warm"
+          >
+            {t(locale, "footer.support")}
           </a>
         </div>
       </details>
