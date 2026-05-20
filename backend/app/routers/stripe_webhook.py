@@ -11,7 +11,14 @@ from app.models.donation import Donation
 
 log = structlog.get_logger()
 
-router = APIRouter(prefix="/stripe", tags=["stripe"])
+router = APIRouter(prefix="/donations/stripe", tags=["stripe"])
+
+
+def _field(obj, key, default=None):
+    """Get field from dict or StripeObject (SDK v15+ returns StripeObjects)."""
+    if isinstance(obj, dict):
+        return obj.get(key, default)
+    return getattr(obj, key, default)
 
 
 @router.post("/webhook")
@@ -37,13 +44,17 @@ async def stripe_webhook(
         log.warning("stripe_webhook_invalid_signature")
         return JSONResponse(status_code=400, content={"error": "Invalid signature"})
 
-    event_type = event["type"]
-    data_object = event["data"]["object"]
+    event_type = _field(event, "type")
+    event_data = _field(event, "data")
+    data_object = _field(event_data, "object")
 
     if event_type == "checkout.session.completed":
-        session_id = data_object["id"]
-        payment_intent_id = data_object.get("payment_intent")
-        customer_email = data_object.get("customer_details", {}).get("email") or data_object.get("customer_email")
+        session_id = _field(data_object, "id")
+        payment_intent_id = _field(data_object, "payment_intent")
+        customer_details = _field(data_object, "customer_details")
+        customer_email = _field(customer_details, "email") if customer_details else None
+        if not customer_email:
+            customer_email = _field(data_object, "customer_email")
 
         result = await db.execute(
             select(Donation).where(Donation.stripe_session_id == session_id)
@@ -58,7 +69,7 @@ async def stripe_webhook(
             log.info("donation_succeeded", session_id=session_id, amount_cents=donation.amount_cents, email=customer_email)
 
     elif event_type == "checkout.session.expired":
-        session_id = data_object["id"]
+        session_id = _field(data_object, "id")
         result = await db.execute(
             select(Donation).where(Donation.stripe_session_id == session_id)
         )
@@ -69,7 +80,7 @@ async def stripe_webhook(
             log.info("donation_session_expired", session_id=session_id)
 
     elif event_type == "payment_intent.payment_failed":
-        payment_intent_id = data_object["id"]
+        payment_intent_id = _field(data_object, "id")
         result = await db.execute(
             select(Donation).where(
                 Donation.stripe_payment_intent_id == payment_intent_id

@@ -178,7 +178,7 @@ class TestStripeWebhook:
         """Returns 400 if webhook secret not configured."""
         monkeypatch.setattr("app.config.settings.stripe_webhook_secret", "")
         resp = await client.post(
-            "/stripe/webhook",
+            "/donations/stripe/webhook",
             content=b"{}",
             headers={"stripe-signature": "t=1,v1=sig"},
         )
@@ -198,7 +198,7 @@ class TestStripeWebhook:
             )
 
             resp = await client.post(
-                "/stripe/webhook",
+                "/donations/stripe/webhook",
                 content=b'{"type":"test"}',
                 headers={"stripe-signature": "t=123,v1=invalidsig"},
             )
@@ -226,7 +226,7 @@ class TestStripeWebhook:
             mock_stripe.SignatureVerificationError = Exception
 
             resp = await client.post(
-                "/stripe/webhook",
+                "/donations/stripe/webhook",
                 content=json.dumps(event_data).encode(),
                 headers={"stripe-signature": "t=123,v1=validsig"},
             )
@@ -259,7 +259,7 @@ class TestStripeWebhook:
             mock_stripe.SignatureVerificationError = Exception
 
             resp = await client.post(
-                "/stripe/webhook",
+                "/donations/stripe/webhook",
                 content=json.dumps(event_data).encode(),
                 headers={"stripe-signature": "t=123,v1=validsig"},
             )
@@ -288,7 +288,7 @@ class TestStripeWebhook:
             mock_stripe.SignatureVerificationError = Exception
 
             resp = await client.post(
-                "/stripe/webhook",
+                "/donations/stripe/webhook",
                 content=json.dumps(event_data).encode(),
                 headers={"stripe-signature": "t=123,v1=validsig"},
             )
