@@ -3,7 +3,7 @@ import BaseLayout from "../../../layouts/BaseLayout.astro";
 import { fetchCountries, fetchCandidates, fetchCandidate, fetchStatements } from "../../../lib/api";
 import { getLocaleFromCountry, t } from "../../../lib/i18n";
 import { getCountryName } from "../../../lib/countries";
-import type { CountryOut, CandidateDetail, StatementOut } from "../../../lib/types";
+import type { CountryOut, CandidateOut, CandidateDetail, StatementOut } from "../../../lib/types";
 
 export async function getStaticPaths() {
   const countries = await fetchCountries();
@@ -18,7 +18,7 @@ export async function getStaticPaths() {
           if (detail) {
             paths.push({
               params: { country: country.code, slug: c.slug },
-              props: { country, candidate: detail, statements },
+              props: { country, candidate: detail, statements, allCandidates: candidates },
             });
           }
         } catch {}
@@ -32,9 +32,10 @@ interface Props {
   country: CountryOut;
   candidate: CandidateDetail;
   statements: StatementOut[];
+  allCandidates: CandidateOut[];
 }
 
-const { country, candidate, statements } = Astro.props;
+const { country, candidate, statements, allCandidates } = Astro.props;
 const locale = getLocaleFromCountry(country.code);
 const name = getCountryName(country.code, locale);
 const color = candidate.color || "#737373";
@@ -47,6 +48,11 @@ const initials = candidate.name
 
 // Map statements by ID for lookup
 const stmtMap = new Map(statements.map((s) => [s.id, s]));
+
+// Resolve endorsee name from slug
+const endorseeName = candidate.endorses
+  ? allCandidates.find((c) => c.slug === candidate.endorses)?.name || candidate.endorses
+  : null;
 
 function getPositionLabel(value: number): string {
   return t(locale, `position.${value}`);
@@ -110,6 +116,23 @@ function getConfidenceColor(confidence: string | undefined): string {
       </div>
     </div>
 
+    <!-- Withdrawn candidate notice (Bloque E) -->
+    {candidate.withdrawn && (
+      <aside class="bg-brand/5 border border-brand/30 rounded-lg px-6 py-5 mb-8">
+        <p class="text-sm font-semibold text-brand mb-2">
+          {t(locale, "candidates.withdrawnTitle")}
+        </p>
+        <p class="text-sm leading-relaxed text-ink-soft mb-2">
+          {t(locale, "candidates.withdrawnNotice", { name: candidate.name })}
+        </p>
+        {endorseeName && (
+          <p class="text-sm leading-relaxed text-ink-soft">
+            {t(locale, "candidates.endorses", { name: candidate.name, endorsee: endorseeName })}
+          </p>
+        )}
+      </aside>
+    )}
+
     <!-- Photo attribution -->
     {candidate.photo_author && (
       <p class="text-xs text-ink-faint mb-8">
@@ -120,8 +143,8 @@ function getConfidenceColor(confidence: string | undefined): string {
       </p>
     )}
 
-    <!-- Positions -->
-    {candidate.positions.length > 0 && (
+    <!-- Positions (only for non-withdrawn candidates) -->
+    {!candidate.withdrawn && candidate.positions.length > 0 && (
       <section>
         <h2 class="text-xl font-bold mb-4">{t(locale, "candidates.positions")}</h2>
         <div class="space-y-3">
@@ -169,16 +192,18 @@ function getConfidenceColor(confidence: string | undefined): string {
       </section>
     )}
 
-    <!-- CTA -->
-    <div class="mt-8 text-center">
-      <p class="text-ink-soft mb-3">{t(locale, "candidates.affinityQuestion")}</p>
-      <a
-        href={`/${country.code}/quiz`}
-        class="inline-block px-6 py-3 bg-brand text-white rounded-lg font-medium hover:bg-brand-dark transition-colors"
-      >
-        {t(locale, "candidates.takeQuiz")}
-      </a>
-    </div>
+    <!-- CTA (only for non-withdrawn candidates) -->
+    {!candidate.withdrawn && (
+      <div class="mt-8 text-center">
+        <p class="text-ink-soft mb-3">{t(locale, "candidates.affinityQuestion")}</p>
+        <a
+          href={`/${country.code}/quiz`}
+          class="inline-block px-6 py-3 bg-brand text-white rounded-lg font-medium hover:bg-brand-dark transition-colors"
+        >
+          {t(locale, "candidates.takeQuiz")}
+        </a>
+      </div>
+    )}
   </article>
 
   <!-- GA4: candidate_view event -->
