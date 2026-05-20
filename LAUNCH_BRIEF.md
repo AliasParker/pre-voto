@@ -6,6 +6,7 @@
 
 ## Changelog
 
+- **v1.7 — 20 mayo 2026**: disclaimers Ley 2494/2025 y avisos de candidatos retirados. (a) **Quiz welcome**: aviso legal Ley 2494 (caja ocre) declarando que pre.voto no es encuesta, resultado es personal, no se agrega. (b) **Quiz welcome**: aviso informativo de candidatos retirados (Clara López casilla 2, Murillo casilla 14) y su exclusión del quiz. (c) **Quiz results**: aviso "Cómo interpretar este resultado" entre ranking y detalle por afirmación. (d) **Fichas de candidatos retirados**: aviso destacado de candidatura retirada con endorsement a Iván Cepeda, posiciones ocultas. (e) **Footer condicional Ley 2494**: verificado funcionando en /quiz, /candidatos/*, /articulos/*, /encuestas y NO en landing, home, páginas estáticas. (f) **i18n**: 8 nuevas claves en ES y PT-BR para disclaimers legales y avisos de retiro.
 - **v1.6 — 20 mayo 2026**: articles rendering refinements. (a) **Backend bugfixes**: `list_articles` y `get_article` ahora filtran `published_at <= NOW()` e `is_demo=False` — artículos futuros y demo ya no son visibles en la API pública. (b) **Preview endpoint**: `GET /articles/{country}/preview?token=<token>` y `GET /articles/{country}/preview/{slug}?token=<token>` permiten ver artículos sin publicar con `ADMIN_PREVIEW_TOKEN`. (c) **Frontend listing**: grid responsive 2 columnas en desktop, subtítulo descriptivo, empty state con link al quiz. (d) **ArticleCard**: título font-serif (Source Serif 4), fecha en color steel, hover con brand color + underline. (e) **Article detail**: breadcrumb de navegación, dek en serif italic, byline "Por X · Publicado el {fecha}", footer con disclaimer + link de retorno, OG type="article" con article:published_time y article:author. (f) **Preview page**: `/co/articulos/preview/{slug}` con banner de vista previa y noindex. (g) **GA4**: evento `article_view` ahora incluye `article_title` y `country`. Tests backend 75+.
 - **v1.5 — 19 mayo 2026**: import de 5 artículos editoriales de Colombia 2026 a tabla `articles`. Script reutilizable en `backend/app/scripts/import_articles_co_2026.py` lee el compendio `.md` (`seeds/co_2026/articulos_prevoto_v1.1.md`) y hace UPSERT por `(country_id, slug)`. Slugs: metodologia, comparativo-cinco-candidatos, otros-siete-candidatos, como-se-vota, lanzamiento. Publicación programada del 23 al 27 de mayo. No requirió migración Alembic (schema existente ya soportaba todos los campos). Tests backend 70/70.
 - **v1.4 — 19 mayo 2026 (noche, 2do push)**: refactor visual completo del frontend. (a) **Tipografía**: Public Sans (body/UI) + Source Serif 4 (headings/articles), self-hosted woff2, reemplaza Inter. (b) **Paleta**: paper warm #FAF8F4, terracotta brand #8B2626, steel blue #1F3A5F, ocre #B8860B; dark mode actualizado. (c) **Footer**: rediseñado con 3 columnas (marca, navegación, contacto), emails hola@ y errores@, @prevotoLATAM, disclaimer Ley 2494 en páginas del quiz/candidatos/artículos. (d) **Editorial**: normalización vos→tú (pan-LATAM neutro) y acentos completos en ES y PT-BR (~140 strings en i18n.ts + todas las páginas .astro). (e) **Página /apoyar**: placeholder para donaciones (sin Stripe aún). (f) Badges de confianza (Alta/Media/Baja) en ficha de candidato. (g) VP en tarjeta de candidato.
@@ -71,7 +72,7 @@ Hola, Claude. Estás abriendo Claude Code para terminar la implementación técn
 
 - ❌ Import a DB de producción de los 12 candidatos + 20 statements + 240 codificaciones (datos ya en `seeds/co_2026/`)
 - ✅ Import de los 5 artículos a tabla `articles` (script: `backend/app/scripts/import_articles_co_2026.py`)
-- ❌ Disclaimers Ley 2494 en `/co/quiz`, `/co/resultados/*`, y footer global
+- ✅ Disclaimers Ley 2494 en `/co/quiz`, resultados, footer global + avisos candidatos retirados
 - ❌ Feature flag `quiz_disabled_during_veda` (backend + frontend)
 - ❌ Integración Beehiiv: trigger desde backend post-quiz → API Beehiiv con custom fields y automation_id
 - ❌ Visualización en frontend del % de citas directas vs inferidas por candidato (`high_confidence_pct`)
@@ -588,6 +589,6 @@ Esto va al humano (chat web):
 ## Última actualización
 
 - **Fecha**: 20 de mayo de 2026
-- **Versión**: 1.6
+- **Versión**: 1.7
 - **Por**: Equipo pre.voto (asistencia editorial Claude vía chat web)
 - **Próxima revisión**: post-lanzamiento (31 de mayo de 2026)
