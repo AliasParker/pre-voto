@@ -44,10 +44,11 @@ class Settings(BaseSettings):
     # Article preview
     admin_preview_token: str = ""
 
-    # Veda
-    veda_enabled_co: bool = False
-    veda_start_co: str = ""
-    veda_end_co: str = ""
+    # Veda electoral (quiz disabled during election day voting hours)
+    quiz_veda_start_co: str = "2026-05-31T00:00:00-05:00"
+    quiz_veda_end_co: str = "2026-05-31T16:00:00-05:00"
+    quiz_veda_start_co_2da: str = ""
+    quiz_veda_end_co_2da: str = ""
 
     # SMTP (Mailpit in dev)
     smtp_host: str = "mailpit"
