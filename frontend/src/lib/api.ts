@@ -105,6 +105,29 @@ export async function fetchArticle(
   return apiFetch<ArticleDetail>(`/articles/${country}/${slug}`);
 }
 
+export async function fetchArticlesPreview(
+  country: string,
+  token: string,
+  offset = 0,
+  limit = 100,
+): Promise<ArticleOut[]> {
+  return (
+    (await apiFetch<ArticleOut[]>(
+      `/articles/${country}/preview?token=${encodeURIComponent(token)}&offset=${offset}&limit=${limit}`,
+    )) ?? []
+  );
+}
+
+export async function fetchArticlePreview(
+  country: string,
+  slug: string,
+  token: string,
+): Promise<ArticleDetail | null> {
+  return apiFetch<ArticleDetail>(
+    `/articles/${country}/preview/${slug}?token=${encodeURIComponent(token)}`,
+  );
+}
+
 export async function fetchPolls(country: string): Promise<PollOut[]> {
   return (await apiFetch<PollOut[]>(`/polls/${country}`)) ?? [];
 }
