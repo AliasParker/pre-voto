@@ -20,3 +20,9 @@ External services used by the project. No secrets or API keys here — only publ
 - **Mercado Pago** esta pendiente de crear la cuenta de desarrollador en Colombia. No es bloqueante para el lanzamiento.
 - **GA4** solo se activa si el usuario acepta el banner de cookies (Consent Mode v2).
 - **Beehiiv** necesita los 3 custom fields (`top_match_name`, `top_match_pct`, `result_url`, `country`) y una automation antes de ser funcional.
+
+## Variables de entorno adicionales (backend)
+
+| Variable | Propósito | Dónde se configura |
+|----------|-----------|-------------------|
+| `ADMIN_PREVIEW_TOKEN` | Token para acceder a endpoints de preview de artículos no publicados | `.env` en backend |

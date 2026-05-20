@@ -108,8 +108,15 @@ const translations: Record<Locale, Record<string, string>> = {
 
     // Articles
     "articles.title": "Artículos",
+    "articles.subtitle":
+      "Análisis y guías sobre la elección presidencial del 31 de mayo de 2026.",
     "articles.by": "Por {author}",
+    "articles.publishedOn": "Publicado el {date}",
+    "articles.backToArticles": "Artículos",
     "articles.noArticles": "Aún no hay artículos publicados.",
+    "articles.emptyQuizLink": "Mientras tanto, puedes hacer el quiz.",
+    "articles.previewBanner":
+      "Vista previa — Este artículo aún no está publicado.",
 
     // Polls
     "polls.title": "Encuestas",
@@ -256,8 +263,15 @@ const translations: Record<Locale, Record<string, string>> = {
 
     // Articles
     "articles.title": "Artigos",
+    "articles.subtitle":
+      "Análises e guias sobre a eleição presidencial de 31 de maio de 2026.",
     "articles.by": "Por {author}",
+    "articles.publishedOn": "Publicado em {date}",
+    "articles.backToArticles": "Artigos",
     "articles.noArticles": "Ainda não há artigos publicados.",
+    "articles.emptyQuizLink": "Enquanto isso, você pode fazer o quiz.",
+    "articles.previewBanner":
+      "Pré-visualização — Este artigo ainda não foi publicado.",
 
     // Polls
     "polls.title": "Pesquisas",

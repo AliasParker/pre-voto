@@ -1,20 +1,23 @@
 ---
-import BaseLayout from "../../../layouts/BaseLayout.astro";
-import NewsletterSignup from "../../../components/NewsletterSignup.astro";
-import { fetchCountries, fetchArticles, fetchArticle } from "../../../lib/api";
-import { getLocaleFromCountry, t } from "../../../lib/i18n";
-import { renderMarkdown } from "../../../lib/markdown";
-import type { CountryOut, ArticleDetail } from "../../../lib/types";
+import BaseLayout from "../../../../layouts/BaseLayout.astro";
+import NewsletterSignup from "../../../../components/NewsletterSignup.astro";
+import { fetchCountries, fetchArticlesPreview, fetchArticlePreview } from "../../../../lib/api";
+import { getLocaleFromCountry, t } from "../../../../lib/i18n";
+import { renderMarkdown } from "../../../../lib/markdown";
+import type { CountryOut, ArticleDetail } from "../../../../lib/types";
 
 export async function getStaticPaths() {
+  const token = import.meta.env.ADMIN_PREVIEW_TOKEN;
+  if (!token) return [];
+
   const countries = await fetchCountries();
   const paths = [];
   for (const country of countries) {
     try {
-      const articles = await fetchArticles(country.code, 0, 100);
+      const articles = await fetchArticlesPreview(country.code, token);
       for (const a of articles) {
         try {
-          const detail = await fetchArticle(country.code, a.slug);
+          const detail = await fetchArticlePreview(country.code, a.slug, token);
           if (detail) {
             paths.push({
               params: { country: country.code, slug: a.slug },
@@ -42,33 +45,22 @@ const dateStr = article.published_at
       { year: "numeric", month: "long", day: "numeric" }
     )
   : null;
-
-const jsonLd = {
-  "@context": "https://schema.org",
-  "@type": "Article",
-  headline: article.title,
-  ...(article.author && { author: { "@type": "Person", name: article.author } }),
-  ...(article.published_at && { datePublished: article.published_at }),
-  ...(article.hero_image_url && { image: article.hero_image_url }),
-  publisher: {
-    "@type": "Organization",
-    name: "pre.voto",
-    url: "https://pre.voto",
-  },
-};
 ---
 
 <BaseLayout
-  title={`${article.title} | pre.voto`}
+  title={`[Preview] ${article.title} | pre.voto`}
   description={article.dek || article.title}
   country={country.code}
   ogImage={article.hero_image_url || undefined}
-  jsonLd={jsonLd}
-  ogType="article"
-  ogArticlePublishedTime={article.published_at || undefined}
-  ogArticleAuthor={article.author || undefined}
 >
+  <meta slot="head" name="robots" content="noindex" />
+
   <article class="max-w-3xl mx-auto px-4 py-12">
+    <!-- Preview banner -->
+    <div class="bg-ocre/10 border border-ocre rounded-lg px-4 py-3 mb-6 text-sm text-ocre font-medium">
+      {t(locale, "articles.previewBanner")}
+    </div>
+
     <!-- Breadcrumb -->
     <nav class="text-sm text-ink-faint mb-6">
       <a href={`/${country.code}/articulos`} class="hover:text-brand transition-colors">
@@ -123,11 +115,6 @@ const jsonLd = {
 
     <!-- Article footer -->
     <hr class="my-8 border-line" />
-    <p class="text-sm text-ink-faint italic mb-4">
-      {locale === "pt-BR"
-        ? "Pre.voto é uma iniciativa independente, sem afiliação partidária. As análises refletem posições documentadas e fontes públicas."
-        : "Pre.voto es una iniciativa independiente, sin afiliación partidaria. Los análisis reflejan posiciones documentadas y fuentes públicas."}
-    </p>
     <a
       href={`/${country.code}/articulos`}
       class="text-sm text-brand hover:underline"
@@ -140,9 +127,4 @@ const jsonLd = {
       <NewsletterSignup country={country.code} />
     </div>
   </article>
-
-  <!-- GA4: article_view event -->
-  <script is:inline define:vars={{ articleSlug: article.slug, articleTitle: article.title, countryCode: country.code }}>
-    if (window.__pvEvent) window.__pvEvent("article_view", { article_slug: articleSlug, article_title: articleTitle, country: countryCode });
-  </script>
 </BaseLayout>
