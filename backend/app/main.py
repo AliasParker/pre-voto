@@ -97,13 +97,18 @@ async def http_exception_handler(request: Request, exc: StarletteHTTPException):
 
 @app.exception_handler(RequestValidationError)
 async def validation_exception_handler(request: Request, exc: RequestValidationError):
+    # Sanitize errors: Pydantic v2 ctx may contain non-serializable objects
+    safe_errors = []
+    for err in exc.errors():
+        clean = {k: v for k, v in err.items() if k != "ctx"}
+        safe_errors.append(clean)
     return JSONResponse(
         status_code=422,
         content={
             "error": {
                 "code": "validation_error",
                 "message": "Request validation failed",
-                "detail": exc.errors(),
+                "detail": safe_errors,
             }
         },
     )
@@ -180,10 +185,12 @@ from app.routers.admin import router as admin_router  # noqa: E402
 from app.routers.articles import router as articles_router  # noqa: E402
 from app.routers.candidates import router as candidates_router  # noqa: E402
 from app.routers.countries import router as countries_router  # noqa: E402
+from app.routers.donations import router as donations_router  # noqa: E402
 from app.routers.feature_flags import router as feature_flags_router  # noqa: E402
 from app.routers.og import og_router, share_router  # noqa: E402
 from app.routers.polls import router as polls_router  # noqa: E402
 from app.routers.quiz import router as quiz_router  # noqa: E402
+from app.routers.stripe_webhook import router as stripe_webhook_router  # noqa: E402
 from app.routers.subscribers import router as subscribers_router  # noqa: E402
 
 app.include_router(countries_router)
@@ -192,10 +199,12 @@ app.include_router(quiz_router)
 app.include_router(articles_router)
 app.include_router(polls_router)
 app.include_router(subscribers_router)
+app.include_router(donations_router)
 app.include_router(feature_flags_router)
 app.include_router(admin_router)
 app.include_router(og_router)
 app.include_router(share_router)
+app.include_router(stripe_webhook_router)
 
 
 # ---------------------------------------------------------------------------
