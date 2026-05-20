@@ -11,7 +11,7 @@ const locale = "es";
 >
   <article class="max-w-2xl mx-auto px-4 py-12 text-center">
     <div id="donation-status" class="space-y-6">
-      <p class="text-4xl mb-4">🙏</p>
+      <p class="text-4xl mb-4" aria-hidden="true">&#x1F64F;</p>
       <h1 class="text-3xl font-serif font-bold">
         {t(locale, "donate.thanksTitle")}
       </h1>
@@ -19,6 +19,33 @@ const locale = "es";
         {t(locale, "donate.thanksPending")}
       </p>
       <p id="confirmation-id" class="text-sm text-ink-soft hidden"></p>
+    </div>
+
+    <!-- Newsletter opt-in (shown after successful donation) -->
+    <div id="newsletter-section" class="mt-8 hidden">
+      <div class="max-w-sm mx-auto p-6 rounded-xl border border-line bg-paper-warm">
+        <label class="flex items-start gap-3 cursor-pointer text-left">
+          <input
+            id="newsletter-checkbox"
+            type="checkbox"
+            class="mt-1 h-4 w-4 rounded border-line text-terracotta
+              focus:ring-terracotta"
+          />
+          <span class="text-sm text-ink-soft">
+            {t(locale, "donate.newsletterPostDonation")}
+          </span>
+        </label>
+        <button
+          id="newsletter-confirm"
+          type="button"
+          class="mt-4 w-full py-2 rounded-lg font-bold text-white
+            bg-terracotta hover:bg-terracotta/90 transition-colors
+            disabled:bg-gray-400 disabled:cursor-not-allowed"
+        >
+          {t(locale, "donate.newsletterConfirm")}
+        </button>
+        <p id="newsletter-status" class="mt-2 text-sm hidden"></p>
+      </div>
     </div>
 
     <div class="mt-10 space-y-4">
@@ -51,6 +78,7 @@ const locale = "es";
       const data = await res.json();
       const msgEl = document.getElementById("status-message");
       const confEl = document.getElementById("confirmation-id");
+      const newsletterSection = document.getElementById("newsletter-section");
       if (!msgEl) return;
 
       if (data.status === "succeeded") {
@@ -61,6 +89,11 @@ const locale = "es";
           confEl.textContent = `Confirmación: ${shortId}`;
           confEl.classList.remove("hidden");
         }
+        // Show newsletter opt-in if not already opted in
+        if (newsletterSection && !data.newsletter_opt_in) {
+          newsletterSection.classList.remove("hidden");
+          setupNewsletter(sessionId);
+        }
       } else if (data.status === "failed") {
         msgEl.textContent =
           "Hubo un problema con tu pago. Intenta de nuevo o escríbenos a hola@pre.voto.";
@@ -69,6 +102,51 @@ const locale = "es";
     } catch {
       // Silently fail — default message is fine
     }
+  }
+
+  function setupNewsletter(sessionId: string) {
+    const checkbox = document.getElementById("newsletter-checkbox") as HTMLInputElement;
+    const confirmBtn = document.getElementById("newsletter-confirm") as HTMLButtonElement;
+    const statusEl = document.getElementById("newsletter-status");
+    if (!checkbox || !confirmBtn || !statusEl) return;
+
+    confirmBtn.addEventListener("click", async () => {
+      if (!checkbox.checked) return;
+
+      confirmBtn.disabled = true;
+      confirmBtn.textContent = "Enviando...";
+
+      try {
+        const res = await fetch(
+          `/api/donations/session/${encodeURIComponent(sessionId)}/newsletter-opt-in`,
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ opt_in: true }),
+          }
+        );
+
+        if (res.ok) {
+          statusEl.textContent = "¡Listo! Te avisaremos por email.";
+          statusEl.className = "mt-2 text-sm text-green-600 dark:text-green-400";
+          statusEl.classList.remove("hidden");
+          confirmBtn.classList.add("hidden");
+          checkbox.disabled = true;
+        } else {
+          statusEl.textContent = "No se pudo guardar. Intenta de nuevo.";
+          statusEl.className = "mt-2 text-sm text-red-600 dark:text-red-400";
+          statusEl.classList.remove("hidden");
+          confirmBtn.disabled = false;
+          confirmBtn.textContent = "Confirmar";
+        }
+      } catch {
+        statusEl.textContent = "Error de conexión. Intenta de nuevo.";
+        statusEl.className = "mt-2 text-sm text-red-600 dark:text-red-400";
+        statusEl.classList.remove("hidden");
+        confirmBtn.disabled = false;
+        confirmBtn.textContent = "Confirmar";
+      }
+    });
   }
 
   checkStatus();

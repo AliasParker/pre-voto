@@ -1,12 +1,10 @@
 from datetime import datetime
 
-from pydantic import BaseModel, ConfigDict, EmailStr, field_validator
+from pydantic import BaseModel, ConfigDict, field_validator
 
 
 class DonationCreateRequest(BaseModel):
     amount_usd: float
-    email: EmailStr
-    newsletter_opt_in: bool = False
 
     @field_validator("amount_usd")
     @classmethod
@@ -29,4 +27,9 @@ class DonationStatusOut(BaseModel):
     amount_cents: int
     currency: str
     status: str
+    newsletter_opt_in: bool
     created_at: datetime
+
+
+class NewsletterOptInRequest(BaseModel):
+    opt_in: bool = True

@@ -15,6 +15,7 @@ from app.schemas.donation import (
     DonationCreateRequest,
     DonationCreateResponse,
     DonationStatusOut,
+    NewsletterOptInRequest,
 )
 
 log = structlog.get_logger()
@@ -56,12 +57,8 @@ async def create_donation_session(
                     "quantity": 1,
                 }
             ],
-            customer_email=body.email,
             success_url=f"{settings.frontend_url}/apoyar/gracias?session_id={{CHECKOUT_SESSION_ID}}",
             cancel_url=f"{settings.frontend_url}/apoyar/cancelar",
-            metadata={
-                "newsletter_opt_in": str(body.newsletter_opt_in).lower(),
-            },
         )
     except stripe.StripeError as e:
         log.error("stripe_session_create_failed", error=str(e))
@@ -71,12 +68,10 @@ async def create_donation_session(
         )
 
     donation = Donation(
-        email=body.email,
         amount_cents=amount_cents,
         currency="usd",
         stripe_session_id=session.id,
         status="pending",
-        newsletter_opt_in=body.newsletter_opt_in,
     )
     db.add(donation)
     await db.commit()
@@ -102,3 +97,33 @@ async def get_donation_status(
             content={"error": {"code": "not_found", "message": "Donation session not found."}},
         )
     return DonationStatusOut.model_validate(donation)
+
+
+@router.post("/session/{session_id}/newsletter-opt-in")
+async def newsletter_opt_in(
+    session_id: str,
+    body: NewsletterOptInRequest,
+    db: AsyncSession = Depends(get_db),
+):
+    result = await db.execute(
+        select(Donation).where(Donation.stripe_session_id == session_id)
+    )
+    donation = result.scalar_one_or_none()
+    if not donation:
+        return JSONResponse(
+            status_code=404,
+            content={"error": {"code": "not_found", "message": "Donation session not found."}},
+        )
+
+    if donation.status != "succeeded":
+        return JSONResponse(
+            status_code=400,
+            content={"error": {"code": "not_completed", "message": "Donation has not been completed."}},
+        )
+
+    donation.newsletter_opt_in = body.opt_in
+    await db.commit()
+
+    log.info("donation_newsletter_opt_in_updated", session_id=session_id, opt_in=body.opt_in)
+
+    return {"ok": True, "newsletter_opt_in": body.opt_in}

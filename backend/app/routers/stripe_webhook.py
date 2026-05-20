@@ -43,6 +43,7 @@ async def stripe_webhook(
     if event_type == "checkout.session.completed":
         session_id = data_object["id"]
         payment_intent_id = data_object.get("payment_intent")
+        customer_email = data_object.get("customer_details", {}).get("email") or data_object.get("customer_email")
 
         result = await db.execute(
             select(Donation).where(Donation.stripe_session_id == session_id)
@@ -51,12 +52,10 @@ async def stripe_webhook(
         if donation:
             donation.status = "succeeded"
             donation.stripe_payment_intent_id = payment_intent_id
+            if customer_email:
+                donation.email = customer_email
             await db.commit()
-            log.info("donation_succeeded", session_id=session_id, amount_cents=donation.amount_cents)
-
-            if donation.newsletter_opt_in:
-                # TODO: Forward to Beehiiv when integration is ready (separate PR)
-                log.info("donation_newsletter_opt_in", email=donation.email)
+            log.info("donation_succeeded", session_id=session_id, amount_cents=donation.amount_cents, email=customer_email)
 
     elif event_type == "checkout.session.expired":
         session_id = data_object["id"]

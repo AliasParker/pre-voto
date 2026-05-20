@@ -13,7 +13,7 @@ class Donation(TimestampMixin, Base):
     id: Mapped[uuid.UUID] = mapped_column(
         primary_key=True, server_default=func.gen_random_uuid()
     )
-    email: Mapped[str] = mapped_column(nullable=False)
+    email: Mapped[str | None] = mapped_column(nullable=True)
     amount_cents: Mapped[int] = mapped_column(nullable=False)
     currency: Mapped[str] = mapped_column(String(3), server_default="usd")
     stripe_session_id: Mapped[str] = mapped_column(unique=True, nullable=False)

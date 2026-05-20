@@ -186,14 +186,14 @@ const translations: Record<Locale, Record<string, string>> = {
     "donate.cta":
       "Si quieres ayudar a que sigamos haciendo esto en Brasil, México y Argentina, puedes contribuir desde acá.",
     "donate.sectionTitle": "Contribuir al proyecto",
-    "donate.customAmount": "Otro monto",
-    "donate.email": "Tu email",
-    "donate.newsletter": "Quiero recibir el newsletter mensual de pre.voto",
+    "donate.showCustom": "¿Otro monto?",
+    "donate.hideCustom": "Ocultar",
     "donate.submit": "Contribuir",
-    "donate.submitting": "Procesando...",
     "donate.errorMinAmount": "El monto mínimo es $1 USD",
-    "donate.errorEmail": "Ingresa un email válido",
     "donate.errorGeneric": "No se pudo procesar la solicitud. Intenta de nuevo.",
+    "donate.newsletterPostDonation":
+      "Quiero recibir el newsletter mensual de pre.voto con actualizaciones del proyecto.",
+    "donate.newsletterConfirm": "Confirmar",
     "donate.howTitle": "Cómo se usa el dinero",
     "donate.howBody":
       "Hosting, dominios, herramientas técnicas. Documentación y traducción de codificaciones para próximos países. Nada de salarios todavía.",
@@ -405,14 +405,14 @@ const translations: Record<Locale, Record<string, string>> = {
     "donate.cta":
       "Se você quer ajudar a levar o pre.voto para o Brasil, México e Argentina, pode contribuir por aqui.",
     "donate.sectionTitle": "Contribuir com o projeto",
-    "donate.customAmount": "Outro valor",
-    "donate.email": "Seu email",
-    "donate.newsletter": "Quero receber o newsletter mensal do pre.voto",
+    "donate.showCustom": "Outro valor?",
+    "donate.hideCustom": "Ocultar",
     "donate.submit": "Contribuir",
-    "donate.submitting": "Processando...",
     "donate.errorMinAmount": "O valor mínimo é $1 USD",
-    "donate.errorEmail": "Insira um email válido",
     "donate.errorGeneric": "Não foi possível processar a solicitação. Tente novamente.",
+    "donate.newsletterPostDonation":
+      "Quero receber o newsletter mensal do pre.voto com atualizações do projeto.",
+    "donate.newsletterConfirm": "Confirmar",
     "donate.howTitle": "Como o dinheiro é usado",
     "donate.howBody":
       "Hospedagem, domínios, ferramentas técnicas. Documentação e tradução de codificações para próximos países. Nenhum salário ainda.",

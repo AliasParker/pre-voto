@@ -12,14 +12,28 @@ from app.models.donation import Donation
 
 @pytest_asyncio.fixture()
 async def seed_donation(db_session: AsyncSession):
-    """Create a test donation record."""
+    """Create a test donation record (no email — comes from webhook)."""
     donation = Donation(
-        email="donor@example.com",
         amount_cents=1000,
         currency="usd",
         stripe_session_id="cs_test_abc123",
         status="pending",
-        newsletter_opt_in=True,
+    )
+    db_session.add(donation)
+    await db_session.flush()
+    return donation
+
+
+@pytest_asyncio.fixture()
+async def seed_succeeded_donation(db_session: AsyncSession):
+    """Create a succeeded donation record."""
+    donation = Donation(
+        email="donor@example.com",
+        amount_cents=2500,
+        currency="usd",
+        stripe_session_id="cs_test_succeeded",
+        stripe_payment_intent_id="pi_test_done",
+        status="succeeded",
     )
     db_session.add(donation)
     await db_session.flush()
@@ -33,7 +47,7 @@ class TestCreateSession:
         monkeypatch.setattr("app.config.settings.stripe_secret_key", "")
         resp = await client.post(
             "/donations/create-session",
-            json={"amount_usd": 10, "email": "test@example.com"},
+            json={"amount_usd": 10},
         )
         assert resp.status_code == 503
         data = resp.json()
@@ -43,7 +57,7 @@ class TestCreateSession:
         """Amount below $1 should fail validation."""
         resp = await client.post(
             "/donations/create-session",
-            json={"amount_usd": 0.50, "email": "test@example.com"},
+            json={"amount_usd": 0.50},
         )
         assert resp.status_code == 422
 
@@ -51,20 +65,12 @@ class TestCreateSession:
         """Amount above $10,000 should fail validation."""
         resp = await client.post(
             "/donations/create-session",
-            json={"amount_usd": 50000, "email": "test@example.com"},
+            json={"amount_usd": 50000},
         )
         assert resp.status_code == 422
 
-    async def test_create_session_invalid_email(self, client):
-        """Invalid email should fail validation."""
-        resp = await client.post(
-            "/donations/create-session",
-            json={"amount_usd": 10, "email": "not-an-email"},
-        )
-        assert resp.status_code == 422
-
-    async def test_create_session_valid_request(self, client, monkeypatch, db_session):
-        """Valid request with mocked Stripe creates session and DB record."""
+    async def test_create_session_only_requires_amount(self, client, monkeypatch, db_session):
+        """Valid request needs only amount_usd — no email or newsletter fields."""
         monkeypatch.setattr("app.config.settings.stripe_secret_key", "sk_test_fake")
 
         mock_session = MagicMock()
@@ -77,17 +83,35 @@ class TestCreateSession:
 
             resp = await client.post(
                 "/donations/create-session",
-                json={
-                    "amount_usd": 25,
-                    "email": "donor@example.com",
-                    "newsletter_opt_in": True,
-                },
+                json={"amount_usd": 25},
             )
 
         assert resp.status_code == 200
         data = resp.json()
         assert data["checkout_url"] == "https://checkout.stripe.com/test"
         assert data["session_id"] == "cs_test_new_session"
+
+    async def test_create_session_does_not_pass_customer_email(self, client, monkeypatch, db_session):
+        """Stripe session should NOT be created with customer_email."""
+        monkeypatch.setattr("app.config.settings.stripe_secret_key", "sk_test_fake")
+
+        mock_session = MagicMock()
+        mock_session.id = "cs_test_no_email"
+        mock_session.url = "https://checkout.stripe.com/test2"
+
+        with patch("app.routers.donations.stripe") as mock_stripe:
+            mock_stripe.checkout.Session.create.return_value = mock_session
+            mock_stripe.StripeError = Exception
+
+            resp = await client.post(
+                "/donations/create-session",
+                json={"amount_usd": 5},
+            )
+
+        assert resp.status_code == 200
+        # Verify customer_email was NOT passed to Stripe
+        call_kwargs = mock_stripe.checkout.Session.create.call_args
+        assert "customer_email" not in call_kwargs.kwargs
 
 
 class TestDonationStatus:
@@ -100,11 +124,51 @@ class TestDonationStatus:
         assert data["amount_cents"] == 1000
         assert data["currency"] == "usd"
         assert data["status"] == "pending"
+        assert data["newsletter_opt_in"] is False
         assert "created_at" in data
 
     async def test_session_status_not_found(self, client):
         """Returns 404 for unknown session."""
         resp = await client.get("/donations/session/cs_nonexistent")
+        assert resp.status_code == 404
+
+
+class TestNewsletterOptIn:
+
+    async def test_newsletter_opt_in_succeeds_for_completed_donation(
+        self, client, seed_succeeded_donation, db_session
+    ):
+        """Newsletter opt-in works for succeeded donations."""
+        resp = await client.post(
+            f"/donations/session/{seed_succeeded_donation.stripe_session_id}/newsletter-opt-in",
+            json={"opt_in": True},
+        )
+        assert resp.status_code == 200
+        data = resp.json()
+        assert data["ok"] is True
+        assert data["newsletter_opt_in"] is True
+
+        await db_session.refresh(seed_succeeded_donation)
+        assert seed_succeeded_donation.newsletter_opt_in is True
+
+    async def test_newsletter_opt_in_rejected_for_pending_donation(
+        self, client, seed_donation
+    ):
+        """Newsletter opt-in fails for pending (not yet completed) donations."""
+        resp = await client.post(
+            f"/donations/session/{seed_donation.stripe_session_id}/newsletter-opt-in",
+            json={"opt_in": True},
+        )
+        assert resp.status_code == 400
+        data = resp.json()
+        assert data["error"]["code"] == "not_completed"
+
+    async def test_newsletter_opt_in_not_found(self, client):
+        """Newsletter opt-in returns 404 for unknown session."""
+        resp = await client.post(
+            "/donations/session/cs_nonexistent/newsletter-opt-in",
+            json={"opt_in": True},
+        )
         assert resp.status_code == 404
 
 
@@ -140,10 +204,10 @@ class TestStripeWebhook:
             )
         assert resp.status_code == 400
 
-    async def test_webhook_completed_updates_status(
+    async def test_webhook_completed_captures_email(
         self, client, seed_donation, db_session, monkeypatch
     ):
-        """checkout.session.completed updates donation to succeeded."""
+        """checkout.session.completed updates status and captures customer email."""
         monkeypatch.setattr("app.config.settings.stripe_webhook_secret", "whsec_test123")
 
         event_data = {
@@ -152,6 +216,7 @@ class TestStripeWebhook:
                 "object": {
                     "id": seed_donation.stripe_session_id,
                     "payment_intent": "pi_test_xyz",
+                    "customer_details": {"email": "payer@example.com"},
                 }
             },
         }
@@ -170,6 +235,38 @@ class TestStripeWebhook:
         await db_session.refresh(seed_donation)
         assert seed_donation.status == "succeeded"
         assert seed_donation.stripe_payment_intent_id == "pi_test_xyz"
+        assert seed_donation.email == "payer@example.com"
+
+    async def test_webhook_completed_falls_back_to_customer_email_field(
+        self, client, seed_donation, db_session, monkeypatch
+    ):
+        """Falls back to customer_email if customer_details is missing."""
+        monkeypatch.setattr("app.config.settings.stripe_webhook_secret", "whsec_test123")
+
+        event_data = {
+            "type": "checkout.session.completed",
+            "data": {
+                "object": {
+                    "id": seed_donation.stripe_session_id,
+                    "payment_intent": "pi_test_fallback",
+                    "customer_email": "fallback@example.com",
+                }
+            },
+        }
+
+        with patch("app.routers.stripe_webhook.stripe") as mock_stripe:
+            mock_stripe.Webhook.construct_event.return_value = event_data
+            mock_stripe.SignatureVerificationError = Exception
+
+            resp = await client.post(
+                "/stripe/webhook",
+                content=json.dumps(event_data).encode(),
+                headers={"stripe-signature": "t=123,v1=validsig"},
+            )
+
+        assert resp.status_code == 200
+        await db_session.refresh(seed_donation)
+        assert seed_donation.email == "fallback@example.com"
 
     async def test_webhook_expired_updates_status(
         self, client, seed_donation, db_session, monkeypatch
