@@ -520,6 +520,16 @@
         {/each}
       </div>
 
+      <!-- Bloque C: Results interpretation disclaimer -->
+      <aside class="bg-ocre/5 border border-ocre/30 rounded-lg px-6 py-5 mb-8">
+        <p class="text-sm font-semibold text-ink mb-1">
+          {t(locale, "disclaimer.resultsTitle")}
+        </p>
+        <p class="text-sm leading-relaxed text-ink-soft">
+          {t(locale, "disclaimer.resultsInterpretation")}
+        </p>
+      </aside>
+
       <!-- Statement breakdown -->
       <div class="mb-8">
         <button
