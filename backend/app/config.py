@@ -41,6 +41,9 @@ class Settings(BaseSettings):
     rate_limit_per_minute: int = 60
     rate_limit_subscribe_per_hour: int = 5
 
+    # Article preview
+    admin_preview_token: str = ""
+
     # Veda
     veda_enabled_co: bool = False
     veda_start_co: str = ""

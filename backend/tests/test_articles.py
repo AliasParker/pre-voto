@@ -1,5 +1,7 @@
 import pytest
 
+from app.config import settings
+
 
 @pytest.mark.usefixtures("seed_articles")
 class TestArticlesRouter:
@@ -62,3 +64,35 @@ class TestArticlesRouter:
     async def test_demo_article_not_accessible_by_slug(self, client):
         resp = await client.get("/articles/xt/demo-article")
         assert resp.status_code == 404
+
+
+@pytest.mark.usefixtures("seed_articles")
+class TestArticlesPreview:
+
+    async def test_preview_list_requires_token(self, client):
+        resp = await client.get("/articles/xt/preview")
+        assert resp.status_code == 401
+
+    async def test_preview_list_rejects_wrong_token(self, client):
+        resp = await client.get("/articles/xt/preview?token=wrong")
+        assert resp.status_code == 401
+
+    async def test_preview_list_includes_future_articles(self, client, monkeypatch):
+        monkeypatch.setattr(settings, "admin_preview_token", "test-secret")
+        resp = await client.get("/articles/xt/preview?token=test-secret")
+        assert resp.status_code == 200
+        slugs = [a["slug"] for a in resp.json()]
+        assert "future-article" in slugs
+        # Excludes demo and deleted
+        assert "demo-article" not in slugs
+        assert "deleted-article" not in slugs
+
+    async def test_preview_detail_returns_future_article(self, client, monkeypatch):
+        monkeypatch.setattr(settings, "admin_preview_token", "test-secret")
+        resp = await client.get("/articles/xt/preview/future-article?token=test-secret")
+        assert resp.status_code == 200
+        assert resp.json()["slug"] == "future-article"
+
+    async def test_preview_detail_rejects_wrong_token(self, client):
+        resp = await client.get("/articles/xt/preview/future-article?token=wrong")
+        assert resp.status_code == 401
