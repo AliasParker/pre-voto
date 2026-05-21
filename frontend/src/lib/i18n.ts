@@ -28,10 +28,12 @@ const translations: Record<Locale, Record<string, string>> = {
     "common.mins": "min",
     "common.secs": "seg",
 
-    // Home
-    "home.hero": "Voto informado para Latinoamérica.",
+    // Home — global
+    "home.hero": "¿Orientación personal de por quién votar?",
     "home.subtitle":
-      "Compara tus posiciones con las de los candidatos. Sin registro, sin datos personales, procesado en tu navegador.",
+      "Pre.voto te ayuda a comparar tus opiniones con las de los candidatos. Empezando por Colombia 2026.",
+    "home.microcopy":
+      "No es una encuesta. No te dice por quién votar. No guardamos datos personales.",
     "home.howItWorks": "Cómo funciona",
     "home.step1Title": "Responde el cuestionario",
     "home.step1Desc":
@@ -44,6 +46,14 @@ const translations: Record<Locale, Record<string, string>> = {
       "Revisa las fuentes, profundiza en los temas y toma tu decisión.",
     "home.upcomingElections": "Próximas elecciones",
     "home.selectCountry": "Selecciona tu país",
+
+    // Home — Colombia
+    "home.co.title":
+      "¿Orientación personal de por quién votar el 31 de mayo?",
+    "home.co.subtitle":
+      "Pre.voto te ayuda a comparar tus opiniones con las de los 12 candidatos a la Presidencia. 20 preguntas, 5 minutos.",
+    "home.co.microcopy":
+      "No es una encuesta. No te dice por quién votar. No guardamos datos personales.",
 
     // Country
     "country.startQuiz": "Hacer la brújula electoral",
@@ -250,10 +260,12 @@ const translations: Record<Locale, Record<string, string>> = {
     "common.mins": "min",
     "common.secs": "seg",
 
-    // Home
-    "home.hero": "Voto informado para a América Latina.",
+    // Home — global
+    "home.hero": "Orientação pessoal sobre em quem votar?",
     "home.subtitle":
-      "Compare suas posições com as dos candidatos. Sem cadastro, sem dados pessoais, processado no seu navegador.",
+      "Pre.voto te ajuda a comparar tuas opiniões com as dos candidatos. Começando pela Colômbia 2026.",
+    "home.microcopy":
+      "Não é uma pesquisa. Não te diz em quem votar. Não guardamos dados pessoais.",
     "home.howItWorks": "Como funciona",
     "home.step1Title": "Responda o questionário",
     "home.step1Desc":
