@@ -7,7 +7,7 @@ from app.db import get_db
 from app.limiter import limiter
 from app.models.subscriber import Subscriber
 from app.schemas.subscriber import SubscriberCreate, SubscriberOut
-from app.services.beehiiv import forward_to_beehiiv
+from app.services.beehiiv import subscribe_from_home, subscribe_from_quiz
 from app.tasks import spawn_background_task
 
 router = APIRouter(prefix="/subscribers", tags=["subscribers"])
@@ -47,10 +47,22 @@ async def create_subscriber(
         await db.commit()
         await db.refresh(subscriber)
 
-    # Forward to Beehiiv in background (don't block response)
-    spawn_background_task(
-        forward_to_beehiiv(body.email, body.country_code),
-        name="forward_to_beehiiv",
-    )
+    # Dispatch to the right Beehiiv flow based on quiz fields
+    if body.top_match_name:
+        spawn_background_task(
+            subscribe_from_quiz(
+                body.email,
+                body.country_code,
+                top_match_name=body.top_match_name,
+                top_match_pct=body.top_match_pct,
+                result_url=body.result_url,
+            ),
+            name="subscribe_from_quiz",
+        )
+    else:
+        spawn_background_task(
+            subscribe_from_home(body.email, body.country_code),
+            name="subscribe_from_home",
+        )
 
     return subscriber
