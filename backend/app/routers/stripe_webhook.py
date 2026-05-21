@@ -8,6 +8,8 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from app.config import settings
 from app.db import get_db
 from app.models.donation import Donation
+from app.services.email import send_donation_email
+from app.tasks import spawn_background_task
 
 log = structlog.get_logger()
 
@@ -67,6 +69,14 @@ async def stripe_webhook(
                 donation.email = customer_email
             await db.commit()
             log.info("donation_succeeded", session_id=session_id, amount_cents=donation.amount_cents, email=customer_email)
+
+            # TX2: send thank-you email
+            if customer_email:
+                amount_display = f"US${donation.amount_cents / 100:.2f}"
+                spawn_background_task(
+                    send_donation_email(customer_email, amount_display),
+                    name="send_donation_email",
+                )
 
     elif event_type == "checkout.session.expired":
         session_id = _field(data_object, "id")
