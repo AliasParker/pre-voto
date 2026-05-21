@@ -51,7 +51,7 @@ async def subscribe_from_home(email: str, country_code: str | None) -> str | Non
     payload: dict = {"email": email}
     if country_code:
         payload["custom_fields"] = [
-            {"name": "country_code", "value": country_code},
+            {"name": "country_code", "value": country_code.upper()},
         ]
     return await _post_subscription(payload)
 
@@ -69,7 +69,7 @@ async def subscribe_from_quiz(
 
     fields = []
     if country_code:
-        fields.append({"name": "country_code", "value": country_code})
+        fields.append({"name": "country_code", "value": country_code.upper()})
     if top_match_name:
         fields.append({"name": "top_match_name", "value": top_match_name})
     if top_match_pct is not None:
