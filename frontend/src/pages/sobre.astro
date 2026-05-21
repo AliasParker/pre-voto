@@ -17,45 +17,137 @@ const jsonLd = {
   jsonLd={jsonLd}
 >
   <article class="max-w-3xl mx-auto px-4 py-12">
-    <div class="bg-brand/10 text-brand-dark border border-brand/20 rounded-lg px-4 py-3 mb-8 text-sm font-medium">
-      [BORRADOR — pendiente de revisión editorial]
-    </div>
-
     <h1 class="text-3xl font-bold mb-8">Sobre pre.voto</h1>
 
     <div class="prose">
-      <h2>Quién está detrás</h2>
+      <h2>Qué es</h2>
       <p>
-        pre.voto es un proyecto independiente y sin fines de lucro dedicado a
-        fortalecer la democracia en Latinoamérica a través de herramientas de voto
-        informado. No está afiliado a ningún partido político, gobierno o campaña
-        electoral.
+        Pre.voto es una brújula electoral pan-LATAM. Te ayuda a comparar tus
+        opiniones con las de los candidatos en elecciones presidenciales, para
+        que tu voto sea informado.
+      </p>
+      <p>
+        No es una encuesta. No te dice por quién votar. No tiene afiliación
+        partidaria. No tiene pauta comercial. No tiene contenido patrocinado.
       </p>
 
-      <h2>Financiamiento y transparencia</h2>
+      <h2>El plan continental</h2>
+      <p>Empezamos por Colombia, primera vuelta el 31 de mayo de 2026.</p>
       <p>
-        El proyecto se financia a través de contribuciones voluntarias y no acepta
-        fondos de partidos políticos, candidatos o sus campañas. Todos los gastos
-        operativos se documentan públicamente.
+        Después vienen Brasil (elecciones de octubre 2026), México (2027) y
+        Argentina (2027). El calendario es aspiracional, no rígido: cada país
+        tiene su propia investigación editorial y su propio equipo de
+        codificación, y solo lanzamos cuando esa base de evidencia está completa.
       </p>
 
-      <h2>Código abierto</h2>
+      <h2>Quiénes somos</h2>
       <p>
-        Todo el código fuente de pre.voto es abierto y está disponible en GitHub bajo
-        una licencia que permite la auditoría, reutilización y contribución por parte
-        de la comunidad.
+        Pre.voto es operado por el <strong>Equipo pre.voto</strong>, una
+        iniciativa independiente sin fines de lucro. Decidimos no exponer nombres
+        individuales en este momento para que la conversación sea sobre el
+        método, no sobre las personas. Todo el contenido editorial está firmado
+        por el equipo, no por autores individuales.
+      </p>
+
+      <h2>Cómo nos financiamos</h2>
+      <p>
+        Pre.voto se financia con <strong>donaciones voluntarias</strong> de
+        personas. Las donaciones se procesan vía Stripe.
+      </p>
+      <p>No aceptamos fondos de:</p>
+      <ul>
+        <li>Partidos políticos ni candidatos</li>
+        <li>Campañas electorales</li>
+        <li>Gobiernos (nacionales, regionales o municipales)</li>
+        <li>Fundaciones partidarias</li>
+      </ul>
+      <p>Aceptamos fondos de:</p>
+      <ul>
+        <li>Personas naturales</li>
+        <li>Fundaciones civiles sin afiliación partidaria</li>
+        <li>
+          Grants de organizaciones democráticas (con publicación abierta de las
+          condiciones)
+        </li>
+      </ul>
+      <p>
+        Si querés apoyar el proyecto, podés hacerlo en
+        <a href="/apoyar/">pre.voto/apoyar</a>.
+      </p>
+
+      <h2>Por qué es open source</h2>
+      <p>
+        Una brújula electoral solo es útil si confías en cómo se construyó. La
+        mejor forma de hacer eso verificable es publicar todo: código, datos
+        editoriales, criterios de codificación, fórmula de afinidad.
       </p>
       <p>
-        Creemos que la transparencia en las herramientas democráticas es fundamental.
-        Cualquier persona puede verificar cómo se calculan los resultados, cómo se
-        almacenan (o no) los datos, y cómo funciona la plataforma.
+        El repositorio público está en
+        <a
+          href="https://github.com/AliasParker/Work-Space-Pre-Voto"
+          target="_blank"
+          rel="noopener noreferrer"
+          >github.com/AliasParker/Work-Space-Pre-Voto</a
+        >. Cualquier persona puede auditarlo, copiarlo, mejorarlo o forkearlo. El
+        contenido editorial está bajo licencia CC-BY 4.0.
       </p>
+      <p>
+        Si querés contribuir con código o con codificaciones de algún país nuevo,
+        abrí un issue en el repo o escribinos a
+        <a href="mailto:hola@pre.voto">hola@pre.voto</a>.
+      </p>
+
+      <h2>Lo que NO somos</h2>
+      <ul>
+        <li>
+          <strong>No somos una encuesta.</strong> No medimos intención de voto. No
+          publicamos agregados estadísticos del comportamiento de nuestros
+          usuarios. La Ley 2494 de 2025 (Colombia) lo prohíbe, y nuestro modelo
+          de producto tampoco lo necesita.
+        </li>
+        <li>
+          <strong>No somos un medio.</strong> No tenemos redacción ni publicamos
+          noticias de coyuntura. Publicamos análisis sobre las elecciones que
+          cubrimos, con el método y la transparencia que describimos en
+          <a href="/metodologia/">Metodología</a>.
+        </li>
+        <li>
+          <strong>No somos un partido.</strong> No respaldamos candidatos. No
+          recomendamos voto. Las "etiquetas de posicionamiento" que asignamos a
+          cada candidato (por ejemplo, "el outsider de la mano dura", "el
+          matemático del centro") son descripciones funcionales del lugar que
+          ocupan, no juicios.
+        </li>
+        <li>
+          <strong>No somos un negocio.</strong> No monetizamos. No vendemos datos.
+          No tenemos versión premium.
+        </li>
+      </ul>
 
       <h2>Contacto</h2>
-      <p>
-        Para consultas generales: <a href="mailto:hola@pre.voto">hola@pre.voto</a>.
-        Para reportar errores en las codificaciones: <a href="mailto:errores@pre.voto">errores@pre.voto</a>.
-      </p>
+      <ul>
+        <li>
+          <strong>Consultas generales</strong>:
+          <a href="mailto:hola@pre.voto">hola@pre.voto</a>
+        </li>
+        <li>
+          <strong>Corregir errores</strong>:
+          <a href="mailto:errores@pre.voto">errores@pre.voto</a>
+        </li>
+        <li>
+          <strong>Redes</strong>:
+          <a
+            href="https://x.com/prevotoLATAM"
+            target="_blank"
+            rel="noopener noreferrer"
+            >@prevotoLATAM</a
+          > en X
+        </li>
+      </ul>
     </div>
+
+    <p class="text-sm text-ink-faint mt-8 italic">
+      Última revisión: 21 de mayo de 2026.
+    </p>
   </article>
 </BaseLayout>
