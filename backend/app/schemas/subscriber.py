@@ -8,6 +8,10 @@ class SubscriberCreate(BaseModel):
     email: EmailStr
     country_code: str | None = None
     source: str | None = None
+    # Quiz result fields (optional — only set when subscribing post-quiz)
+    top_match_name: str | None = None
+    top_match_pct: int | None = None
+    result_url: str | None = None
 
 
 class SubscriberOut(BaseModel):
