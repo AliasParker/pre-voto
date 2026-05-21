@@ -8,6 +8,7 @@ from app.limiter import limiter
 from app.models.subscriber import Subscriber
 from app.schemas.subscriber import SubscriberCreate, SubscriberOut
 from app.services.beehiiv import subscribe_from_home, subscribe_from_quiz
+from app.services.email import send_welcome_email
 from app.tasks import spawn_background_task
 
 router = APIRouter(prefix="/subscribers", tags=["subscribers"])
@@ -25,6 +26,8 @@ async def create_subscriber(
         select(Subscriber).where(Subscriber.email == body.email)
     )
     existing = result.scalar_one_or_none()
+
+    is_new = existing is None
 
     if existing:
         # Update country_code if provided
@@ -64,5 +67,12 @@ async def create_subscriber(
             subscribe_from_home(body.email, body.country_code),
             name="subscribe_from_home",
         )
+
+        # TX1: send welcome email to new non-quiz subscribers
+        if is_new:
+            spawn_background_task(
+                send_welcome_email(body.email),
+                name="send_welcome_email",
+            )
 
     return subscriber

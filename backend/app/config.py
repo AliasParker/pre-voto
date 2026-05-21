@@ -62,6 +62,10 @@ class Settings(BaseSettings):
     # SMTP (Mailpit in dev)
     smtp_host: str = "mailpit"
     smtp_port: int = 1025
+    smtp_username: str = ""
+    smtp_password: str = ""
+    smtp_sender: str = "hola@pre.voto"
+    smtp_use_tls: bool = False
 
     model_config = {"env_file": ".env", "extra": "ignore"}
 
