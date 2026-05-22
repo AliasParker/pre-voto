@@ -22,14 +22,15 @@ import BaseLayout from "../layouts/BaseLayout.astro";
       <p>
         Las respuestas del quiz se procesan localmente en tu navegador para calcular
         la afinidad con los candidatos. Cuando se envían al servidor para validación,
-        se registra un hash anónimo de sesión (derivado de la IP y la fecha) para
+        se registra un hash anónimo de sesión (derivado de tu dirección IP, el
+        user-agent de tu navegador, la fecha UTC del día y una sal secreta) para
         fines estadísticos agregados. No es posible reconstruir tu identidad a partir
         de este hash.
       </p>
       <p>
-        Los resultados del quiz se almacenan en la memoria de tu navegador
-        (sessionStorage) mientras completas el cuestionario. Se borran automáticamente
-        al cerrar la pestaña.
+        Los resultados del quiz se almacenan en la memoria temporal de tu navegador
+        mientras completas el cuestionario. No se guardan en disco ni en almacenamiento
+        persistente. Se borran automáticamente al cerrar la pestaña.
       </p>
 
       <h2>Cookies y almacenamiento local</h2>
@@ -149,6 +150,13 @@ import BaseLayout from "../layouts/BaseLayout.astro";
         aceptas el banner de cookies.</li>
         <li><strong>Cloudflare</strong> (Web Analytics), que recibe métricas agregadas
         de rendimiento sin cookies ni datos personales.</li>
+        <li><strong>Beehiiv</strong> (proveedor de newsletter), que recibe tu dirección
+        de correo electrónico y país seleccionado si te suscribes al newsletter.</li>
+        <li><strong>Stripe</strong> (procesador de pagos), que recibe tus datos de pago
+        si realizas una donación voluntaria. pre.voto no almacena datos de tarjetas
+        de crédito ni información financiera; estos son procesados directamente por
+        Stripe bajo su propia <a href="https://stripe.com/privacy" target="_blank"
+        rel="noopener noreferrer">política de privacidad</a>.</li>
       </ul>
       <p>
         No vendemos, alquilamos ni compartimos datos con ningún otro tercero.
@@ -200,6 +208,11 @@ import BaseLayout from "../layouts/BaseLayout.astro";
       <p>
         Si tienes preguntas sobre esta política, escribe a
         <a href="mailto:hola@pre.voto">hola@pre.voto</a>.
+      </p>
+
+      <hr />
+      <p class="text-sm text-ink-faint">
+        Última actualización: 22 de mayo de 2026.
       </p>
     </div>
   </article>
