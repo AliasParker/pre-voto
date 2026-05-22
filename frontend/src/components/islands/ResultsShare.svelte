@@ -14,7 +14,7 @@
   let copied = $state(false);
 
   const shareText = $derived(
-    t(locale, "results.shareText", { name: topCandidate, pct: String(affinity) })
+    t(locale, "results.shareText", { name: topCandidate, pct: String(Math.round(affinity)) })
   );
 
   const whatsappUrl = $derived(
