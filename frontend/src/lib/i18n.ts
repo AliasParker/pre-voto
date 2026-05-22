@@ -29,9 +29,20 @@ const translations: Record<Locale, Record<string, string>> = {
     "common.secs": "seg",
 
     // Home — global
-    "home.hero": "¿Orientación personal de por quién votar?",
+    "home.brandTag": "Brújula electoral · Latinoamérica",
+    "home.hero": "Descubrí con qué candidato coincidís.",
     "home.subtitle":
-      "Pre.voto te ayuda a comparar tus opiniones con las de los candidatos. Empezando por Colombia 2026.",
+      "20 preguntas. 12 candidatos a la presidencia de Colombia. Cada posición, con su fuente.",
+    "home.ctaPrimary": "Empezar el cuestionario",
+    "home.ctaSecondary": "Cómo funciona",
+    "home.badge1": "Independiente, sin partido",
+    "home.badge2": "Cada posición con fuente",
+    "home.badge3": "Sin datos personales",
+    "home.methodMeta":
+      "12 candidatos · 240 posiciones documentadas · cada una con fuente verificable",
+    "home.resultExampleLabel": "Ejemplo de resultado — no es un resultado real",
+    "home.countriesHeader": "Próximamente en Latinoamérica",
+    "home.countryActive": "activo",
     "home.microcopy":
       "No es una encuesta. No te dice por quién votar. No guardamos datos personales.",
     "home.howItWorks": "Cómo funciona",
@@ -291,9 +302,20 @@ const translations: Record<Locale, Record<string, string>> = {
     "common.secs": "seg",
 
     // Home — global
-    "home.hero": "Orientação pessoal sobre em quem votar?",
+    "home.brandTag": "Bússola eleitoral · América Latina",
+    "home.hero": "Descubra com qual candidato você coincide.",
     "home.subtitle":
-      "Pre.voto te ajuda a comparar tuas opiniões com as dos candidatos. Começando pela Colômbia 2026.",
+      "20 perguntas. 12 candidatos à presidência da Colômbia. Cada posição, com sua fonte.",
+    "home.ctaPrimary": "Começar o questionário",
+    "home.ctaSecondary": "Como funciona",
+    "home.badge1": "Independente, sem partido",
+    "home.badge2": "Cada posição com fonte",
+    "home.badge3": "Sem dados pessoais",
+    "home.methodMeta":
+      "12 candidatos · 240 posições documentadas · cada uma com fonte verificável",
+    "home.resultExampleLabel": "Exemplo de resultado — não é um resultado real",
+    "home.countriesHeader": "Em breve na América Latina",
+    "home.countryActive": "ativo",
     "home.microcopy":
       "Não é uma pesquisa. Não te diz em quem votar. Não guardamos dados pessoais.",
     "home.howItWorks": "Como funciona",

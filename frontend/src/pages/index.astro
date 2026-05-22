@@ -1,10 +1,22 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import { fetchCountries } from "../lib/api";
 import { countries as countryMeta } from "../lib/countries";
 import { t } from "../lib/i18n";
 
-const apiCountries = await fetchCountries();
+const exampleResults = [
+  { rank: 1, name: "Iván Cepeda", pct: 84 },
+  { rank: 2, name: "Sergio Fajardo", pct: 71 },
+  { rank: 3, name: "Paloma Valencia", pct: 58 },
+];
+
+const countriesList = [
+  { code: "co", ...countryMeta.co, active: true, href: "/co/quiz" },
+  { code: "br", ...countryMeta.br, active: false },
+  { code: "mx", ...countryMeta.mx, active: false },
+  { code: "ar", ...countryMeta.ar, active: false },
+  { code: "cl", ...countryMeta.cl, active: false },
+  { code: "pe", ...countryMeta.pe, active: false },
+];
 
 const jsonLd = {
   "@context": "https://schema.org",
@@ -22,56 +34,100 @@ const jsonLd = {
   jsonLd={jsonLd}
 >
   <!-- Hero -->
-  <section class="max-w-5xl mx-auto px-4 py-16 md:py-24 text-center">
-    <h1 class="text-4xl md:text-5xl font-serif font-bold mb-4 max-w-3xl mx-auto leading-tight">
-      {t("es", "home.hero")}
-    </h1>
-    <p class="text-lg text-ink-soft max-w-2xl mx-auto leading-relaxed">
-      {t("es", "home.subtitle")}
-    </p>
+  <section class="px-6 pt-18 pb-8 md:pt-24 md:pb-10">
+    <div class="max-w-[640px] mx-auto text-center">
+      <h1 class="font-serif text-[clamp(2rem,4.5vw,3rem)] leading-[1.1] font-medium tracking-tight text-ink mb-4">
+        {t("es", "home.hero")}
+      </h1>
+      <p class="text-base leading-relaxed text-ink-soft max-w-[480px] mx-auto mb-7">
+        {t("es", "home.subtitle")}
+      </p>
+
+      <!-- CTAs -->
+      <div class="flex justify-center gap-3 flex-wrap mb-7">
+        <a
+          href="/co/quiz"
+          class="inline-flex items-center gap-2 bg-ink text-paper px-6 py-3.5 rounded-md text-[0.95rem] font-medium hover:opacity-90 active:scale-[0.98] transition-all"
+        >
+          {t("es", "home.ctaPrimary")}
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path d="M5 12h14M13 5l7 7-7 7"/>
+          </svg>
+        </a>
+        <a
+          href="#como-funciona"
+          class="px-5 py-3.5 rounded-md text-[0.95rem] text-ink border border-line hover:bg-ink/[0.03] transition-colors"
+        >
+          {t("es", "home.ctaSecondary")}
+        </a>
+      </div>
+
+      <!-- Trust badges -->
+      <ul class="flex justify-center flex-wrap gap-5 text-[0.85rem] text-ink-faint list-none p-0 m-0">
+        <li class="inline-flex items-center gap-1.5">
+          <span aria-hidden="true">&#9878;</span> {t("es", "home.badge1")}
+        </li>
+        <li class="inline-flex items-center gap-1.5">
+          <span aria-hidden="true">&#128279;</span> {t("es", "home.badge2")}
+        </li>
+        <li class="inline-flex items-center gap-1.5">
+          <span aria-hidden="true">&#128737;</span> {t("es", "home.badge3")}
+        </li>
+      </ul>
+    </div>
   </section>
 
-  <!-- Country selector -->
-  <section class="max-w-5xl mx-auto px-4 pb-16">
-    <h2 class="text-2xl font-bold mb-6 text-center">
-      {t("es", "home.selectCountry")}
-    </h2>
-    <div class="grid grid-cols-2 md:grid-cols-3 gap-4 max-w-3xl mx-auto">
-      {Object.entries(countryMeta).map(([code, meta]) => {
-        const apiCountry = apiCountries.find((c) => c.code === code);
-        const isActive = apiCountry?.is_active ?? meta.active;
-        const electionDate = apiCountry?.next_election?.election_date;
-        const electionDesc = apiCountry?.next_election?.description;
+  <!-- Method meta band -->
+  <aside class="text-center px-6 py-3.5 text-[0.85rem] text-ink-faint bg-paper-warm border-y border-line/30">
+    {t("es", "home.methodMeta")}
+  </aside>
 
-        return isActive ? (
+  <!-- Result preview -->
+  <section class="px-4 py-10 flex justify-center">
+    <div class="bg-paper-warm border border-line rounded-xl p-5 w-full max-w-[440px]">
+      <p class="text-[0.78rem] text-ink-faint italic mb-4">
+        {t("es", "home.resultExampleLabel")}
+      </p>
+      {exampleResults.map((r, i) => (
+        <div class:list={["flex items-center gap-3 py-2.5", i < exampleResults.length - 1 && "border-b border-line/30"]}>
+          <span class="font-serif text-lg text-ink-faint w-5">{r.rank}</span>
+          <span class="flex-1 text-sm text-ink">{r.name}</span>
+          <div class="flex-1 max-w-[100px] h-1 bg-line/50 rounded-full overflow-hidden">
+            <div class="h-full bg-ink rounded-full" style={`width:${r.pct}%`}></div>
+          </div>
+          <span class="text-sm font-medium text-ink w-10 text-right">{r.pct}%</span>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- Countries -->
+  <section class="px-6 pt-6 pb-12 border-t border-line/30">
+    <h2 class="text-[0.8rem] font-medium text-ink-faint text-center tracking-wide mb-4">
+      {t("es", "home.countriesHeader")}
+    </h2>
+    <div class="flex justify-center flex-wrap gap-2">
+      {countriesList.map((c) =>
+        c.active ? (
           <a
-            href={`/${code}/`}
-            class="border border-line rounded-lg p-5 hover:border-brand hover:shadow-sm transition-all text-center group"
+            href={c.href}
+            class="inline-flex items-center gap-1.5 px-3.5 py-1.5 bg-ink text-paper border border-ink rounded-full text-[0.82rem] no-underline hover:opacity-90 transition-opacity"
           >
-            <span class="text-3xl block mb-2">{meta.flag}</span>
-            <span class="font-semibold block group-hover:text-brand transition-colors">{meta.name.es}</span>
-            {electionDate && (
-              <span class="text-sm text-ink-faint block mt-1">{electionDesc || electionDate}</span>
-            )}
+            <span aria-hidden="true">{c.flag}</span>
+            {c.name.es} · {t("es", "home.countryActive")}
           </a>
         ) : (
-          <div class="border border-line rounded-lg p-5 opacity-50 text-center">
-            <span class="text-3xl block mb-2">{meta.flag}</span>
-            <span class="font-semibold block">{meta.name.es}</span>
-            <span class="text-sm text-ink-faint block mt-1">
-              {t("es", "common.soon")}
-            </span>
-          </div>
-        );
-      })}
+          <span class="inline-flex items-center gap-1.5 px-3.5 py-1.5 bg-paper-warm text-ink-soft border border-line rounded-full text-[0.82rem] opacity-55">
+            <span aria-hidden="true">{c.flag}</span>
+            {c.name.es}
+          </span>
+        )
+      )}
     </div>
-    <p class="text-sm text-ink-faint mt-6 text-center max-w-md mx-auto">
-      {t("es", "home.microcopy")}
-    </p>
   </section>
 
   <!-- How it works -->
-  <section class="bg-paper-warm py-16">
+  <section id="como-funciona" class="bg-paper-warm py-16">
     <div class="max-w-5xl mx-auto px-4">
       <h2 class="text-2xl font-bold mb-8 text-center">
         {t("es", "home.howItWorks")}
