@@ -51,7 +51,7 @@ const translations: Record<Locale, Record<string, string>> = {
     "home.co.title":
       "¿Orientación personal de por quién votar el 31 de mayo?",
     "home.co.subtitle":
-      "Pre.voto te ayuda a comparar tus opiniones con las de los 12 candidatos a la Presidencia. 20 preguntas, 5 minutos.",
+      "Pre.voto te ayuda a comparar tus opiniones con las de los 12 candidatos a la Presidencia. 20 preguntas, 3 minutos.",
     "home.co.microcopy":
       "No es una encuesta. No te dice por quién votar. No guardamos datos personales.",
 
@@ -88,6 +88,25 @@ const translations: Record<Locale, Record<string, string>> = {
     "quiz.yourAnswer": "Tu respuesta",
     "quiz.candidatePosition": "Posición del candidato",
     "quiz.noPosition": "Sin posición registrada",
+    "quiz.welcomeP1":
+      "Vas a leer 20 afirmaciones políticas. Para cada una, decinos si estás muy de acuerdo, de acuerdo, neutral, en desacuerdo o muy en desacuerdo.",
+    "quiz.welcomeP2": "No hay respuestas correctas — solo tu posición.",
+    "quiz.welcomeP3":
+      "Al final te mostramos qué candidato piensa parecido a vos y dónde no coinciden.",
+    "quiz.howCalculated":
+      "¿Cómo se calcula tu afinidad? → Ver metodología",
+
+    // How it works
+    "howItWorks.title": "Cómo funciona la brújula",
+    "howItWorks.card1Title": "Vos respondés",
+    "howItWorks.card1Desc":
+      "20 afirmaciones políticas. Decís si estás muy de acuerdo, de acuerdo, neutral, en desacuerdo o muy en desacuerdo con cada una.",
+    "howItWorks.card2Title": "Nosotros mostramos",
+    "howItWorks.card2Desc":
+      "La posición pública de cada uno de los 12 candidatos sobre las mismas 20 afirmaciones, con la fuente citada cuando existe.",
+    "howItWorks.card3Title": "Comparamos",
+    "howItWorks.card3Desc":
+      "Cuanto más cerca está la posición del candidato de la tuya en cada tema, más alta es tu afinidad con él.",
 
     // Results
     "results.shareTitle": "Comparte tus resultados",
@@ -323,6 +342,25 @@ const translations: Record<Locale, Record<string, string>> = {
     "quiz.yourAnswer": "Sua resposta",
     "quiz.candidatePosition": "Posição do candidato",
     "quiz.noPosition": "Sem posição registrada",
+    "quiz.welcomeP1":
+      "Você vai ler 20 afirmações políticas. Para cada uma, diga se concorda totalmente, concorda, é neutro, discorda ou discorda totalmente.",
+    "quiz.welcomeP2": "Não há respostas certas — apenas a sua posição.",
+    "quiz.welcomeP3":
+      "No final, mostramos qual candidato pensa parecido com você e onde não coincidem.",
+    "quiz.howCalculated":
+      "Como sua afinidade é calculada? → Ver metodologia",
+
+    // How it works
+    "howItWorks.title": "Como funciona a bússola",
+    "howItWorks.card1Title": "Você responde",
+    "howItWorks.card1Desc":
+      "20 afirmações políticas. Diga se concorda totalmente, concorda, é neutro, discorda ou discorda totalmente de cada uma.",
+    "howItWorks.card2Title": "Nós mostramos",
+    "howItWorks.card2Desc":
+      "A posição pública de cada um dos candidatos sobre as mesmas 20 afirmações, com a fonte citada quando existe.",
+    "howItWorks.card3Title": "Comparamos",
+    "howItWorks.card3Desc":
+      "Quanto mais perto a posição do candidato está da sua em cada tema, maior é sua afinidade com ele.",
 
     // Results
     "results.shareTitle": "Compartilhe seus resultados",
