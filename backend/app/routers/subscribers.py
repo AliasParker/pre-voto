@@ -7,7 +7,7 @@ from app.db import get_db
 from app.limiter import limiter
 from app.models.subscriber import Subscriber
 from app.schemas.subscriber import SubscriberCreate, SubscriberOut
-from app.services.beehiiv import subscribe_from_home, subscribe_from_quiz
+# PAUSED: from app.services.beehiiv import subscribe_from_home, subscribe_from_quiz
 from app.services.email import send_welcome_email
 from app.tasks import spawn_background_task
 
@@ -50,29 +50,14 @@ async def create_subscriber(
         await db.commit()
         await db.refresh(subscriber)
 
-    # Dispatch to the right Beehiiv flow based on quiz fields
-    if body.top_match_name:
-        spawn_background_task(
-            subscribe_from_quiz(
-                body.email,
-                body.country_code,
-                top_match_name=body.top_match_name,
-                top_match_pct=body.top_match_pct,
-                result_url=body.result_url,
-            ),
-            name="subscribe_from_quiz",
-        )
-    else:
-        spawn_background_task(
-            subscribe_from_home(body.email, body.country_code),
-            name="subscribe_from_home",
-        )
+    # PAUSED: Beehiiv dispatch (subscribe_from_home / subscribe_from_quiz)
+    # Subscribers are saved to DB only. Beehiiv sync can be re-enabled later.
 
-        # TX1: send welcome email to new non-quiz subscribers
-        if is_new:
-            spawn_background_task(
-                send_welcome_email(body.email),
-                name="send_welcome_email",
-            )
+    # TX1: send welcome email to new non-quiz subscribers
+    if is_new and not body.top_match_name:
+        spawn_background_task(
+            send_welcome_email(body.email),
+            name="send_welcome_email",
+        )
 
     return subscriber
