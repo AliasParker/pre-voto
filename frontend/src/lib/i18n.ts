@@ -38,6 +38,8 @@ const translations: Record<Locale, Record<string, string>> = {
     "home.badge1": "Independiente, sin partido",
     "home.badge2": "Cada posición con fuente",
     "home.badge3": "Sin datos personales",
+    "home.badge4": "Código y datos abiertos",
+    "home.viewCandidates": "Ver los 12 candidatos",
     "home.methodMeta":
       "12 candidatos · 240 posiciones documentadas · cada una con fuente verificable",
     "home.resultExampleLabel": "Ejemplo de resultado — no es un resultado real",
@@ -311,6 +313,8 @@ const translations: Record<Locale, Record<string, string>> = {
     "home.badge1": "Independente, sem partido",
     "home.badge2": "Cada posição com fonte",
     "home.badge3": "Sem dados pessoais",
+    "home.badge4": "Código e dados abertos",
+    "home.viewCandidates": "Ver os 12 candidatos",
     "home.methodMeta":
       "12 candidatos · 240 posições documentadas · cada uma com fonte verificável",
     "home.resultExampleLabel": "Exemplo de resultado — não é um resultado real",

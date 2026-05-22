@@ -1,0 +1,109 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout
+  title="Código y datos abiertos | pre.voto"
+  description="Qué es abierto hoy en pre.voto, qué falta y cuándo se publica el código fuente."
+>
+  <article class="max-w-3xl mx-auto px-4 py-12">
+    <h1 class="text-3xl font-bold mb-8">Código y datos abiertos</h1>
+
+    <div class="prose">
+      <p>
+        Una brújula electoral solo es útil si confías en cómo se construyó. La
+        mejor forma de hacer eso verificable es publicar todo: datos, metodología
+        y código. Vamos por partes.
+      </p>
+
+      <h2>Lo que ya es abierto hoy</h2>
+
+      <h3>Datos editoriales</h3>
+      <p>
+        Las 240 codificaciones de los 12 candidatos — cada posición con su fuente,
+        nivel de confianza y tipo de fuente — están disponibles bajo licencia
+        <strong>CC-BY 4.0</strong>. Cualquier persona puede consultarlas,
+        reproducirlas o distribuirlas con atribución.
+      </p>
+      <p>Esto incluye:</p>
+      <ul>
+        <li>Las 20 afirmaciones del quiz</li>
+        <li>La posición de cada candidato en cada afirmación</li>
+        <li>Las fuentes y citas directas de cada codificación</li>
+        <li>Los niveles de confianza (alta, media, baja) y su justificación</li>
+      </ul>
+
+      <h3>Metodología</h3>
+      <p>
+        La fórmula de afinidad, los criterios de selección de preguntas y el
+        proceso de codificación están documentados en
+        <a href="/metodologia">Metodología</a>.
+      </p>
+
+      <h2>Lo que falta</h2>
+
+      <h3>Código fuente</h3>
+      <p>
+        El código de pre.voto se publicará bajo licencia <strong>AGPL-3.0</strong>
+        el <strong>1 de junio de 2026</strong>, el día después de la primera vuelta
+        presidencial en Colombia.
+      </p>
+      <p>
+        <strong>¿Por qué no antes?</strong> Porque un fork malicioso podría
+        alterar codificaciones o la fórmula de afinidad y presentarse como
+        pre.voto antes de la elección. Preferimos publicar un día después de la
+        votación y no exponer a los votantes a ese riesgo.
+      </p>
+      <p>
+        El repositorio ya existe en GitHub. Cuando se haga público, cualquier
+        persona podrá:
+      </p>
+      <ul>
+        <li>Auditar el código completo (frontend, backend, infraestructura)</li>
+        <li>Replicar la metodología para otro país o elección</li>
+        <li>Proponer mejoras vía pull request</li>
+      </ul>
+
+      <h2>Licencias</h2>
+      <div class="overflow-x-auto">
+        <table>
+          <thead>
+            <tr>
+              <th>Componente</th>
+              <th>Licencia</th>
+              <th>Estado</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Datos editoriales (codificaciones, fuentes)</td>
+              <td>CC-BY 4.0</td>
+              <td>Disponible</td>
+            </tr>
+            <tr>
+              <td>Metodología</td>
+              <td>CC-BY 4.0</td>
+              <td>Disponible</td>
+            </tr>
+            <tr>
+              <td>Código fuente</td>
+              <td>AGPL-3.0</td>
+              <td>1 de junio de 2026</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2>¿Querés contribuir?</h2>
+      <p>
+        Si querés ayudar con la codificación de otro país, reportar un error o
+        sugerir mejoras, escribinos a
+        <a href="mailto:hola@pre.voto">hola@pre.voto</a>.
+      </p>
+    </div>
+
+    <p class="text-sm text-ink-faint mt-8 italic">
+      Última revisión: 22 de mayo de 2026.
+    </p>
+  </article>
+</BaseLayout>
