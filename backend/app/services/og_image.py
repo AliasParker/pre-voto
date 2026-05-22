@@ -22,11 +22,13 @@ COLOR_INK_FAINT = "#737373"
 COLOR_BRAND = "#8B2626"
 
 # ---------------------------------------------------------------------------
-# Font paths
+# Font paths & assets
 # ---------------------------------------------------------------------------
-_FONTS_DIR = Path(__file__).resolve().parent.parent / "static" / "fonts"
+_STATIC_DIR = Path(__file__).resolve().parent.parent / "static"
+_FONTS_DIR = _STATIC_DIR / "fonts"
 _INTER_REGULAR = _FONTS_DIR / "Inter-Regular.ttf"
 _INTER_BOLD = _FONTS_DIR / "Inter-Bold.ttf"
+_LOGO_PATH = _STATIC_DIR / "logo.png"
 
 
 def _load_font(bold: bool, size: int) -> ImageFont.FreeTypeFont:
@@ -61,7 +63,6 @@ def generate_og_image(
     draw = ImageDraw.Draw(img)
 
     # -- Fonts --
-    font_logo = _load_font(bold=True, size=28)
     font_label = _load_font(bold=False, size=24)
     font_pct = _load_font(bold=True, size=120)
     font_name = _load_font(bold=True, size=36)
@@ -73,15 +74,12 @@ def generate_og_image(
     # -- Top accent line (terracotta) --
     draw.rectangle([0, 0, WIDTH, 5], fill=COLOR_BRAND)
 
-    # -- Logo (top-left): "pre" in ink + "." in brand + "voto" in ink --
-    logo_x, logo_y = 48, 44
-    draw.text((logo_x, logo_y), "pre", fill=COLOR_INK, font=font_logo, anchor="lm")
-    pre_bbox = draw.textbbox((logo_x, logo_y), "pre", font=font_logo, anchor="lm")
-    dot_x = pre_bbox[2]  # right edge of "pre"
-    draw.text((dot_x, logo_y), ".", fill=COLOR_BRAND, font=font_logo, anchor="lm")
-    dot_bbox = draw.textbbox((dot_x, logo_y), ".", font=font_logo, anchor="lm")
-    voto_x = dot_bbox[2]
-    draw.text((voto_x, logo_y), "voto", fill=COLOR_INK, font=font_logo, anchor="lm")
+    # -- Logo (top-left): circular PNG logo --
+    logo_size = 64
+    logo_img = Image.open(_LOGO_PATH).convert("RGBA")
+    logo_img = logo_img.resize((logo_size, logo_size), Image.LANCZOS)
+    logo_x, logo_y = 40, 16
+    img.paste(logo_img, (logo_x, logo_y), logo_img)  # use alpha as mask
 
     # -- "Mi afinidad" label --
     y_label = 195
