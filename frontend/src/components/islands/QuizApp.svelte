@@ -338,7 +338,11 @@
     <!-- Welcome screen -->
     <div class="text-center py-8">
       <h1 class="text-3xl font-bold mb-3">{t(locale, "quiz.title")}</h1>
-      <p class="text-lg text-ink-soft mb-6">{t(locale, "quiz.welcomeDesc")}</p>
+      <div class="text-lg text-ink-soft mb-6 space-y-3 max-w-lg mx-auto text-left">
+        <p>{t(locale, "quiz.welcomeP1")}</p>
+        <p>{t(locale, "quiz.welcomeP2")}</p>
+        <p>{t(locale, "quiz.welcomeP3")}</p>
+      </div>
 
       <div class="flex justify-center gap-4 mb-8 text-sm text-ink-faint">
         <span class="bg-paper-warm px-3 py-1 rounded-full">{t(locale, "quiz.time")}</span>
@@ -435,6 +439,13 @@
         {locale === "pt-BR"
           ? "Teclas 1-5 para responder, setas para navegar"
           : "Teclas 1-5 para responder, flechas para navegar"}
+      </p>
+
+      <!-- Methodology link -->
+      <p class="text-xs text-ink-faint text-center mt-3">
+        <a href="/metodologia" target="_blank" rel="noopener noreferrer" class="hover:text-brand hover:underline">
+          {t(locale, "quiz.howCalculated")}
+        </a>
       </p>
     </div>
 
