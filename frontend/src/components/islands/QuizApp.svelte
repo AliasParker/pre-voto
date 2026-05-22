@@ -310,7 +310,7 @@
   const topResult = $derived(results[0]);
   const shareUrl = $derived(
     topResult && typeof window !== "undefined"
-      ? `${window.location.origin}/${country}/quiz?top=${topResult.slug}&pct=${Math.round(topResult.affinity)}`
+      ? `${window.location.origin}/${country}/quiz?top=${topResult.slug}&pct=${Math.round(topResult.affinity)}&v=1`
       : `https://pre.voto/${country}/quiz`
   );
 </script>
