@@ -10,6 +10,7 @@
  *   candidate_view, article_view, with country_focus dimension.
  */
 const GA4_ID = import.meta.env.PUBLIC_GA4_MEASUREMENT_ID;
+const CF_BEACON = import.meta.env.PUBLIC_CF_BEACON_TOKEN;
 ---
 
 {GA4_ID && (
@@ -75,4 +76,13 @@ const GA4_ID = import.meta.env.PUBLIC_GA4_MEASUREMENT_ID;
       }
     };
   </script>
+)}
+
+{CF_BEACON && (
+  <script
+    defer
+    src="https://static.cloudflareinsights.com/beacon.min.js"
+    data-cf-beacon={`{"token":"${CF_BEACON}"}`}
+    is:inline
+  ></script>
 )}

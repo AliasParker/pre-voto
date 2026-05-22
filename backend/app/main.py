@@ -192,6 +192,7 @@ from app.routers.polls import router as polls_router  # noqa: E402
 from app.routers.quiz import router as quiz_router  # noqa: E402
 from app.routers.stripe_webhook import router as stripe_webhook_router  # noqa: E402
 from app.routers.subscribers import router as subscribers_router  # noqa: E402
+from app.routers.usage import admin_usage_router, router as usage_router  # noqa: E402
 
 app.include_router(countries_router)
 app.include_router(candidates_router)
@@ -205,6 +206,8 @@ app.include_router(admin_router)
 app.include_router(og_router)
 app.include_router(share_router)
 app.include_router(stripe_webhook_router)
+app.include_router(usage_router)
+app.include_router(admin_usage_router)
 
 
 # ---------------------------------------------------------------------------

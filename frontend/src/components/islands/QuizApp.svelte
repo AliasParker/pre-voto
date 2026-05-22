@@ -50,6 +50,19 @@
 
   const STORAGE_KEY = $derived(`prevoto-quiz-${country}`);
   const baseUrl = "/api";
+  let quizStartTime = $state<number>(0);
+
+  function trackEvent(eventType: string, params: Record<string, unknown> = {}) {
+    const payload: Record<string, unknown> = { event_type: eventType, country: country, ...params };
+    fetch(`${baseUrl}/usage/event`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    }).catch(() => {});
+    if (typeof window !== "undefined" && (window as any).__pvEvent) {
+      (window as any).__pvEvent(eventType, params);
+    }
+  }
 
   const answerOptions = [
     { value: 2, key: "quiz.stronglyAgree" },
@@ -187,9 +200,16 @@
     if (!stmt) return;
 
     // Fire quiz_started on first answer
-    if (answers.size === 0 && typeof window !== "undefined" && (window as any).__pvEvent) {
-      (window as any).__pvEvent("quiz_started", { country: country });
+    if (answers.size === 0) {
+      quizStartTime = Date.now();
+      trackEvent("quiz_started");
     }
+
+    // Track answer
+    trackEvent("question_answered", {
+      statement_id: stmt.id,
+      position_value: value,
+    });
 
     answers.set(stmt.id, value);
     answers = new Map(answers); // trigger reactivity
@@ -197,6 +217,11 @@
     if (currentIndex < statements.length - 1) {
       currentIndex++;
       saveSession();
+      // Track next question view
+      const nextStmt = statements[currentIndex];
+      if (nextStmt) {
+        trackEvent("question_viewed", { statement_id: nextStmt.id });
+      }
     } else {
       // Last question
       screen = "results";
@@ -204,13 +229,13 @@
       computeResults();
       submitToServer();
 
-      // Fire quiz_completed
-      if (typeof window !== "undefined" && (window as any).__pvEvent) {
-        (window as any).__pvEvent("quiz_completed", {
-          country: country,
-          statements_answered: answers.size,
-        });
-      }
+      const duration = quizStartTime > 0 ? Math.round((Date.now() - quizStartTime) / 1000) : undefined;
+      trackEvent("quiz_completed", {
+        statements_answered: answers.size,
+        top_match_slug: results[0]?.slug,
+        top_match_pct: results[0] ? Math.round(results[0].affinity * 10) / 10 : undefined,
+        duration_seconds: duration,
+      });
     }
   }
 
@@ -372,7 +397,7 @@
       </div>
 
       <button
-        onclick={() => { screen = "quiz"; saveSession(); }}
+        onclick={() => { screen = "quiz"; saveSession(); if (statements[0]) trackEvent("question_viewed", { statement_id: statements[0].id }); }}
         class="mt-8 px-8 py-3 bg-brand text-white rounded-lg font-medium text-lg hover:bg-brand-dark transition-colors"
       >
         {t(locale, "quiz.start")}
