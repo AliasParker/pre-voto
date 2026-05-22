@@ -127,7 +127,7 @@ _SHARE_HTML_TEMPLATE = """\
 <meta name="twitter:title" content="{og_title}">
 <meta name="twitter:description" content="{og_description}">
 <meta name="twitter:image" content="{og_image_url}">
-<script>window.location.replace('/{country}/quiz#top={top}&pct={pct}');</script>
+<script>window.location.replace('/{country}/quiz#top={top}&pct={pct}{hc_fragment}');</script>
 </head>
 <body>
 <p>Redirigiendo a <a href="/{country}/quiz">pre.voto</a>...</p>
@@ -141,6 +141,7 @@ async def quiz_share_html(
     country: str,
     top: str = Query(..., min_length=1),
     pct: int = Query(..., ge=0, le=100),
+    hc: float | None = Query(None, ge=0, le=100),
     db: AsyncSession = Depends(get_db),
 ) -> HTMLResponse:
     country_obj, election = await _get_country_election(country, db)
@@ -153,6 +154,7 @@ async def quiz_share_html(
     og_description = f"Resultado en pre.voto \u2014 {election_label}"
     base = settings.public_site_url.rstrip("/")
     og_image_url = f"{base}/api/og/quiz?country={country}&top={top}&pct={pct}"
+    hc_fragment = f"&hc={hc}" if hc is not None else ""
 
     html = _SHARE_HTML_TEMPLATE.format(
         og_title=og_title,
@@ -161,6 +163,7 @@ async def quiz_share_html(
         country=country,
         top=top,
         pct=pct,
+        hc_fragment=hc_fragment,
     )
 
     return HTMLResponse(content=html, status_code=200)

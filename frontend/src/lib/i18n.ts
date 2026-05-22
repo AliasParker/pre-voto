@@ -94,6 +94,17 @@ const translations: Record<Locale, Record<string, string>> = {
     "results.shareText":
       "Mi candidato más afín es {name} con {pct}%. Descubre tu afinidad en pre.voto",
     "results.newsletter": "Recibe análisis y actualizaciones",
+    "results.hcLabel": "Sobre posiciones con cita directa:",
+    "results.hcNone": "Sin posiciones con cita directa disponibles",
+    "results.hcBadge":
+      "{pct}% de sus codificaciones tienen cita directa",
+    "results.hcTooltip":
+      "De las 20 codificaciones de este candidato, {count} tienen cita textual directa de su plan oficial, entrevista o declaración pública. Las demás son inferencias coherentes con su trayectoria.",
+    "results.lowConfCaption":
+      "Este candidato tiene menos de un tercio de codificaciones con cita directa.",
+    "results.lowConfLink": "Ver detalle",
+    "results.zeroConfWarning":
+      "{name} no tiene posiciones públicas registradas sobre 18 de los 20 temas del quiz. Las codificaciones de pre.voto son inferencias coherentes con su línea declarada, no declaraciones directas. Tu afinidad está calculada sobre esas inferencias. Para conocer su posición específica sobre cualquier tema, consultá fuentes oficiales.",
 
     // Shared result
     "shared.title": "Resultado compartido",
@@ -318,6 +329,17 @@ const translations: Record<Locale, Record<string, string>> = {
     "results.shareText":
       "Meu candidato mais compatível é {name} com {pct}%. Descubra sua afinidade em pre.voto",
     "results.newsletter": "Receba análises e atualizações",
+    "results.hcLabel": "Sobre posições com citação direta:",
+    "results.hcNone": "Sem posições com citação direta disponíveis",
+    "results.hcBadge":
+      "{pct}% das codificações têm citação direta",
+    "results.hcTooltip":
+      "Das 20 codificações deste candidato, {count} têm citação textual direta de seu plano oficial, entrevista ou declaração pública. As demais são inferências coerentes com sua trajetória.",
+    "results.lowConfCaption":
+      "Este candidato tem menos de um terço de codificações com citação direta.",
+    "results.lowConfLink": "Ver detalhe",
+    "results.zeroConfWarning":
+      "{name} não tem posições públicas registradas sobre 18 dos 20 temas do quiz. As codificações do pre.voto são inferências coerentes com sua linha declarada, não declarações diretas. Sua afinidade está calculada sobre essas inferências. Para conhecer sua posição específica sobre qualquer tema, consulte fontes oficiais.",
 
     // Shared result
     "shared.title": "Resultado compartilhado",

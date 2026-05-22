@@ -34,6 +34,13 @@
   // Shared result state (populated from hash fragment)
   let sharedCandidate = $state<CandidateOut | null>(null);
   let sharedPct = $state<number>(0);
+  let sharedHc = $state<number | null>(null);
+
+  function hcBadgeColor(pct: number | null): string {
+    if (pct === null || pct < 30) return "var(--color-ink-faint)";
+    if (pct >= 60) return "#16a34a";
+    return "#d97706";
+  }
   const sharedColor = $derived(sharedCandidate?.color || "#737373");
   const sharedInitials = $derived(
     sharedCandidate
@@ -125,6 +132,7 @@
           if (matched) {
             sharedCandidate = matched;
             sharedPct = parseInt(pctStr, 10) || 0;
+            sharedHc = hashParams.get("hc") ? parseFloat(hashParams.get("hc")!) : null;
             screen = "shared";
             // Clean hash from URL without triggering navigation
             history.replaceState(null, "", window.location.pathname);
@@ -310,7 +318,7 @@
   const topResult = $derived(results[0]);
   const shareUrl = $derived(
     topResult && typeof window !== "undefined"
-      ? `${window.location.origin}/${country}/quiz?top=${topResult.slug}&pct=${Math.round(topResult.affinity)}&v=1`
+      ? `${window.location.origin}/${country}/quiz?top=${topResult.slug}&pct=${Math.round(topResult.affinity)}${topResult.affinity_high_confidence !== null ? `&hc=${Math.round(topResult.affinity_high_confidence * 10) / 10}` : ''}&v=1`
       : `https://pre.voto/${country}/quiz`
   );
 </script>
@@ -432,10 +440,15 @@
 
   {:else if screen === "shared" && sharedCandidate}
     <!-- Shared result screen -->
+    {@const sharedIsLowConf = (sharedCandidate.high_confidence_pct ?? 100) < 30}
+    {@const sharedIsZeroConf = sharedCandidate.high_confidence_pct === 0}
     <div class="text-center py-8">
       <h2 class="text-2xl font-bold mb-6">{t(locale, "shared.title")}</h2>
 
-      <div class="border border-line rounded-lg p-6 mb-8 max-w-md mx-auto">
+      <div
+        class="border border-line rounded-lg p-6 mb-8 max-w-md mx-auto"
+        style={sharedIsLowConf ? "border-left: 3px solid var(--color-ink-faint)" : ""}
+      >
         <div class="flex flex-col items-center gap-3">
           {#if sharedCandidate.photo_url}
             <img
@@ -460,7 +473,45 @@
               {sharedCandidate.coalition || sharedCandidate.party_acronym || sharedCandidate.party}
             </p>
           {/if}
+
+          <!-- HC secondary percentage (shared) -->
+          {#if sharedHc !== null}
+            <p class="text-sm text-ink-faint">
+              {t(locale, "results.hcLabel")} {Math.round(sharedHc)}%
+            </p>
+          {/if}
+
+          <!-- HC badge (shared) -->
+          {#if sharedCandidate.high_confidence_pct !== null && sharedCandidate.high_confidence_pct !== undefined}
+            <div class="group relative">
+              <span class="text-xs font-medium" style="color: {hcBadgeColor(sharedCandidate.high_confidence_pct)}">
+                ● {t(locale, "results.hcBadge", { pct: sharedCandidate.high_confidence_pct })}
+              </span>
+              <span class="hidden md:group-hover:block absolute left-1/2 -translate-x-1/2 top-full mt-1 z-10 bg-ink text-paper text-xs rounded px-3 py-2 max-w-xs leading-relaxed shadow-lg text-left">
+                {t(locale, "results.hcTooltip", { count: Math.round((sharedCandidate.high_confidence_pct / 100) * 20) })}
+              </span>
+            </div>
+          {/if}
         </div>
+
+        <!-- Low-conf caption (shared) -->
+        {#if sharedIsLowConf && !sharedIsZeroConf}
+          <p class="mt-3 text-xs text-ink-faint italic text-left">
+            {t(locale, "results.lowConfCaption")}
+            <a href="/{country}/candidatos/{sharedCandidate.slug}" class="text-brand hover:underline not-italic">
+              {t(locale, "results.lowConfLink")}
+            </a>
+          </p>
+        {/if}
+
+        <!-- Zero-conf warning (shared) -->
+        {#if sharedIsZeroConf}
+          <aside class="mt-3 bg-paper-warm border border-line rounded-lg px-4 py-3 text-left">
+            <p class="text-xs leading-relaxed text-ink-soft">
+              {t(locale, "results.zeroConfWarning", { name: sharedCandidate.name })}
+            </p>
+          </aside>
+        {/if}
       </div>
 
       <p class="text-ink-soft mb-6">{t(locale, "shared.cta")}</p>
@@ -481,7 +532,12 @@
         {#each results as result, i}
           {@const color = result.color || "#737373"}
           {@const initials = result.name.split(" ").map((w) => w[0]).slice(0, 2).join("").toUpperCase()}
-          <div class="border border-line rounded-lg p-4">
+          {@const isLowConf = (result.high_confidence_pct ?? 100) < 30}
+          {@const isZeroConf = result.high_confidence_pct === 0}
+          <div
+            class="border border-line rounded-lg p-4"
+            style={isLowConf ? "border-left: 3px solid var(--color-ink-faint)" : ""}
+          >
             <div class="flex items-center gap-3 mb-2">
               {#if result.photo_url}
                 <img
@@ -519,6 +575,46 @@
                 style="width: {result.affinity}%; background-color: {color}"
               ></div>
             </div>
+
+            <!-- HC secondary percentage -->
+            <div class="mt-2 text-sm text-ink-faint">
+              {#if result.affinity_high_confidence !== null}
+                <span>{t(locale, "results.hcLabel")} {Math.round(result.affinity_high_confidence)}%</span>
+              {:else}
+                <span class="italic">{t(locale, "results.hcNone")}</span>
+              {/if}
+            </div>
+
+            <!-- HC badge -->
+            {#if result.high_confidence_pct !== null && result.high_confidence_pct !== undefined}
+              <div class="mt-1 group relative">
+                <span class="text-xs font-medium" style="color: {hcBadgeColor(result.high_confidence_pct)}">
+                  ● {t(locale, "results.hcBadge", { pct: result.high_confidence_pct })}
+                </span>
+                <span class="hidden md:group-hover:block absolute left-0 top-full mt-1 z-10 bg-ink text-paper text-xs rounded px-3 py-2 max-w-xs leading-relaxed shadow-lg">
+                  {t(locale, "results.hcTooltip", { count: Math.round((result.high_confidence_pct / 100) * 20) })}
+                </span>
+              </div>
+            {/if}
+
+            <!-- Low-conf caption -->
+            {#if isLowConf && !isZeroConf}
+              <p class="mt-2 text-xs text-ink-faint italic">
+                {t(locale, "results.lowConfCaption")}
+                <a href="/{country}/candidatos/{result.slug}" class="text-brand hover:underline not-italic">
+                  {t(locale, "results.lowConfLink")}
+                </a>
+              </p>
+            {/if}
+
+            <!-- Zero-conf warning -->
+            {#if isZeroConf}
+              <aside class="mt-3 bg-paper-warm border border-line rounded-lg px-4 py-3">
+                <p class="text-xs leading-relaxed text-ink-soft">
+                  {t(locale, "results.zeroConfWarning", { name: result.name })}
+                </p>
+              </aside>
+            {/if}
           </div>
         {/each}
       </div>
