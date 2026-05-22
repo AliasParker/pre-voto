@@ -16,6 +16,7 @@ from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import selectinload
 
+from app.config import settings
 from app.db import get_db
 from app.models.candidate import Candidate
 from app.models.country import Country
@@ -150,7 +151,8 @@ async def quiz_share_html(
 
     og_title = f"Mi afinidad: {pct}% con {candidate_name}"
     og_description = f"Resultado en pre.voto \u2014 {election_label}"
-    og_image_url = f"/api/og/quiz?country={country}&top={top}&pct={pct}"
+    base = settings.public_site_url.rstrip("/")
+    og_image_url = f"{base}/api/og/quiz?country={country}&top={top}&pct={pct}"
 
     html = _SHARE_HTML_TEMPLATE.format(
         og_title=og_title,

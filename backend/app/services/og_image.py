@@ -15,11 +15,11 @@ from PIL import Image, ImageDraw, ImageFont
 # ---------------------------------------------------------------------------
 WIDTH, HEIGHT = 1200, 630
 
-COLOR_PAPER = "#fafafa"
+COLOR_PAPER = "#FAFAF8"
 COLOR_INK = "#1a1a1a"
-COLOR_INK_SOFT = "#404040"
+COLOR_INK_SOFT = "#4a4a4a"
 COLOR_INK_FAINT = "#737373"
-COLOR_BRAND = "#D85A30"
+COLOR_BRAND = "#8B2626"
 
 # ---------------------------------------------------------------------------
 # Font paths
@@ -70,15 +70,18 @@ def generate_og_image(
 
     cx = WIDTH // 2  # horizontal center
 
-    # -- Logo (top-left): coral dot + "pre.voto" --
-    dot_radius = 8
-    dot_x, dot_y = 48, 44
-    draw.ellipse(
-        [dot_x - dot_radius, dot_y - dot_radius,
-         dot_x + dot_radius, dot_y + dot_radius],
-        fill=COLOR_BRAND,
-    )
-    draw.text((dot_x + 16, dot_y), "pre.voto", fill=COLOR_INK, font=font_logo, anchor="lm")
+    # -- Top accent line (terracotta) --
+    draw.rectangle([0, 0, WIDTH, 5], fill=COLOR_BRAND)
+
+    # -- Logo (top-left): "pre" in ink + "." in brand + "voto" in ink --
+    logo_x, logo_y = 48, 44
+    draw.text((logo_x, logo_y), "pre", fill=COLOR_INK, font=font_logo, anchor="lm")
+    pre_bbox = draw.textbbox((logo_x, logo_y), "pre", font=font_logo, anchor="lm")
+    dot_x = pre_bbox[2]  # right edge of "pre"
+    draw.text((dot_x, logo_y), ".", fill=COLOR_BRAND, font=font_logo, anchor="lm")
+    dot_bbox = draw.textbbox((dot_x, logo_y), ".", font=font_logo, anchor="lm")
+    voto_x = dot_bbox[2]
+    draw.text((voto_x, logo_y), "voto", fill=COLOR_INK, font=font_logo, anchor="lm")
 
     # -- "Mi afinidad" label --
     y_label = 195
