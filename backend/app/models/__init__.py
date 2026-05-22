@@ -14,6 +14,7 @@ from app.models.quiz_completion import QuizCompletion
 from app.models.source import Source
 from app.models.statement import Statement
 from app.models.subscriber import Subscriber
+from app.models.usage_event import UsageEvent
 
 __all__ = [
     "Base",
@@ -32,4 +33,5 @@ __all__ = [
     "Subscriber",
     "QuizCompletion",
     "FeatureFlag",
+    "UsageEvent",
 ]

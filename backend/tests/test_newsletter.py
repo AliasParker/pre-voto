@@ -46,7 +46,10 @@ class TestSendNewsletter:
 
     async def test_send_dry_run_without_key(self, db_session, seed_newsletter_data):
         """Without Beehiiv key, should create a dry_run record."""
-        send = await send_newsletter_digest(COUNTRY_ID, db_session)
+        with patch("app.services.newsletter.settings") as mock_settings:
+            mock_settings.beehiiv_api_key = ""
+            mock_settings.beehiiv_publication_id = ""
+            send = await send_newsletter_digest(COUNTRY_ID, db_session)
 
         assert isinstance(send, NewsletterSend)
         assert send.status == "dry_run"

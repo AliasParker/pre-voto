@@ -52,8 +52,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
       <p>
         Si aceptas el banner de cookies, pre.voto carga Google Analytics 4
         (propiedad <code>G-2ZPYJ7FQJV</code>) para entender qué páginas son más
-        útiles y cómo mejorar el contenido. Esta es la única herramienta de analítica
-        que usamos.
+        útiles y cómo mejorar el contenido.
       </p>
       <p>
         <strong>Si rechazas el banner, Google Analytics no se carga en absoluto.</strong>
@@ -98,10 +97,60 @@ import BaseLayout from "../layouts/BaseLayout.astro";
         Ningún evento contiene información que permita identificar al usuario.
       </p>
 
+      <h2>Cloudflare Web Analytics</h2>
+      <p>
+        pre.voto utiliza <strong>Cloudflare Web Analytics</strong>, un servicio de
+        analítica que <strong>no usa cookies, no rastrea usuarios individuales y no
+        requiere consentimiento</strong>. Cloudflare recopila métricas agregadas de
+        rendimiento (tiempos de carga, páginas visitadas, país de origen) directamente
+        desde su red, sin instalar ningún identificador en tu navegador.
+      </p>
+      <p>
+        Este servicio está activo para todos los visitantes, independientemente de tu
+        decisión sobre el banner de cookies, porque no recopila datos personales.
+      </p>
+
+      <h2>Tracking interno anónimo (eventos del quiz)</h2>
+      <p>
+        Además de Google Analytics, pre.voto registra eventos anónimos del quiz en
+        su propia base de datos para entender el flujo de uso y mejorar la herramienta.
+        Estos eventos incluyen:
+      </p>
+      <ul>
+        <li><code>quiz_started</code>: alguien inició el quiz.</li>
+        <li><code>question_viewed</code>: se mostró una pregunta.</li>
+        <li><code>question_answered</code>: se respondió una pregunta (se registra la
+        posición elegida, no quién la eligió).</li>
+        <li><code>quiz_completed</code>: alguien completó el quiz (se registra el
+        candidato más afín y el porcentaje, no quién hizo el quiz).</li>
+        <li><code>share_clicked</code>: alguien compartió su resultado (se registra
+        el canal: WhatsApp, X, Telegram o enlace copiado).</li>
+      </ul>
+      <p>
+        Cada evento se asocia a un <strong>hash de sesión</strong>: un valor
+        criptográfico derivado de tu dirección IP, el user-agent de tu navegador,
+        la fecha UTC del día y una sal secreta. Este hash se renueva cada 24 horas
+        y <strong>no es reversible</strong>: no es posible reconstruir tu IP ni tu
+        identidad a partir de él.
+      </p>
+      <p>
+        Estos datos se almacenan por un máximo de <strong>24 meses</strong> y se
+        usan exclusivamente para análisis interno (tasas de completación, preguntas
+        donde más se abandona, distribución de respuestas). <strong>No se publican
+        como estadísticas colectivas durante el período de campaña electoral.</strong>
+      </p>
+
       <h2>¿Compartimos datos con terceros?</h2>
       <p>
-        El único tercero que recibe datos de navegación es <strong>Google</strong>
-        (como procesador de Google Analytics), y solo si aceptas el banner de cookies.
+        Los terceros que reciben datos de navegación son:
+      </p>
+      <ul>
+        <li><strong>Google</strong> (como procesador de Google Analytics), solo si
+        aceptas el banner de cookies.</li>
+        <li><strong>Cloudflare</strong> (Web Analytics), que recibe métricas agregadas
+        de rendimiento sin cookies ni datos personales.</li>
+      </ul>
+      <p>
         No vendemos, alquilamos ni compartimos datos con ningún otro tercero.
         No mostramos publicidad.
       </p>

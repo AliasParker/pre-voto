@@ -59,6 +59,11 @@ class Settings(BaseSettings):
     # Frontend URL (used for Stripe success/cancel redirects)
     frontend_url: str = "http://localhost"
 
+    # Usage tracking
+    session_hash_salt: str = "changeme-salt"
+    admin_user: str = "admin"
+    admin_pass: str = "changeme-admin"
+
     # SMTP (Mailpit in dev)
     smtp_host: str = "mailpit"
     smtp_port: int = 1025
