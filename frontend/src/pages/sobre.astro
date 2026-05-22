@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import { SHOW_DONATIONS } from "../lib/flags";
 
 const jsonLd = {
   "@context": "https://schema.org",
@@ -70,10 +71,12 @@ const jsonLd = {
           condiciones)
         </li>
       </ul>
-      <p>
-        Si querés apoyar el proyecto, podés hacerlo en
-        <a href="/apoyar/">pre.voto/apoyar</a>.
-      </p>
+      {SHOW_DONATIONS && (
+        <p>
+          Si querés apoyar el proyecto, podés hacerlo en
+          <a href="/apoyar/">pre.voto/apoyar</a>.
+        </p>
+      )}
 
       <h2>Por qué es open source</h2>
       <p>

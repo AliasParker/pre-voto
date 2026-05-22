@@ -1,5 +1,6 @@
 ---
 import { getLocaleFromCountry, t, type Locale } from "../lib/i18n";
+import { SHOW_DONATIONS } from "../lib/flags";
 
 interface Props {
   country?: string;
@@ -56,9 +57,11 @@ const showLey2494 = country && (
           <a href="/privacidad" class="hover:text-ink transition-colors">
             {t(locale, "nav.privacy")}
           </a>
-          <a href="/apoyar" class="hover:text-ink transition-colors">
-            {t(locale, "footer.support")}
-          </a>
+          {SHOW_DONATIONS && (
+            <a href="/apoyar" class="hover:text-ink transition-colors">
+              {t(locale, "footer.support")}
+            </a>
+          )}
         </nav>
       </div>
 

@@ -1,8 +1,13 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import { t } from "../../lib/i18n";
+import { SHOW_DONATIONS } from "../../lib/flags";
 
 const locale = "es";
+
+if (!SHOW_DONATIONS) {
+  return Astro.redirect("/");
+}
 ---
 
 <BaseLayout
