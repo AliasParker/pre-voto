@@ -138,6 +138,19 @@ Trigger `update_updated_at_column()` fires BEFORE UPDATE on tables with `updated
    ```
    Condition: 10/10 must return 200. Any non-200 is a blocker.
 
+## Lessons from OG share improvements (PR #35, a391ccf)
+
+1. **OG image URLs must be absolute**: Social media crawlers (WhatsApp, Telegram, X/Twitter) cannot resolve relative URLs in `og:image` meta tags. Always use `settings.public_site_url` to build absolute URLs for OG meta tags. The fix was in `backend/app/routers/og.py` — `og_image_url` changed from `/api/og/quiz?...` to `{settings.public_site_url}/api/og/quiz?...`.
+
+2. **Design token alignment between backend and frontend**: The OG image generator (`backend/app/services/og_image.py`) has its own color constants that must match the frontend CSS variables in `frontend/src/styles/global.css`. When the frontend brand color is `#8B2626`, the backend must use the same value — not an approximation. Current aligned values:
+   - `COLOR_BRAND = "#8B2626"` (terracotta, matches `--color-brand` in light mode)
+   - `COLOR_PAPER = "#FAFAF8"` (matches `--color-paper`)
+   - `COLOR_INK_SOFT = "#4a4a4a"` (matches `--color-ink-soft`)
+
+3. **Production VPS SSH access**: The VPS hostname `pre.voto` may not resolve for SSH. Use the IP directly: `ssh -i ~/.ssh/prevoto deploy@157.180.44.127`. The SSH key is `~/.ssh/prevoto` (ed25519). Deploy command: `bash /opt/prevoto/infra/deploy.sh`.
+
+4. **OG card logo rendering**: The logo in the OG card uses segmented text rendering (Pillow `textbbox` to measure each segment's width): "pre" in ink + "." in brand color + "voto" in ink. This matches the frontend header style. A 5px terracotta accent line runs across the top of the card.
+
 ## File structure
 
 ```
