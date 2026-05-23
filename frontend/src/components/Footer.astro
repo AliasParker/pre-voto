@@ -24,74 +24,78 @@ const showLey2494 = country && (
   <div class="max-w-5xl mx-auto px-4 py-10">
     <!-- Main footer content -->
     <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
-      <!-- Brand + description -->
+      <!-- Col 1: PRE.VOTO -->
       <div>
-        <a href="/" class="text-lg font-bold tracking-tight inline-block mb-2">
-          pre<span class="text-brand">.</span>voto
-        </a>
-        <p class="text-sm text-ink-soft leading-relaxed">
-          {t(locale, "footer.description")}
-        </p>
-      </div>
-
-      <!-- Navigation -->
-      <div>
-        <h4 class="font-semibold text-sm mb-3 font-sans">{t(locale, "footer.navTitle")}</h4>
+        <h4 class="font-semibold text-sm mb-3 font-sans uppercase tracking-wide">{t(locale, "footer.col1Title")}</h4>
         <nav class="flex flex-col gap-2 text-sm text-ink-soft">
-          {country && (
-            <a href={`/${country}/quiz`} class="hover:text-ink transition-colors">
-              {locale === "pt-BR" ? "Bússola" : "Brújula"}
-            </a>
-          )}
-          {country && (
-            <a href={`/${country}/candidatos`} class="hover:text-ink transition-colors">
-              {t(locale, "candidates.title")}
-            </a>
-          )}
+          <a href="/sobre" class="hover:text-ink transition-colors">
+            {t(locale, "nav.about")}
+          </a>
+          <a href="/equipo" class="hover:text-ink transition-colors">
+            {t(locale, "footer.team")}
+          </a>
           <a href="/metodologia" class="hover:text-ink transition-colors">
             {t(locale, "nav.methodology")}
           </a>
-          <a href="/sobre" class="hover:text-ink transition-colors">
-            {t(locale, "nav.about")}
+        </nav>
+      </div>
+
+      <!-- Col 2: PARTICIPA -->
+      <div>
+        <h4 class="font-semibold text-sm mb-3 font-sans uppercase tracking-wide">{t(locale, "footer.col2Title")}</h4>
+        <nav class="flex flex-col gap-2 text-sm text-ink-soft">
+          <a href="/faq" class="hover:text-ink transition-colors">
+            {t(locale, "footer.faq")}
+          </a>
+          <a href="/correcciones" class="hover:text-ink transition-colors">
+            {t(locale, "footer.corrections")}
+          </a>
+          <a href="/datos" class="hover:text-ink transition-colors">
+            {t(locale, "footer.openData")}
+          </a>
+          <a href="/cambios" class="hover:text-ink transition-colors">
+            {t(locale, "footer.changelog")}
+          </a>
+        </nav>
+      </div>
+
+      <!-- Col 3: LEGAL -->
+      <div>
+        <h4 class="font-semibold text-sm mb-3 font-sans uppercase tracking-wide">{t(locale, "footer.col3Title")}</h4>
+        <nav class="flex flex-col gap-2 text-sm text-ink-soft">
+          <a href="/terminos" class="hover:text-ink transition-colors">
+            {t(locale, "footer.terms")}
           </a>
           <a href="/privacidad" class="hover:text-ink transition-colors">
             {t(locale, "nav.privacy")}
           </a>
-          {SHOW_DONATIONS && (
-            <a href="/apoyar" class="hover:text-ink transition-colors">
-              {t(locale, "footer.support")}
-            </a>
-          )}
-        </nav>
-      </div>
-
-      <!-- Contact -->
-      <div>
-        <h4 class="font-semibold text-sm mb-3 font-sans">{t(locale, "footer.contactTitle")}</h4>
-        <div class="flex flex-col gap-2 text-sm text-ink-soft">
-          <a href="mailto:hola@pre.voto" class="hover:text-ink transition-colors">
-            hola@pre.voto
-          </a>
-          <a href="mailto:errores@pre.voto" class="hover:text-ink transition-colors">
-            errores@pre.voto
-          </a>
-          <a
-            href="https://x.com/prevotoLATAM"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="hover:text-ink transition-colors"
-          >
-            @prevotoLATAM
-          </a>
           <a href="/abierto" class="hover:text-ink transition-colors">
-            Código y datos abiertos
+            {locale === "pt-BR" ? "Licença" : "Licencia"}
           </a>
-        </div>
+        </nav>
       </div>
     </div>
 
-    <!-- Independence statement -->
+    <!-- Contact -->
     <div class="border-t border-line pt-6 mb-4">
+      <div class="flex flex-wrap gap-x-6 gap-y-2 text-sm text-ink-soft mb-4">
+        <a href="mailto:hola@pre.voto" class="hover:text-ink transition-colors">
+          hola@pre.voto
+        </a>
+        <a href="mailto:errores@pre.voto" class="hover:text-ink transition-colors">
+          errores@pre.voto
+        </a>
+        <a
+          href="https://x.com/prevotoLATAM"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="hover:text-ink transition-colors"
+        >
+          @prevotoLATAM
+        </a>
+      </div>
+
+      <!-- Independence statement -->
       <p class="text-xs text-ink-faint leading-relaxed max-w-3xl">
         {t(locale, "footer.independence")}
       </p>
@@ -109,7 +113,7 @@ const showLey2494 = country && (
     <!-- License -->
     <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-2 text-xs text-ink-faint">
       <p>{t(locale, "footer.license")}</p>
-      <p>© {new Date().getFullYear()} pre.voto</p>
+      <p>&copy; {new Date().getFullYear()} pre.voto</p>
     </div>
   </div>
 </footer>

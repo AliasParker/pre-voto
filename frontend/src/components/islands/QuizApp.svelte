@@ -726,7 +726,9 @@
         <ResultsShare
           url={shareUrl}
           topCandidate={topResult.name}
+          topSlug={topResult.slug}
           affinity={topResult.affinity}
+          {country}
           {locale}
         />
       {/if}

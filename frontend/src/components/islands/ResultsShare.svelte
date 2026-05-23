@@ -1,15 +1,17 @@
 <script lang="ts">
-  import { MessageCircle, Send, Link } from "lucide-svelte";
+  import { MessageCircle, Send, Link, Download } from "lucide-svelte";
   import { t, type Locale } from "../../lib/i18n";
 
   interface Props {
     url: string;
     topCandidate: string;
+    topSlug: string;
     affinity: number;
+    country: string;
     locale?: Locale;
   }
 
-  let { url, topCandidate, affinity, locale = "es" }: Props = $props();
+  let { url, topCandidate, topSlug, affinity, country, locale = "es" }: Props = $props();
 
   let copied = $state(false);
 
@@ -18,7 +20,7 @@
     fetch("/api/usage/event", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ event_type: "share_clicked", share_channel: channel, country: "co" }),
+      body: JSON.stringify({ event_type: "share_clicked", share_channel: channel, country }),
     }).catch(() => {});
     // Mirror to GA4
     if (typeof window !== "undefined" && (window as any).__pvEvent) {
@@ -48,6 +50,20 @@
       copied = true;
       setTimeout(() => (copied = false), 2000);
       trackShare("copy_link");
+    } catch {}
+  }
+
+  async function downloadImage() {
+    try {
+      trackShare("download_image");
+      const res = await fetch(`/api/og/quiz?country=${country}&top=${topSlug}&pct=${Math.round(affinity)}`);
+      const blob = await res.blob();
+      const blobUrl = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = blobUrl;
+      a.download = `prevoto-resultado-${topSlug}.png`;
+      a.click();
+      URL.revokeObjectURL(blobUrl);
     } catch {}
   }
 </script>
@@ -112,5 +128,18 @@
       <Link size={20} />
       <span>{copied ? t(locale, "common.copied") : t(locale, "common.copyLink")}</span>
     </button>
+    <button
+      onclick={downloadImage}
+      class="flex items-center gap-2.5 px-4 py-2.5 bg-paper-warm text-ink-soft rounded-lg text-sm font-medium hover:bg-line transition-colors"
+      aria-label={t(locale, "results.downloadImage")}
+    >
+      <Download size={20} />
+      <span>{t(locale, "results.downloadImage")}</span>
+    </button>
   </div>
+
+  <!-- Disclaimer -->
+  <p class="text-xs text-ink-faint mt-3 text-center">
+    {t(locale, "results.shareDisclaimer")}
+  </p>
 </div>

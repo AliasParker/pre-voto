@@ -75,8 +75,8 @@ async def send_welcome_email(recipient: str) -> None:
         "- Actualizaciones de encuestas.\n"
         "- Recordatorios electorales antes del 31 de mayo.\n"
         "\n"
-        "Si querés comparar tus posiciones con las de los 12 candidatos, "
-        "el quiz toma 5 minutos:\n"
+        "Si quieres comparar tus posiciones con las de los 12 candidatos, "
+        "el quiz toma 3 minutos:\n"
         "\n"
         "https://pre.voto/co/quiz\n"
         "\n"
@@ -112,7 +112,7 @@ async def send_welcome_email(recipient: str) -> None:
             <tr><td style="padding:4px 0;font-size:16px;line-height:1.6;color:#4a4a4a;"><span style="color:#8B2626;margin-right:8px;">&#10003;</span> Actualizaciones de encuestas.</td></tr>
             <tr><td style="padding:4px 0;font-size:16px;line-height:1.6;color:#4a4a4a;"><span style="color:#8B2626;margin-right:8px;">&#10003;</span> Recordatorios electorales antes del 31 de mayo.</td></tr>
           </table>
-          <p style="margin:0 0 24px 0;font-size:16px;line-height:1.6;color:#1a1a1a;">Si quer\u00e9s comparar tus posiciones con las de los 12 candidatos, el quiz toma 5 minutos:</p>
+          <p style="margin:0 0 24px 0;font-size:16px;line-height:1.6;color:#1a1a1a;">Si quieres comparar tus posiciones con las de los 12 candidatos, el quiz toma 3 minutos:</p>
           <!-- CTA Button -->
           <table role="presentation" cellpadding="0" cellspacing="0" style="margin:0 auto 32px auto;">
             <tr><td align="center" style="background-color:#8B2626;border-radius:6px;">
@@ -144,7 +144,7 @@ async def send_donation_email(recipient: str, amount_display: str) -> None:
         f"Recibimos tu donación de {amount_display}. Gracias.\n"
         "\n"
         "Pre.voto no tiene pauta comercial, no recibe plata de campañas y no "
-        "vende datos. Lo que acabás de aportar va directo a mantener la "
+        "vende datos. Lo que acabas de aportar va directo a mantener la "
         "infraestructura y el trabajo editorial del proyecto.\n"
         "\n"
         "¿En qué se usa?\n"
@@ -153,8 +153,8 @@ async def send_donation_email(recipient: str, amount_display: str) -> None:
         "- Investigación y codificación de posiciones de los 12 candidatos.\n"
         "- Mantenimiento del quiz, las fichas y el agregador de encuestas.\n"
         "\n"
-        "Si tenés alguna pregunta sobre el uso de los fondos o querés saber "
-        "más sobre el proyecto, escribinos a hola@pre.voto.\n"
+        "Si tienes alguna pregunta sobre el uso de los fondos o quieres saber "
+        "más sobre el proyecto, escríbenos a hola@pre.voto.\n"
         "\n"
         "— Equipo pre.voto\n"
         "\n"

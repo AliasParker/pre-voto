@@ -30,7 +30,7 @@ const translations: Record<Locale, Record<string, string>> = {
 
     // Home — global
     "home.brandTag": "Brújula electoral · Latinoamérica",
-    "home.hero": "Descubrí con qué candidato coincidís.",
+    "home.hero": "Descubre con qué candidato coincides.",
     "home.subtitle":
       "20 preguntas. 12 candidatos a la presidencia de Colombia. Cada posición, con su fuente.",
     "home.ctaPrimary": "Empezar el cuestionario",
@@ -102,18 +102,18 @@ const translations: Record<Locale, Record<string, string>> = {
     "quiz.candidatePosition": "Posición del candidato",
     "quiz.noPosition": "Sin posición registrada",
     "quiz.welcomeP1":
-      "Vas a leer 20 afirmaciones políticas. Para cada una, decinos si estás muy de acuerdo, de acuerdo, neutral, en desacuerdo o muy en desacuerdo.",
+      "Vas a leer 20 afirmaciones políticas. Para cada una, dinos si estás muy de acuerdo, de acuerdo, neutral, en desacuerdo o muy en desacuerdo.",
     "quiz.welcomeP2": "No hay respuestas correctas — solo tu posición.",
     "quiz.welcomeP3":
-      "Al final te mostramos qué candidato piensa parecido a vos y dónde no coinciden.",
+      "Al final te mostramos qué candidato piensa parecido a ti y dónde no coinciden.",
     "quiz.howCalculated":
       "¿Cómo se calcula tu afinidad? → Ver metodología",
 
     // How it works
     "howItWorks.title": "Cómo funciona la brújula",
-    "howItWorks.card1Title": "Vos respondés",
+    "howItWorks.card1Title": "Tú respondes",
     "howItWorks.card1Desc":
-      "20 afirmaciones políticas. Decís si estás muy de acuerdo, de acuerdo, neutral, en desacuerdo o muy en desacuerdo con cada una.",
+      "20 afirmaciones políticas. Dices si estás muy de acuerdo, de acuerdo, neutral, en desacuerdo o muy en desacuerdo con cada una.",
     "howItWorks.card2Title": "Nosotros mostramos",
     "howItWorks.card2Desc":
       "La posición pública de cada uno de los 12 candidatos sobre las mismas 20 afirmaciones, con la fuente citada cuando existe.",
@@ -141,6 +141,11 @@ const translations: Record<Locale, Record<string, string>> = {
     // Shared result
     "shared.title": "Resultado compartido",
     "shared.cta": "¿Quieres descubrir tu afinidad con los candidatos?",
+
+    // Results — share extras
+    "results.downloadImage": "Descargar imagen",
+    "results.shareDisclaimer":
+      "Compartes tu propio resultado. Pre.voto no agrega ni publica resultados de los usuarios.",
 
     // Newsletter
     "newsletter.title": "Mantente informado",
@@ -189,6 +194,15 @@ const translations: Record<Locale, Record<string, string>> = {
     "footer.navTitle": "Navegación",
     "footer.contactTitle": "Contacto",
     "footer.support": "Apoyar",
+    "footer.col1Title": "pre.voto",
+    "footer.col2Title": "Participa",
+    "footer.col3Title": "Legal",
+    "footer.faq": "Preguntas frecuentes",
+    "footer.corrections": "Proponer correcciones",
+    "footer.openData": "Datos abiertos",
+    "footer.changelog": "Changelog",
+    "footer.team": "Equipo",
+    "footer.terms": "Términos",
     "footer.independence":
       "Pre.voto es una iniciativa independiente, sin afiliación partidaria, sin pauta comercial y sin contenido patrocinado. Para consultas: hola@pre.voto. Para corregir errores: errores@pre.voto.",
     "footer.ley2494":
@@ -246,7 +260,7 @@ const translations: Record<Locale, Record<string, string>> = {
     "donate.errorMinAmount": "El monto mínimo es $1 USD",
     "donate.errorGeneric": "No se pudo procesar la solicitud. Intenta de nuevo.",
     "donate.errorTimeout":
-      "Algo salió mal. Probá de nuevo o escribinos a hola@pre.voto.",
+      "Algo salió mal. Intenta de nuevo o escríbenos a hola@pre.voto.",
     "donate.newsletterPostDonation":
       "Quiero recibir el newsletter mensual de pre.voto con actualizaciones del proyecto.",
     "donate.newsletterConfirm": "Confirmar",
@@ -409,6 +423,11 @@ const translations: Record<Locale, Record<string, string>> = {
     "shared.title": "Resultado compartilhado",
     "shared.cta": "Quer descobrir sua afinidade com os candidatos?",
 
+    // Results — share extras
+    "results.downloadImage": "Baixar imagem",
+    "results.shareDisclaimer":
+      "Você compartilha seu próprio resultado. O pre.voto não agrega nem publica resultados dos usuários.",
+
     // Newsletter
     "newsletter.title": "Fique informado",
     "newsletter.desc":
@@ -456,6 +475,15 @@ const translations: Record<Locale, Record<string, string>> = {
     "footer.navTitle": "Navegação",
     "footer.contactTitle": "Contato",
     "footer.support": "Apoiar",
+    "footer.col1Title": "pre.voto",
+    "footer.col2Title": "Participe",
+    "footer.col3Title": "Legal",
+    "footer.faq": "Perguntas frequentes",
+    "footer.corrections": "Propor correções",
+    "footer.openData": "Dados abertos",
+    "footer.changelog": "Changelog",
+    "footer.team": "Equipe",
+    "footer.terms": "Termos",
     "footer.independence":
       "Pre.voto é uma iniciativa independente, sem afiliação partidária, sem publicidade e sem conteúdo patrocinado. Para consultas: hola@pre.voto. Para corrigir erros: errores@pre.voto.",
     "footer.ley2494":
