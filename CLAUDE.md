@@ -147,7 +147,7 @@ Trigger `update_updated_at_column()` fires BEFORE UPDATE on tables with `updated
    - `COLOR_PAPER = "#FAFAF8"` (matches `--color-paper`)
    - `COLOR_INK_SOFT = "#4a4a4a"` (matches `--color-ink-soft`)
 
-3. **Production VPS SSH access**: The VPS hostname `pre.voto` may not resolve for SSH. Use the IP directly: `ssh -i ~/.ssh/prevoto deploy@157.180.44.127`. The SSH key is `~/.ssh/prevoto` (ed25519). Deploy command: `bash /opt/prevoto/infra/deploy.sh`.
+3. **Production VPS SSH access**: The VPS hostname `pre.voto` may not resolve for SSH. Use the IP directly: `ssh -i ~/.ssh/prevoto deploy@YOUR_VPS_IP`. The SSH key is `~/.ssh/prevoto` (ed25519). Deploy command: `bash /opt/prevoto/infra/deploy.sh`.
 
 4. **OG card logo rendering**: The logo in the OG card uses segmented text rendering (Pillow `textbbox` to measure each segment's width): "pre" in ink + "." in brand color + "voto" in ink. This matches the frontend header style. A 5px terracotta accent line runs across the top of the card.
 

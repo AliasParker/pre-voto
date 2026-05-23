@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Copyright (c) 2026 Equipo pre.voto
 """Public open-data API — statements, candidates, and positions.
 
 All endpoints are public (no auth), read-only, and add open-data headers.

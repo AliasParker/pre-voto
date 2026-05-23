@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Copyright (c) 2026 Equipo pre.voto
 """Schemas for public open-data API endpoints."""
 
 from datetime import date

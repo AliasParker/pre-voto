@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Copyright (c) 2026 Equipo pre.voto
 from app.jobs.compute_poll_avg import job_compute_poll_average
 from app.jobs.pull_rss import job_pull_rss
 from app.jobs.refresh_photos import job_refresh_photos

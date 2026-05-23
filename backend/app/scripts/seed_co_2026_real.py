@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Copyright (c) 2026 Equipo pre.voto
 """
 Seed script for Colombia 2026 — REAL production data.
 

@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Copyright (c) 2026 Equipo pre.voto
 """
 Import 5 editorial articles for Colombia 2026 from the seed markdown file.
 

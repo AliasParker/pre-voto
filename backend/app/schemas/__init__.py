@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Copyright (c) 2026 Equipo pre.voto
 from app.schemas.article import ArticleCreate, ArticleDetail, ArticleOut
 from app.schemas.candidate import (
     BulkPositionItem,

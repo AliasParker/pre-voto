@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later
+// Copyright (c) 2026 Equipo pre.voto
 import type { Locale } from "./i18n";
 
 export interface CountryMeta {

@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Copyright (c) 2026 Equipo pre.voto
 """Veda electoral — quiz disabled during election day voting hours."""
 
 from datetime import datetime, timezone

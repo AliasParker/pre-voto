@@ -57,6 +57,9 @@ server.md
 *.credentials
 secrets/
 
+# Internal docs (not for public repo)
+LAUNCH_BRIEF.md
+
 # Claude Code local artifacts
 .agents/
 .claude/

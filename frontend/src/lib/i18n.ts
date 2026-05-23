@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later
+// Copyright (c) 2026 Equipo pre.voto
 export type Locale = "es" | "pt-BR";
 
 const translations: Record<Locale, Record<string, string>> = {

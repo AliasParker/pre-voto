@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Copyright (c) 2026 Equipo pre.voto
 from app.models.article import Article
 from app.models.base import Base
 from app.models.candidate import Candidate
