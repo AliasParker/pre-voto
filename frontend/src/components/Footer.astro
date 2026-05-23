@@ -1,0 +1,130 @@
+---
+// SPDX-License-Identifier: AGPL-3.0-or-later
+// Copyright (c) 2026 Equipo pre.voto
+
+import { getLocaleFromCountry, t, type Locale } from "../lib/i18n";
+import { SHOW_DONATIONS } from "../lib/flags";
+
+interface Props {
+  country?: string;
+}
+
+const { country } = Astro.props;
+const locale: Locale = country ? getLocaleFromCountry(country) : "es";
+
+// Pages that should show the Ley 2494 disclaimer
+const pathname = Astro.url.pathname;
+const showLey2494 = country && (
+  pathname.includes("/quiz") ||
+  pathname.includes("/candidatos") ||
+  pathname.includes("/articulos") ||
+  pathname.includes("/encuestas") ||
+  pathname.includes("/veda")
+);
+---
+
+<footer class="border-t border-line mt-12 bg-paper-warm">
+  <div class="max-w-5xl mx-auto px-4 py-10">
+    <!-- Main footer content -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+      <!-- Col 1: PRE.VOTO -->
+      <div>
+        <h4 class="font-semibold text-sm mb-3 font-sans uppercase tracking-wide">{t(locale, "footer.col1Title")}</h4>
+        <nav class="flex flex-col gap-2 text-sm text-ink-soft">
+          <a href="/sobre" class="hover:text-ink transition-colors w-fit">
+            {t(locale, "nav.about")}
+          </a>
+          <a href="/equipo" class="hover:text-ink transition-colors w-fit">
+            {t(locale, "footer.team")}
+          </a>
+          <a href="/metodologia" class="hover:text-ink transition-colors w-fit">
+            {t(locale, "nav.methodology")}
+          </a>
+        </nav>
+      </div>
+
+      <!-- Col 2: PARTICIPA -->
+      <div>
+        <h4 class="font-semibold text-sm mb-3 font-sans uppercase tracking-wide">{t(locale, "footer.col2Title")}</h4>
+        <nav class="flex flex-col gap-2 text-sm text-ink-soft">
+          <a href="/faq" class="hover:text-ink transition-colors w-fit">
+            {t(locale, "footer.faq")}
+          </a>
+          <a href="/correcciones" class="hover:text-ink transition-colors w-fit">
+            {t(locale, "footer.corrections")}
+          </a>
+          <a href="/datos" class="hover:text-ink transition-colors w-fit">
+            {t(locale, "footer.openData")}
+          </a>
+          <a href="/cambios" class="hover:text-ink transition-colors w-fit">
+            {t(locale, "footer.changelog")}
+          </a>
+        </nav>
+      </div>
+
+      <!-- Col 3: LEGAL -->
+      <div>
+        <h4 class="font-semibold text-sm mb-3 font-sans uppercase tracking-wide">{t(locale, "footer.col3Title")}</h4>
+        <nav class="flex flex-col gap-2 text-sm text-ink-soft">
+          <a href="/terminos" class="hover:text-ink transition-colors w-fit">
+            {t(locale, "footer.terms")}
+          </a>
+          <a href="/privacidad" class="hover:text-ink transition-colors w-fit">
+            {t(locale, "nav.privacy")}
+          </a>
+          <a href="/abierto" class="hover:text-ink transition-colors w-fit">
+            {locale === "pt-BR" ? "Licença" : "Licencia"}
+          </a>
+        </nav>
+      </div>
+    </div>
+
+    <!-- Contact -->
+    <div class="border-t border-line pt-6 mb-4">
+      <div class="flex flex-wrap gap-x-6 gap-y-2 text-sm text-ink-soft mb-4">
+        <a href="mailto:hola@pre.voto" class="hover:text-ink transition-colors w-fit">
+          hola@pre.voto
+        </a>
+        <a href="mailto:errores@pre.voto" class="hover:text-ink transition-colors w-fit">
+          errores@pre.voto
+        </a>
+        <a
+          href="https://x.com/prevotoLATAM"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="hover:text-ink transition-colors w-fit"
+        >
+          @prevotoLATAM
+        </a>
+        <a
+          href="https://github.com/AliasParker/pre-voto"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="hover:text-ink transition-colors w-fit"
+        >
+          GitHub
+        </a>
+      </div>
+
+      <!-- Independence statement -->
+      <p class="text-xs text-ink-faint leading-relaxed max-w-3xl">
+        {t(locale, "footer.independence")}
+      </p>
+    </div>
+
+    <!-- Ley 2494 disclaimer (quiz/results/candidatos/articulos pages) -->
+    {showLey2494 && (
+      <div class="mb-4">
+        <p class="text-xs text-ink-faint leading-relaxed max-w-3xl">
+          {t(locale, "footer.ley2494")}
+        </p>
+      </div>
+    )}
+
+    <!-- License -->
+    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-2 text-xs text-ink-faint">
+      <p>{t(locale, "footer.license")}</p>
+      <p>&copy; {new Date().getFullYear()} pre.voto™</p>
+    </div>
+  </div>
+</footer>

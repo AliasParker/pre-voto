@@ -1,0 +1,47 @@
+---
+// SPDX-License-Identifier: AGPL-3.0-or-later
+// Copyright (c) 2026 Equipo pre.voto
+
+import type { PollAverageOut, CandidateOut } from "../lib/types";
+
+interface Props {
+  average: PollAverageOut;
+  candidates: CandidateOut[];
+}
+
+const { average, candidates } = Astro.props;
+
+// Map candidate slugs to their metadata
+const candidateMap = new Map(candidates.map((c) => [c.slug, c]));
+
+// Sort results by percentage descending
+const sortedResults = Object.entries(average.results)
+  .sort(([, a], [, b]) => (b as number) - (a as number));
+
+const maxPct = Math.max(...sortedResults.map(([, v]) => v as number), 1);
+---
+
+<div class="space-y-3">
+  {sortedResults.map(([slug, pct]) => {
+    const candidate = candidateMap.get(slug);
+    const color = candidate?.color || "#737373";
+    const name = candidate?.name || slug;
+    const percentage = pct as number;
+    const width = (percentage / maxPct) * 100;
+
+    return (
+      <div>
+        <div class="flex justify-between text-sm mb-1">
+          <span class="font-medium">{name}</span>
+          <span class="text-ink-faint">{percentage.toFixed(1)}%</span>
+        </div>
+        <div class="h-3 bg-paper-warm rounded-full overflow-hidden">
+          <div
+            class="h-full rounded-full transition-all"
+            style={`width: ${width}%; background-color: ${color}`}
+          />
+        </div>
+      </div>
+    );
+  })}
+</div>

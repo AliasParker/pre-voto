@@ -1,0 +1,2424 @@
+{
+  "country": "CO",
+  "election": "2026_first_round",
+  "version": "1.0.0",
+  "last_updated": "2026-05-18",
+  "schema_notes": {
+    "position_values": ["very_agree", "agree", "neutral", "disagree", "very_disagree"],
+    "confidence_values": ["high", "medium", "low"],
+    "source_type_values": ["plan_oficial", "entrevista", "cuenta_oficial", "trayectoria", "inferencia"]
+  },
+  "positions": [
+    {
+      "candidate_slug": "ivan-cepeda",
+      "statement_id": 1,
+      "position": "very_agree",
+      "confidence": "high",
+      "source_type": "plan_oficial",
+      "source_quote": "Profundizar la reforma pensional garantizando pensiones dignas para todos los colombianos.",
+      "source_url": "https://ivancepedaplandegobierno.co/",
+      "notes": "Cepeda defendió la Ley 2381 en el Senado y la integra explícitamente como compromiso de continuidad."
+    },
+    {
+      "candidate_slug": "ivan-cepeda",
+      "statement_id": 2,
+      "position": "very_agree",
+      "confidence": "high",
+      "source_type": "plan_oficial",
+      "source_quote": "Implementación plena de la reforma laboral con garantías para trabajadores tercerizados y de plataformas.",
+      "source_url": "https://ivancepedaplandegobierno.co/",
+      "notes": null
+    },
+    {
+      "candidate_slug": "ivan-cepeda",
+      "statement_id": 3,
+      "position": "agree",
+      "confidence": "high",
+      "source_type": "entrevista",
+      "source_quote": "La consulta popular es un mecanismo democrático que el próximo gobierno debe usar para legitimar reformas estructurales.",
+      "source_url": null,
+      "notes": "Entrevista en El Tiempo, abril 2026."
+    },
+    {
+      "candidate_slug": "ivan-cepeda",
+      "statement_id": 4,
+      "position": "very_agree",
+      "confidence": "high",
+      "source_type": "plan_oficial",
+      "source_quote": "Ampliar las transferencias monetarias del programa Renta Ciudadana y consolidarlas como derecho social.",
+      "source_url": "https://ivancepedaplandegobierno.co/",
+      "notes": null
+    },
+    {
+      "candidate_slug": "ivan-cepeda",
+      "statement_id": 5,
+      "position": "very_disagree",
+      "confidence": "high",
+      "source_type": "trayectoria",
+      "source_quote": "El glifosato es un veneno que daña la salud humana y los ecosistemas. No volverá a usarse en mi gobierno.",
+      "source_url": null,
+      "notes": "Posición sostenida desde su trabajo legislativo previo."
+    },
+    {
+      "candidate_slug": "ivan-cepeda",
+      "statement_id": 6,
+      "position": "very_disagree",
+      "confidence": "high",
+      "source_type": "plan_oficial",
+      "source_quote": "La Paz Total es una política de Estado y debe profundizarse, no abandonarse.",
+      "source_url": "https://ivancepedaplandegobierno.co/",
+      "notes": null
+    },
+    {
+      "candidate_slug": "ivan-cepeda",
+      "statement_id": 7,
+      "position": "disagree",
+      "confidence": "medium",
+      "source_type": "trayectoria",
+      "source_quote": null,
+      "source_url": null,
+      "notes": "Línea histórica del Pacto Histórico favorece el servicio social no obligatorio. Sin cita directa específica."
+    },
+    {
+      "candidate_slug": "ivan-cepeda",
+      "statement_id": 8,
+      "position": "disagree",
+      "confidence": "medium",
+      "source_type": "trayectoria",
+      "source_quote": null,
+      "source_url": null,
+      "notes": "Prioriza inversión social y desmilitarización del enfoque de seguridad."
+    },
+    {
+      "candidate_slug": "ivan-cepeda",
+      "statement_id": 9,
+      "position": "very_disagree",
+      "confidence": "high",
+      "source_type": "plan_oficial",
+      "source_quote": "Transición energética justa: descarbonizar la matriz colombiana y dejar atrás la dependencia de hidrocarburos.",
+      "source_url": "https://ivancepedaplandegobierno.co/",
+      "notes": null
+    },
+    {
+      "candidate_slug": "ivan-cepeda",
+      "statement_id": 10,
+      "position": "very_agree",
+      "confidence": "high",
+      "source_type": "plan_oficial",
+      "source_quote": "Reforma tributaria estructural con progresividad real: que quien más tiene, más aporte.",
+      "source_url": "https://ivancepedaplandegobierno.co/",
+      "notes": null
+    },
+    {
+      "candidate_slug": "ivan-cepeda",
+      "statement_id": 11,
+      "position": "very_agree",
+      "confidence": "high",
+      "source_type": "plan_oficial",
+      "source_quote": "Salario mínimo digno por encima de inflación más productividad.",
+      "source_url": "https://ivancepedaplandegobierno.co/",
+      "notes": null
+    },
+    {
+      "candidate_slug": "ivan-cepeda",
+      "statement_id": 12,
+      "position": "neutral",
+      "confidence": "medium",
+      "source_type": "inferencia",
+      "source_quote": null,
+      "source_url": null,
+      "notes": "Línea Pacto Histórico ha cuestionado la independencia formal del BanRep pero sin proponer eliminarla. Posición ambivalente."
+    },
+    {
+      "candidate_slug": "ivan-cepeda",
+      "statement_id": 13,
+      "position": "very_agree",
+      "confidence": "high",
+      "source_type": "trayectoria",
+      "source_quote": "Defiendo plenamente la Sentencia C-055 y los derechos sexuales y reproductivos de las mujeres.",
+      "source_url": null,
+      "notes": "Posición pública desde 2022."
+    },
+    {
+      "candidate_slug": "ivan-cepeda",
+      "statement_id": 14,
+      "position": "very_agree",
+      "confidence": "high",
+      "source_type": "trayectoria",
+      "source_quote": null,
+      "source_url": null,
+      "notes": "Voto favorable a leyes de derechos LGBTI+ durante todo su trayecto legislativo."
+    },
+    {
+      "candidate_slug": "ivan-cepeda",
+      "statement_id": 15,
+      "position": "agree",
+      "confidence": "high",
+      "source_type": "entrevista",
+      "source_quote": "La guerra contra las drogas fracasó. Hay que regular y tratar el consumo como problema de salud pública.",
+      "source_url": null,
+      "notes": "Foro de Política de Drogas, Bogotá 2025."
+    },
+    {
+      "candidate_slug": "ivan-cepeda",
+      "statement_id": 16,
+      "position": "very_disagree",
+      "confidence": "high",
+      "source_type": "cuenta_oficial",
+      "source_quote": "Mantendré la suspensión de relaciones con el gobierno de Israel mientras continúe la ofensiva en Gaza.",
+      "source_url": null,
+      "notes": "Posición sostenida públicamente desde 2024."
+    },
+    {
+      "candidate_slug": "ivan-cepeda",
+      "statement_id": 17,
+      "position": "very_disagree",
+      "confidence": "high",
+      "source_type": "trayectoria",
+      "source_quote": null,
+      "source_url": null,
+      "notes": "Defensor histórico del reconocimiento del gobierno bolivariano de Venezuela; postura sostenida tras captura de Maduro (enero 2026)."
+    },
+    {
+      "candidate_slug": "ivan-cepeda",
+      "statement_id": 18,
+      "position": "very_agree",
+      "confidence": "high",
+      "source_type": "plan_oficial",
+      "source_quote": "Prohibición definitiva del fracking en Colombia, sin excepciones.",
+      "source_url": "https://ivancepedaplandegobierno.co/",
+      "notes": null
+    },
+    {
+      "candidate_slug": "ivan-cepeda",
+      "statement_id": 19,
+      "position": "very_agree",
+      "confidence": "high",
+      "source_type": "plan_oficial",
+      "source_quote": "Acelerar la transición a renovables como eje del desarrollo económico.",
+      "source_url": "https://ivancepedaplandegobierno.co/",
+      "notes": null
+    },
+    {
+      "candidate_slug": "ivan-cepeda",
+      "statement_id": 20,
+      "position": "very_agree",
+      "confidence": "high",
+      "source_type": "plan_oficial",
+      "source_quote": "La Amazonía es patrimonio de la humanidad. La protección absoluta prima sobre la extracción.",
+      "source_url": "https://ivancepedaplandegobierno.co/",
+      "notes": null
+    },
+
+    {
+      "candidate_slug": "abelardo-de-la-espriella",
+      "statement_id": 1,
+      "position": "very_disagree",
+      "confidence": "high",
+      "source_type": "entrevista",
+      "source_quote": "La reforma pensional de Petro es una bomba de tiempo fiscal. La derogaremos.",
+      "source_url": null,
+      "notes": "Entrevista La FM, marzo 2026."
+    },
+    {
+      "candidate_slug": "abelardo-de-la-espriella",
+      "statement_id": 2,
+      "position": "very_disagree",
+      "confidence": "high",
+      "source_type": "cuenta_oficial",
+      "source_quote": "La reforma laboral destruye el empleo formal. Vamos a desmontarla.",
+      "source_url": null,
+      "notes": "Mensaje en X, febrero 2026."
+    },
+    {
+      "candidate_slug": "abelardo-de-la-espriella",
+      "statement_id": 3,
+      "position": "very_disagree",
+      "confidence": "medium",
+      "source_type": "trayectoria",
+      "source_quote": null,
+      "source_url": null,
+      "notes": "Crítica explícita a las consultas populares de Petro como instrumento populista."
+    },
+    {
+      "candidate_slug": "abelardo-de-la-espriella",
+      "statement_id": 4,
+      "position": "very_disagree",
+      "confidence": "high",
+      "source_type": "plan_oficial",
+      "source_quote": "Trabajo y producción, no subsidios. Reducir el tamaño del Estado en 40%.",
+      "source_url": "https://defensoresdelapatria.co/",
+      "notes": null
+    },
+    {
+      "candidate_slug": "abelardo-de-la-espriella",
+      "statement_id": 5,
+      "position": "very_agree",
+      "confidence": "high",
+      "source_type": "plan_oficial",
+      "source_quote": "Destrucción de 330.000 hectáreas de coca con todas las herramientas disponibles, incluida la fumigación aérea con glifosato.",
+      "source_url": "https://defensoresdelapatria.co/",
+      "notes": null
+    },
+    {
+      "candidate_slug": "abelardo-de-la-espriella",
+      "statement_id": 6,
+      "position": "very_agree",
+      "confidence": "high",
+      "source_type": "cuenta_oficial",
+      "source_quote": "Cero negociaciones con narcoterroristas. Acabar con la Paz Total el día uno.",
+      "source_url": null,
+      "notes": "Mensaje recurrente en X y entrevistas."
+    },
+    {
+      "candidate_slug": "abelardo-de-la-espriella",
+      "statement_id": 7,
+      "position": "very_agree",
+      "confidence": "high",
+      "source_type": "entrevista",
+      "source_quote": "Servicio militar obligatorio para todos. La patria se defiende con disciplina.",
+      "source_url": null,
+      "notes": "Entrevista Caracol Radio, abril 2026."
+    },
+    {
+      "candidate_slug": "abelardo-de-la-espriella",
+      "statement_id": 8,
+      "position": "very_agree",
+      "confidence": "high",
+      "source_type": "plan_oficial",
+      "source_quote": "Aumento drástico del pie de fuerza y modernización con tecnología israelí.",
+      "source_url": "https://defensoresdelapatria.co/",
+      "notes": null
+    },
+    {
+      "candidate_slug": "abelardo-de-la-espriella",
+      "statement_id": 9,
+      "position": "very_agree",
+      "confidence": "high",
+      "source_type": "plan_oficial",
+      "source_quote": "Fortalecer el sector hidrocarburos como motor de la economía y de las regalías regionales.",
+      "source_url": "https://defensoresdelapatria.co/",
+      "notes": null
+    },
+    {
+      "candidate_slug": "abelardo-de-la-espriella",
+      "statement_id": 10,
+      "position": "very_disagree",
+      "confidence": "high",
+      "source_type": "plan_oficial",
+      "source_quote": "Reducir impuestos. El que produce no debe ser castigado.",
+      "source_url": "https://defensoresdelapatria.co/",
+      "notes": null
+    },
+    {
+      "candidate_slug": "abelardo-de-la-espriella",
+      "statement_id": 11,
+      "position": "disagree",
+      "confidence": "medium",
+      "source_type": "inferencia",
+      "source_quote": null,
+      "source_url": null,
+      "notes": "Línea pro-libre empresa rechaza aumentos no atados a productividad. Sin cita directa específica."
+    },
+    {
+      "candidate_slug": "abelardo-de-la-espriella",
+      "statement_id": 12,
+      "position": "very_agree",
+      "confidence": "medium",
+      "source_type": "inferencia",
+      "source_quote": null,
+      "source_url": null,
+      "notes": "Defensa explícita de instituciones independientes; consistente con línea anti-Petro."
+    },
+    {
+      "candidate_slug": "abelardo-de-la-espriella",
+      "statement_id": 13,
+      "position": "very_disagree",
+      "confidence": "high",
+      "source_type": "cuenta_oficial",
+      "source_quote": "El genocidio del aborto debe terminar. Defendemos la vida desde la concepción.",
+      "source_url": null,
+      "notes": "Mensaje recurrente en X."
+    },
+    {
+      "candidate_slug": "abelardo-de-la-espriella",
+      "statement_id": 14,
+      "position": "very_disagree",
+      "confidence": "high",
+      "source_type": "entrevista",
+      "source_quote": "La familia es padre, madre e hijos. Punto.",
+      "source_url": null,
+      "notes": "Entrevista NTN24, marzo 2026."
+    },
+    {
+      "candidate_slug": "abelardo-de-la-espriella",
+      "statement_id": 15,
+      "position": "very_disagree",
+      "confidence": "high",
+      "source_type": "plan_oficial",
+      "source_quote": "Cero tolerancia con las drogas. Las cárceles llenas de narcotraficantes.",
+      "source_url": "https://defensoresdelapatria.co/",
+      "notes": null
+    },
+    {
+      "candidate_slug": "abelardo-de-la-espriella",
+      "statement_id": 16,
+      "position": "very_agree",
+      "confidence": "high",
+      "source_type": "cuenta_oficial",
+      "source_quote": "Restablecer relaciones plenas con el Estado de Israel, nuestro aliado natural.",
+      "source_url": null,
+      "notes": "Posición sostenida en X."
+    },
+    {
+      "candidate_slug": "abelardo-de-la-espriella",
+      "statement_id": 17,
+      "position": "very_agree",
+      "confidence": "high",
+      "source_type": "entrevista",
+      "source_quote": "Alianza con María Corina Machado y la Venezuela libre. Maduro debe responder ante la justicia.",
+      "source_url": null,
+      "notes": "Acto público con MCM, abril 2026."
+    },
+    {
+      "candidate_slug": "abelardo-de-la-espriella",
+      "statement_id": 18,
+      "position": "very_disagree",
+      "confidence": "high",
+      "source_type": "plan_oficial",
+      "source_quote": "Reactivar la exploración y explotación incluyendo el fracking, con todos los protocolos ambientales.",
+      "source_url": "https://defensoresdelapatria.co/",
+      "notes": null
+    },
+    {
+      "candidate_slug": "abelardo-de-la-espriella",
+      "statement_id": 19,
+      "position": "very_disagree",
+      "confidence": "high",
+      "source_type": "entrevista",
+      "source_quote": "Las renovables son complemento, no sustituto. Colombia necesita el petróleo.",
+      "source_url": null,
+      "notes": "Entrevista La W, marzo 2026."
+    },
+    {
+      "candidate_slug": "abelardo-de-la-espriella",
+      "statement_id": 20,
+      "position": "disagree",
+      "confidence": "medium",
+      "source_type": "inferencia",
+      "source_quote": null,
+      "source_url": null,
+      "notes": "Línea pro-extracción; no ha hecho declaraciones específicas sobre Amazonía pero su programa prioriza desarrollo extractivo."
+    },
+
+    {
+      "candidate_slug": "paloma-valencia",
+      "statement_id": 1,
+      "position": "disagree",
+      "confidence": "high",
+      "source_type": "plan_oficial",
+      "source_quote": "Reforma pensional alternativa que rescate el sistema sin destruir el ahorro privado.",
+      "source_url": "https://palomavalencia.co/plan-10",
+      "notes": "Propone reforma propia, no derogar totalmente pero sí modificar pilares."
+    },
+    {
+      "candidate_slug": "paloma-valencia",
+      "statement_id": 2,
+      "position": "very_disagree",
+      "confidence": "high",
+      "source_type": "trayectoria",
+      "source_quote": "Votamos en contra de la reforma laboral porque destruye empleo formal.",
+      "source_url": null,
+      "notes": "Posición de bancada del Centro Democrático en el Senado."
+    },
+    {
+      "candidate_slug": "paloma-valencia",
+      "statement_id": 3,
+      "position": "very_disagree",
+      "confidence": "high",
+      "source_type": "entrevista",
+      "source_quote": "La consulta popular vinculante es un atajo para evadir al Congreso. No la voy a usar.",
+      "source_url": null,
+      "notes": "Entrevista Semana, marzo 2026."
+    },
+    {
+      "candidate_slug": "paloma-valencia",
+      "statement_id": 4,
+      "position": "neutral",
+      "confidence": "medium",
+      "source_type": "plan_oficial",
+      "source_quote": "Transferencias condicionadas a corresponsabilidad y empleabilidad, no expansión sin metas.",
+      "source_url": "https://palomavalencia.co/plan-10",
+      "notes": "Mantiene pero condiciona y reduce alcance."
+    },
+    {
+      "candidate_slug": "paloma-valencia",
+      "statement_id": 5,
+      "position": "very_agree",
+      "confidence": "high",
+      "source_type": "entrevista",
+      "source_quote": "Volveré a usar el glifosato. Es la herramienta más efectiva contra el narcotráfico.",
+      "source_url": null,
+      "notes": "Entrevista RCN, febrero 2026."
+    },
+    {
+      "candidate_slug": "paloma-valencia",
+      "statement_id": 6,
+      "position": "very_agree",
+      "confidence": "high",
+      "source_type": "plan_oficial",
+      "source_quote": "Acabar la Paz Total. Las disidencias deben someterse a la justicia o ser perseguidas penalmente.",
+      "source_url": "https://palomavalencia.co/plan-10",
+      "notes": null
+    },
+    {
+      "candidate_slug": "paloma-valencia",
+      "statement_id": 7,
+      "position": "agree",
+      "confidence": "medium",
+      "source_type": "trayectoria",
+      "source_quote": null,
+      "source_url": null,
+      "notes": "Línea uribista clásica defiende servicio militar; sin cita directa específica para esta campaña."
+    },
+    {
+      "candidate_slug": "paloma-valencia",
+      "statement_id": 8,
+      "position": "very_agree",
+      "confidence": "high",
+      "source_type": "plan_oficial",
+      "source_quote": "Plan 30-30: 30.000 nuevos policías y 30.000 nuevos soldados. +20 billones en defensa.",
+      "source_url": "https://palomavalencia.co/plan-10",
+      "notes": null
+    },
+    {
+      "candidate_slug": "paloma-valencia",
+      "statement_id": 9,
+      "position": "agree",
+      "confidence": "high",
+      "source_type": "entrevista",
+      "source_quote": "Los hidrocarburos siguen siendo motor de desarrollo regional. Hay que reactivarlos.",
+      "source_url": null,
+      "notes": "Entrevista La FM, abril 2026."
+    },
+    {
+      "candidate_slug": "paloma-valencia",
+      "statement_id": 10,
+      "position": "very_disagree",
+      "confidence": "high",
+      "source_type": "plan_oficial",
+      "source_quote": "Eliminar el impuesto al patrimonio. Reducir cargas tributarias para crecer.",
+      "source_url": "https://palomavalencia.co/plan-10",
+      "notes": null
+    },
+    {
+      "candidate_slug": "paloma-valencia",
+      "statement_id": 11,
+      "position": "disagree",
+      "confidence": "medium",
+      "source_type": "trayectoria",
+      "source_quote": null,
+      "source_url": null,
+      "notes": "Posición de bancada CD: aumentos atados a productividad, no a metas de inflación-plus."
+    },
+    {
+      "candidate_slug": "paloma-valencia",
+      "statement_id": 12,
+      "position": "very_agree",
+      "confidence": "high",
+      "source_type": "cuenta_oficial",
+      "source_quote": "La autonomía del Banco de la República es sagrada. No la voy a tocar.",
+      "source_url": null,
+      "notes": "Mensaje en X, marzo 2026."
+    },
+    {
+      "candidate_slug": "paloma-valencia",
+      "statement_id": 13,
+      "position": "disagree",
+      "confidence": "high",
+      "source_type": "entrevista",
+      "source_quote": "Respeto las tres causales del aborto pero no comparto la extensión a 24 semanas.",
+      "source_url": null,
+      "notes": "Entrevista El Tiempo, marzo 2026."
+    },
+    {
+      "candidate_slug": "paloma-valencia",
+      "statement_id": 14,
+      "position": "neutral",
+      "confidence": "medium",
+      "source_type": "trayectoria",
+      "source_quote": null,
+      "source_url": null,
+      "notes": "Posición personal moderada vs línea más conservadora del CD. Sin cita pública contundente reciente."
+    },
+    {
+      "candidate_slug": "paloma-valencia",
+      "statement_id": 15,
+      "position": "very_disagree",
+      "confidence": "high",
+      "source_type": "trayectoria",
+      "source_quote": null,
+      "source_url": null,
+      "notes": "Línea CD anti-despenalización; consistente con propuesta de mano dura."
+    },
+    {
+      "candidate_slug": "paloma-valencia",
+      "statement_id": 16,
+      "position": "agree",
+      "confidence": "high",
+      "source_type": "entrevista",
+      "source_quote": "La acción militar de Israel fue demasiado fuerte. Defendemos la solución de dos estados, pero restableceríamos relaciones diplomáticas.",
+      "source_url": null,
+      "notes": "Entrevista Semana, abril 2026."
+    },
+    {
+      "candidate_slug": "paloma-valencia",
+      "statement_id": 17,
+      "position": "very_agree",
+      "confidence": "high",
+      "source_type": "cuenta_oficial",
+      "source_quote": "Reconocemos a Edmundo González como presidente legítimo de Venezuela.",
+      "source_url": null,
+      "notes": "Posición sostenida en X y declaraciones públicas."
+    },
+    {
+      "candidate_slug": "paloma-valencia",
+      "statement_id": 18,
+      "position": "very_disagree",
+      "confidence": "high",
+      "source_type": "plan_oficial",
+      "source_quote": "Reactivar el fracking con todos los controles ambientales necesarios.",
+      "source_url": "https://palomavalencia.co/plan-10",
+      "notes": null
+    },
+    {
+      "candidate_slug": "paloma-valencia",
+      "statement_id": 19,
+      "position": "disagree",
+      "confidence": "medium",
+      "source_type": "trayectoria",
+      "source_quote": null,
+      "source_url": null,
+      "notes": "Apoyo a renovables como complemento, sin priorizar sobre hidrocarburos."
+    },
+    {
+      "candidate_slug": "paloma-valencia",
+      "statement_id": 20,
+      "position": "neutral",
+      "confidence": "low",
+      "source_type": "inferencia",
+      "source_quote": null,
+      "source_url": null,
+      "notes": "Sin posición específica reciente sobre Amazonía vs extracción. Plan general prioriza desarrollo regional con controles."
+    },
+
+    {
+      "candidate_slug": "sergio-fajardo",
+      "statement_id": 1,
+      "position": "disagree",
+      "confidence": "medium",
+      "source_type": "entrevista",
+      "source_quote": "La reforma pensional necesita ajustes. No hay que destruirla pero tampoco profundizarla sin corregir errores.",
+      "source_url": null,
+      "notes": "Entrevista Caracol, marzo 2026."
+    },
+    {
+      "candidate_slug": "sergio-fajardo",
+      "statement_id": 2,
+      "position": "disagree",
+      "confidence": "medium",
+      "source_type": "entrevista",
+      "source_quote": "La reforma laboral tiene problemas técnicos. Hay que revisarla con evidencia, no implementarla a ciegas.",
+      "source_url": null,
+      "notes": "Entrevista La W, abril 2026."
+    },
+    {
+      "candidate_slug": "sergio-fajardo",
+      "statement_id": 3,
+      "position": "neutral",
+      "confidence": "medium",
+      "source_type": "trayectoria",
+      "source_quote": null,
+      "source_url": null,
+      "notes": "Posición ambivalente: defiende mecanismos democráticos pero crítico del uso polarizante."
+    },
+    {
+      "candidate_slug": "sergio-fajardo",
+      "statement_id": 4,
+      "position": "neutral",
+      "confidence": "medium",
+      "source_type": "plan_oficial",
+      "source_quote": "Transferencias bien diseñadas con educación y empleo como vehículo principal de movilidad social.",
+      "source_url": "https://sergiofajardo.co/",
+      "notes": "Mantiene pero no expande significativamente."
+    },
+    {
+      "candidate_slug": "sergio-fajardo",
+      "statement_id": 5,
+      "position": "disagree",
+      "confidence": "high",
+      "source_type": "entrevista",
+      "source_quote": "El glifosato tiene riesgos para la salud. Prefiero la sustitución voluntaria y la erradicación manual.",
+      "source_url": null,
+      "notes": "Posición sostenida desde 2018."
+    },
+    {
+      "candidate_slug": "sergio-fajardo",
+      "statement_id": 6,
+      "position": "agree",
+      "confidence": "high",
+      "source_type": "entrevista",
+      "source_quote": "Acabar con la Paz Total no significa más guerra, significa una política coherente con sometimiento a la justicia.",
+      "source_url": null,
+      "notes": "Entrevista El Tiempo, marzo 2026."
+    },
+    {
+      "candidate_slug": "sergio-fajardo",
+      "statement_id": 7,
+      "position": "neutral",
+      "confidence": "low",
+      "source_type": "inferencia",
+      "source_quote": null,
+      "source_url": null,
+      "notes": "Sin posición específica reciente. Históricamente abierto a profesionalización pero sin propuesta concreta."
+    },
+    {
+      "candidate_slug": "sergio-fajardo",
+      "statement_id": 8,
+      "position": "agree",
+      "confidence": "medium",
+      "source_type": "plan_oficial",
+      "source_quote": "Reforzar la fuerza pública con inteligencia y profesionalización, no solo con número.",
+      "source_url": "https://sergiofajardo.co/",
+      "notes": null
+    },
+    {
+      "candidate_slug": "sergio-fajardo",
+      "statement_id": 9,
+      "position": "disagree",
+      "confidence": "medium",
+      "source_type": "entrevista",
+      "source_quote": "Los hidrocarburos deben tener un rol decreciente, no ser el motor de la próxima década.",
+      "source_url": null,
+      "notes": "Entrevista Cambio, abril 2026."
+    },
+    {
+      "candidate_slug": "sergio-fajardo",
+      "statement_id": 10,
+      "position": "neutral",
+      "confidence": "medium",
+      "source_type": "plan_oficial",
+      "source_quote": "Ajuste fiscal sin reforma tributaria masiva, eficiencia del gasto público.",
+      "source_url": "https://sergiofajardo.co/",
+      "notes": "Posición técnica de centro: ni gran reforma ni recorte radical."
+    },
+    {
+      "candidate_slug": "sergio-fajardo",
+      "statement_id": 11,
+      "position": "neutral",
+      "confidence": "medium",
+      "source_type": "trayectoria",
+      "source_quote": null,
+      "source_url": null,
+      "notes": "Defiende ajustes atados a productividad, no automáticos sobre inflación."
+    },
+    {
+      "candidate_slug": "sergio-fajardo",
+      "statement_id": 12,
+      "position": "very_agree",
+      "confidence": "high",
+      "source_type": "trayectoria",
+      "source_quote": "La autonomía del Banco de la República es un pilar de estabilidad económica.",
+      "source_url": null,
+      "notes": "Posición sostenida durante toda su carrera."
+    },
+    {
+      "candidate_slug": "sergio-fajardo",
+      "statement_id": 13,
+      "position": "agree",
+      "confidence": "high",
+      "source_type": "entrevista",
+      "source_quote": "Respeto la decisión de la Corte Constitucional sobre el aborto.",
+      "source_url": null,
+      "notes": "Posición pública desde 2022."
+    },
+    {
+      "candidate_slug": "sergio-fajardo",
+      "statement_id": 14,
+      "position": "agree",
+      "confidence": "medium",
+      "source_type": "trayectoria",
+      "source_quote": null,
+      "source_url": null,
+      "notes": "Línea progresista en derechos LGBTI+ durante gestión en Medellín y Antioquia."
+    },
+    {
+      "candidate_slug": "sergio-fajardo",
+      "statement_id": 15,
+      "position": "agree",
+      "confidence": "medium",
+      "source_type": "entrevista",
+      "source_quote": "Hay que tratar el consumo como problema de salud pública, no penal.",
+      "source_url": null,
+      "notes": "Entrevista Foro 2023."
+    },
+    {
+      "candidate_slug": "sergio-fajardo",
+      "statement_id": 16,
+      "position": "neutral",
+      "confidence": "low",
+      "source_type": "inferencia",
+      "source_quote": null,
+      "source_url": null,
+      "notes": "Posición técnica de evaluar caso por caso. Sin declaración fuerte reciente sobre Israel."
+    },
+    {
+      "candidate_slug": "sergio-fajardo",
+      "statement_id": 17,
+      "position": "neutral",
+      "confidence": "high",
+      "source_type": "entrevista",
+      "source_quote": "Establecer contactos con Venezuela, que no significa restablecer las relaciones en el sentido pleno.",
+      "source_url": null,
+      "notes": "Entrevista Semana, abril 2026."
+    },
+    {
+      "candidate_slug": "sergio-fajardo",
+      "statement_id": 18,
+      "position": "neutral",
+      "confidence": "high",
+      "source_type": "entrevista",
+      "source_quote": "Hagamos los pilotos de fracking con todo el rigor científico, y si esos pilotos nos dicen que se puede, lo hacemos. Si nos dicen que no, no se hace.",
+      "source_url": null,
+      "notes": "Entrevista La W, marzo 2026. Posición característica: evidencia-dependiente."
+    },
+    {
+      "candidate_slug": "sergio-fajardo",
+      "statement_id": 19,
+      "position": "agree",
+      "confidence": "medium",
+      "source_type": "plan_oficial",
+      "source_quote": "Priorizar renovables en la transición, sin destruir capacidad fiscal del país.",
+      "source_url": "https://sergiofajardo.co/",
+      "notes": null
+    },
+    {
+      "candidate_slug": "sergio-fajardo",
+      "statement_id": 20,
+      "position": "agree",
+      "confidence": "medium",
+      "source_type": "trayectoria",
+      "source_quote": null,
+      "source_url": null,
+      "notes": "Línea de protección con desarrollo sostenible. Sin posición específica sobre prioridad absoluta."
+    },
+
+    {
+      "candidate_slug": "claudia-lopez",
+      "statement_id": 1,
+      "position": "disagree",
+      "confidence": "medium",
+      "source_type": "entrevista",
+      "source_quote": "La reforma pensional tiene problemas que hay que corregir, no profundizar.",
+      "source_url": null,
+      "notes": "Entrevista La W, marzo 2026."
+    },
+    {
+      "candidate_slug": "claudia-lopez",
+      "statement_id": 2,
+      "position": "disagree",
+      "confidence": "medium",
+      "source_type": "entrevista",
+      "source_quote": "La reforma laboral fue mal diseñada. Hay que repensarla.",
+      "source_url": null,
+      "notes": "Entrevista Caracol, abril 2026."
+    },
+    {
+      "candidate_slug": "claudia-lopez",
+      "statement_id": 3,
+      "position": "disagree",
+      "confidence": "medium",
+      "source_type": "trayectoria",
+      "source_quote": null,
+      "source_url": null,
+      "notes": "Crítica de mecanismos plebiscitarios; prefiere reformas a través del Congreso."
+    },
+    {
+      "candidate_slug": "claudia-lopez",
+      "statement_id": 4,
+      "position": "agree",
+      "confidence": "high",
+      "source_type": "plan_oficial",
+      "source_quote": "Llevar a escala nacional el Sistema Distrital de Cuidado que creamos en Bogotá.",
+      "source_url": "https://claudialopez.co/programa",
+      "notes": "Cuidado como transferencia en especie + ampliación transferencias condicionadas."
+    },
+    {
+      "candidate_slug": "claudia-lopez",
+      "statement_id": 5,
+      "position": "agree",
+      "confidence": "high",
+      "source_type": "entrevista",
+      "source_quote": "Cambié de opinión sobre el glifosato. Bajo controles estrictos, es una herramienta válida contra el narcotráfico.",
+      "source_url": null,
+      "notes": "Cambio de postura declarado en 2025, entrevista Semana."
+    },
+    {
+      "candidate_slug": "claudia-lopez",
+      "statement_id": 6,
+      "position": "agree",
+      "confidence": "high",
+      "source_type": "plan_oficial",
+      "source_quote": "Fiscalía Antimafia y persecución penal a las disidencias que no se sometan a la justicia.",
+      "source_url": "https://claudialopez.co/programa",
+      "notes": null
+    },
+    {
+      "candidate_slug": "claudia-lopez",
+      "statement_id": 7,
+      "position": "neutral",
+      "confidence": "low",
+      "source_type": "inferencia",
+      "source_quote": null,
+      "source_url": null,
+      "notes": "Sin posición específica reciente."
+    },
+    {
+      "candidate_slug": "claudia-lopez",
+      "statement_id": 8,
+      "position": "very_agree",
+      "confidence": "high",
+      "source_type": "plan_oficial",
+      "source_quote": "Incorporar 40.000 nuevos miembros a la fuerza pública con formación moderna.",
+      "source_url": "https://claudialopez.co/programa",
+      "notes": null
+    },
+    {
+      "candidate_slug": "claudia-lopez",
+      "statement_id": 9,
+      "position": "neutral",
+      "confidence": "medium",
+      "source_type": "entrevista",
+      "source_quote": "Los hidrocarburos no pueden ser eliminados de un día para otro pero tampoco son el futuro.",
+      "source_url": null,
+      "notes": "Entrevista Cambio, marzo 2026."
+    },
+    {
+      "candidate_slug": "claudia-lopez",
+      "statement_id": 10,
+      "position": "agree",
+      "confidence": "medium",
+      "source_type": "plan_oficial",
+      "source_quote": "Reforma tributaria con justicia: que paguen más quienes más tienen, sin asfixiar a la clase media.",
+      "source_url": "https://claudialopez.co/programa",
+      "notes": null
+    },
+    {
+      "candidate_slug": "claudia-lopez",
+      "statement_id": 11,
+      "position": "agree",
+      "confidence": "medium",
+      "source_type": "trayectoria",
+      "source_quote": null,
+      "source_url": null,
+      "notes": "Defendió incrementos sobre inflación durante alcaldía."
+    },
+    {
+      "candidate_slug": "claudia-lopez",
+      "statement_id": 12,
+      "position": "very_agree",
+      "confidence": "high",
+      "source_type": "cuenta_oficial",
+      "source_quote": "La autonomía del Banco de la República es intocable.",
+      "source_url": null,
+      "notes": "Posición sostenida en X."
+    },
+    {
+      "candidate_slug": "claudia-lopez",
+      "statement_id": 13,
+      "position": "very_agree",
+      "confidence": "high",
+      "source_type": "trayectoria",
+      "source_quote": "Apoyo plenamente la Sentencia C-055/2022. Los derechos reproductivos son derechos humanos.",
+      "source_url": null,
+      "notes": "Posición sostenida desde 2022."
+    },
+    {
+      "candidate_slug": "claudia-lopez",
+      "statement_id": 14,
+      "position": "very_agree",
+      "confidence": "high",
+      "source_type": "trayectoria",
+      "source_quote": null,
+      "source_url": null,
+      "notes": "Primera lesbiana alcaldesa de Bogotá; defensora pública de adopción por parejas del mismo sexo."
+    },
+    {
+      "candidate_slug": "claudia-lopez",
+      "statement_id": 15,
+      "position": "agree",
+      "confidence": "medium",
+      "source_type": "trayectoria",
+      "source_quote": null,
+      "source_url": null,
+      "notes": "Línea progresista sobre regulación con foco en salud pública."
+    },
+    {
+      "candidate_slug": "claudia-lopez",
+      "statement_id": 16,
+      "position": "agree",
+      "confidence": "medium",
+      "source_type": "trayectoria",
+      "source_quote": null,
+      "source_url": null,
+      "notes": "Sin posición fuerte sobre Israel-Gaza recientemente. Línea de centro pro-relaciones diplomáticas."
+    },
+    {
+      "candidate_slug": "claudia-lopez",
+      "statement_id": 17,
+      "position": "very_agree",
+      "confidence": "high",
+      "source_type": "entrevista",
+      "source_quote": "No habrá paz en Colombia mientras siga la dictadura en Venezuela.",
+      "source_url": null,
+      "notes": "Entrevista NTN24, 2025. Respaldo público a Edmundo González y María Corina Machado."
+    },
+    {
+      "candidate_slug": "claudia-lopez",
+      "statement_id": 18,
+      "position": "disagree",
+      "confidence": "high",
+      "source_type": "entrevista",
+      "source_quote": "Cambié de postura sobre el fracking. Bajo regulación estricta puede ser considerado.",
+      "source_url": null,
+      "notes": "Cambio explícito en 2025 respecto a posición de 2017."
+    },
+    {
+      "candidate_slug": "claudia-lopez",
+      "statement_id": 19,
+      "position": "agree",
+      "confidence": "medium",
+      "source_type": "plan_oficial",
+      "source_quote": "Transición a renovables como motor de la próxima década.",
+      "source_url": "https://claudialopez.co/programa",
+      "notes": null
+    },
+    {
+      "candidate_slug": "claudia-lopez",
+      "statement_id": 20,
+      "position": "agree",
+      "confidence": "medium",
+      "source_type": "trayectoria",
+      "source_quote": null,
+      "source_url": null,
+      "notes": "Defensa histórica de protección ambiental."
+    },
+
+    {
+      "candidate_slug": "santiago-botero",
+      "statement_id": 1,
+      "position": "very_disagree",
+      "confidence": "medium",
+      "source_type": "inferencia",
+      "source_quote": null,
+      "source_url": null,
+      "notes": "Anti-Petro frontal; ruptura con todo el modelo actual."
+    },
+    {
+      "candidate_slug": "santiago-botero",
+      "statement_id": 2,
+      "position": "very_disagree",
+      "confidence": "medium",
+      "source_type": "inferencia",
+      "source_quote": null,
+      "source_url": null,
+      "notes": "Misma línea de ruptura."
+    },
+    {
+      "candidate_slug": "santiago-botero",
+      "statement_id": 3,
+      "position": "very_disagree",
+      "confidence": "low",
+      "source_type": "inferencia",
+      "source_quote": null,
+      "source_url": null,
+      "notes": "Inferido por antagonismo con Petro."
+    },
+    {
+      "candidate_slug": "santiago-botero",
+      "statement_id": 4,
+      "position": "disagree",
+      "confidence": "medium",
+      "source_type": "plan_oficial",
+      "source_quote": "Programa Plante y Pa' Lante: esto no es un subsidio, es plata para trabajar.",
+      "source_url": "https://romperelsistema.co/",
+      "notes": "Sustituye transferencias por emprendimiento."
+    },
+    {
+      "candidate_slug": "santiago-botero",
+      "statement_id": 5,
+      "position": "very_agree",
+      "confidence": "high",
+      "source_type": "entrevista",
+      "source_quote": "Dejando que se exploten las minas y darles bala a los bandidos.",
+      "source_url": null,
+      "notes": "Entrevista Caracol, marzo 2026."
+    },
+    {
+      "candidate_slug": "santiago-botero",
+      "statement_id": 6,
+      "position": "very_agree",
+      "confidence": "high",
+      "source_type": "plan_oficial",
+      "source_quote": "Ni perdón ni olvido para la Segunda Marquetalia ni el ELN. Amnistía limitada hasta el 7 de agosto.",
+      "source_url": "https://romperelsistema.co/",
+      "notes": null
+    },
+    {
+      "candidate_slug": "santiago-botero",
+      "statement_id": 7,
+      "position": "agree",
+      "confidence": "low",
+      "source_type": "inferencia",
+      "source_quote": null,
+      "source_url": null,
+      "notes": "Línea de orden y disciplina; sin cita directa."
+    },
+    {
+      "candidate_slug": "santiago-botero",
+      "statement_id": 8,
+      "position": "very_agree",
+      "confidence": "high",
+      "source_type": "plan_oficial",
+      "source_quote": "Fuerza especial Templarios: 100.000 hombres dedicados a la guerra contra el narcoterrorismo.",
+      "source_url": "https://romperelsistema.co/",
+      "notes": null
+    },
+    {
+      "candidate_slug": "santiago-botero",
+      "statement_id": 9,
+      "position": "very_agree",
+      "confidence": "high",
+      "source_type": "entrevista",
+      "source_quote": "Dejando que se exploten las minas, el petróleo y la energía.",
+      "source_url": null,
+      "notes": "Misma entrevista Caracol marzo 2026."
+    },
+    {
+      "candidate_slug": "santiago-botero",
+      "statement_id": 10,
+      "position": "very_disagree",
+      "confidence": "high",
+      "source_type": "plan_oficial",
+      "source_quote": "Impuestos bajos. El que produce no debe ser castigado.",
+      "source_url": "https://romperelsistema.co/",
+      "notes": null
+    },
+    {
+      "candidate_slug": "santiago-botero",
+      "statement_id": 11,
+      "position": "disagree",
+      "confidence": "low",
+      "source_type": "inferencia",
+      "source_quote": null,
+      "source_url": null,
+      "notes": "Énfasis en crear empleo, no en incrementar SMLV."
+    },
+    {
+      "candidate_slug": "santiago-botero",
+      "statement_id": 12,
+      "position": "agree",
+      "confidence": "low",
+      "source_type": "inferencia",
+      "source_quote": null,
+      "source_url": null,
+      "notes": "Línea pro-mercado consistente con autonomía del BanRep."
+    },
+    {
+      "candidate_slug": "santiago-botero",
+      "statement_id": 13,
+      "position": "very_disagree",
+      "confidence": "medium",
+      "source_type": "cuenta_oficial",
+      "source_quote": "Dios con nosotros.",
+      "source_url": null,
+      "notes": "Lema oficial. Valores cristianos explícitos consistentes con oposición al aborto."
+    },
+    {
+      "candidate_slug": "santiago-botero",
+      "statement_id": 14,
+      "position": "very_disagree",
+      "confidence": "low",
+      "source_type": "inferencia",
+      "source_quote": null,
+      "source_url": null,
+      "notes": "Valores tradicionales declarados."
+    },
+    {
+      "candidate_slug": "santiago-botero",
+      "statement_id": 15,
+      "position": "very_disagree",
+      "confidence": "high",
+      "source_type": "plan_oficial",
+      "source_quote": "Tolerancia cero con el narcotráfico y el consumo.",
+      "source_url": "https://romperelsistema.co/",
+      "notes": null
+    },
+    {
+      "candidate_slug": "santiago-botero",
+      "statement_id": 16,
+      "position": "agree",
+      "confidence": "low",
+      "source_type": "inferencia",
+      "source_quote": null,
+      "source_url": null,
+      "notes": "Línea de derecha internacional."
+    },
+    {
+      "candidate_slug": "santiago-botero",
+      "statement_id": 17,
+      "position": "very_agree",
+      "confidence": "low",
+      "source_type": "inferencia",
+      "source_quote": null,
+      "source_url": null,
+      "notes": "Línea de derecha hemisférica."
+    },
+    {
+      "candidate_slug": "santiago-botero",
+      "statement_id": 18,
+      "position": "very_disagree",
+      "confidence": "medium",
+      "source_type": "entrevista",
+      "source_quote": "Explotar minas y petróleo, sin trabas ideológicas.",
+      "source_url": null,
+      "notes": "Posición consistente con plataforma extractivista."
+    },
+    {
+      "candidate_slug": "santiago-botero",
+      "statement_id": 19,
+      "position": "very_disagree",
+      "confidence": "medium",
+      "source_type": "inferencia",
+      "source_quote": null,
+      "source_url": null,
+      "notes": "Hidrocarburos como motor económico."
+    },
+    {
+      "candidate_slug": "santiago-botero",
+      "statement_id": 20,
+      "position": "very_disagree",
+      "confidence": "medium",
+      "source_type": "inferencia",
+      "source_quote": null,
+      "source_url": null,
+      "notes": "Extracción como bandera económica central."
+    },
+
+    {
+      "candidate_slug": "mauricio-lizcano",
+      "statement_id": 1,
+      "position": "disagree",
+      "confidence": "low",
+      "source_type": "trayectoria",
+      "source_quote": null,
+      "source_url": null,
+      "notes": "Salió del gabinete Petro, no defiende sus reformas activamente."
+    },
+    {
+      "candidate_slug": "mauricio-lizcano",
+      "statement_id": 2,
+      "position": "disagree",
+      "confidence": "low",
+      "source_type": "trayectoria",
+      "source_quote": null,
+      "source_url": null,
+      "notes": "Misma línea."
+    },
+    {
+      "candidate_slug": "mauricio-lizcano",
+      "statement_id": 3,
+      "position": "very_disagree",
+      "confidence": "medium",
+      "source_type": "entrevista",
+      "source_quote": "No creo en proyectos donde hay derecha e izquierda; eso es industria de la polarización.",
+      "source_url": null,
+      "notes": "Crítico de mecanismos polarizantes."
+    },
+    {
+      "candidate_slug": "mauricio-lizcano",
+      "statement_id": 4,
+      "position": "neutral",
+      "confidence": "low",
+      "source_type": "inferencia",
+      "source_quote": null,
+      "source_url": null,
+      "notes": "Sin posición pública específica."
+    },
+    {
+      "candidate_slug": "mauricio-lizcano",
+      "statement_id": 5,
+      "position": "neutral",
+      "confidence": "low",
+      "source_type": "inferencia",
+      "source_quote": null,
+      "source_url": null,
+      "notes": "Sin cita; línea seguridad técnica sin posición clara sobre glifosato."
+    },
+    {
+      "candidate_slug": "mauricio-lizcano",
+      "statement_id": 6,
+      "position": "agree",
+      "confidence": "medium",
+      "source_type": "plan_oficial",
+      "source_quote": "General activo como Ministro de Defensa, política de cero extorsión.",
+      "source_url": "https://lizcanopresidente.co/",
+      "notes": null
+    },
+    {
+      "candidate_slug": "mauricio-lizcano",
+      "statement_id": 7,
+      "position": "neutral",
+      "confidence": "low",
+      "source_type": "inferencia",
+      "source_quote": null,
+      "source_url": null,
+      "notes": "Sin cita."
+    },
+    {
+      "candidate_slug": "mauricio-lizcano",
+      "statement_id": 8,
+      "position": "agree",
+      "confidence": "high",
+      "source_type": "plan_oficial",
+      "source_quote": "Bloques de búsqueda contra la extorsión, general activo como Ministro de Defensa.",
+      "source_url": "https://lizcanopresidente.co/",
+      "notes": null
+    },
+    {
+      "candidate_slug": "mauricio-lizcano",
+      "statement_id": 9,
+      "position": "very_agree",
+      "confidence": "high",
+      "source_type": "plan_oficial",
+      "source_quote": "Incremento en la producción de hidrocarburos como motor de crecimiento.",
+      "source_url": "https://lizcanopresidente.co/",
+      "notes": null
+    },
+    {
+      "candidate_slug": "mauricio-lizcano",
+      "statement_id": 10,
+      "position": "disagree",
+      "confidence": "high",
+      "source_type": "plan_oficial",
+      "source_quote": "Disminución de la carga tributaria; impuestos compensatorios a juegos de azar e iglesias.",
+      "source_url": "https://lizcanopresidente.co/",
+      "notes": null
+    },
+    {
+      "candidate_slug": "mauricio-lizcano",
+      "statement_id": 11,
+      "position": "neutral",
+      "confidence": "low",
+      "source_type": "inferencia",
+      "source_quote": null,
+      "source_url": null,
+      "notes": "Sin cita."
+    },
+    {
+      "candidate_slug": "mauricio-lizcano",
+      "statement_id": 12,
+      "position": "agree",
+      "confidence": "low",
+      "source_type": "inferencia",
+      "source_quote": null,
+      "source_url": null,
+      "notes": "Régimen fiscal ortodoxo, regla fiscal."
+    },
+    {
+      "candidate_slug": "mauricio-lizcano",
+      "statement_id": 13,
+      "position": "neutral",
+      "confidence": "low",
+      "source_type": "inferencia",
+      "source_quote": null,
+      "source_url": null,
+      "notes": "Sin posición pública."
+    },
+    {
+      "candidate_slug": "mauricio-lizcano",
+      "statement_id": 14,
+      "position": "neutral",
+      "confidence": "low",
+      "source_type": "inferencia",
+      "source_quote": null,
+      "source_url": null,
+      "notes": "Sin posición pública."
+    },
+    {
+      "candidate_slug": "mauricio-lizcano",
+      "statement_id": 15,
+      "position": "neutral",
+      "confidence": "low",
+      "source_type": "inferencia",
+      "source_quote": null,
+      "source_url": null,
+      "notes": "Sin posición pública."
+    },
+    {
+      "candidate_slug": "mauricio-lizcano",
+      "statement_id": 16,
+      "position": "neutral",
+      "confidence": "low",
+      "source_type": "inferencia",
+      "source_quote": null,
+      "source_url": null,
+      "notes": "Sin posición pública."
+    },
+    {
+      "candidate_slug": "mauricio-lizcano",
+      "statement_id": 17,
+      "position": "agree",
+      "confidence": "low",
+      "source_type": "inferencia",
+      "source_quote": null,
+      "source_url": null,
+      "notes": "Línea seguridad dura, sin cita específica."
+    },
+    {
+      "candidate_slug": "mauricio-lizcano",
+      "statement_id": 18,
+      "position": "very_disagree",
+      "confidence": "medium",
+      "source_type": "inferencia",
+      "source_quote": null,
+      "source_url": null,
+      "notes": "Coherente con motor de hidrocarburos."
+    },
+    {
+      "candidate_slug": "mauricio-lizcano",
+      "statement_id": 19,
+      "position": "disagree",
+      "confidence": "high",
+      "source_type": "plan_oficial",
+      "source_quote": "Hidrocarburos como motor frente a renovables como complemento.",
+      "source_url": "https://lizcanopresidente.co/",
+      "notes": null
+    },
+    {
+      "candidate_slug": "mauricio-lizcano",
+      "statement_id": 20,
+      "position": "disagree",
+      "confidence": "low",
+      "source_type": "inferencia",
+      "source_quote": null,
+      "source_url": null,
+      "notes": "Coherente con eje extractivo."
+    },
+
+    {
+      "candidate_slug": "miguel-uribe-londono",
+      "statement_id": 1,
+      "position": "very_disagree",
+      "confidence": "medium",
+      "source_type": "trayectoria",
+      "source_quote": null,
+      "source_url": null,
+      "notes": "Anti-Petro completo, línea uribista."
+    },
+    {
+      "candidate_slug": "miguel-uribe-londono",
+      "statement_id": 2,
+      "position": "very_disagree",
+      "confidence": "medium",
+      "source_type": "trayectoria",
+      "source_quote": null,
+      "source_url": null,
+      "notes": "Misma línea."
+    },
+    {
+      "candidate_slug": "miguel-uribe-londono",
+      "statement_id": 3,
+      "position": "very_disagree",
+      "confidence": "medium",
+      "source_type": "trayectoria",
+      "source_quote": null,
+      "source_url": null,
+      "notes": "Anti-mecanismos del gobierno actual."
+    },
+    {
+      "candidate_slug": "miguel-uribe-londono",
+      "statement_id": 4,
+      "position": "disagree",
+      "confidence": "low",
+      "source_type": "inferencia",
+      "source_quote": null,
+      "source_url": null,
+      "notes": "Ortodoxia económica."
+    },
+    {
+      "candidate_slug": "miguel-uribe-londono",
+      "statement_id": 5,
+      "position": "very_agree",
+      "confidence": "low",
+      "source_type": "inferencia",
+      "source_quote": null,
+      "source_url": null,
+      "notes": "Línea uribista de mano dura."
+    },
+    {
+      "candidate_slug": "miguel-uribe-londono",
+      "statement_id": 6,
+      "position": "very_agree",
+      "confidence": "high",
+      "source_type": "entrevista",
+      "source_quote": "Mi primer decreto será acabar con la Paz Total.",
+      "source_url": null,
+      "notes": "Entrevista La FM, abril 2026."
+    },
+    {
+      "candidate_slug": "miguel-uribe-londono",
+      "statement_id": 7,
+      "position": "agree",
+      "confidence": "low",
+      "source_type": "inferencia",
+      "source_quote": null,
+      "source_url": null,
+      "notes": "Línea uribista clásica."
+    },
+    {
+      "candidate_slug": "miguel-uribe-londono",
+      "statement_id": 8,
+      "position": "very_agree",
+      "confidence": "high",
+      "source_type": "plan_oficial",
+      "source_quote": "260.000 cámaras y plataformas de analítica predictiva para modernizar la fuerza pública.",
+      "source_url": null,
+      "notes": "Plan de gobierno, abril 2026."
+    },
+    {
+      "candidate_slug": "miguel-uribe-londono",
+      "statement_id": 9,
+      "position": "agree",
+      "confidence": "low",
+      "source_type": "inferencia",
+      "source_quote": null,
+      "source_url": null,
+      "notes": "Crecimiento 4% anual, sin posición específica antifósil."
+    },
+    {
+      "candidate_slug": "miguel-uribe-londono",
+      "statement_id": 10,
+      "position": "very_disagree",
+      "confidence": "high",
+      "source_type": "plan_oficial",
+      "source_quote": "Reducción gradual de cargas no salariales en micro y pequeñas empresas.",
+      "source_url": null,
+      "notes": null
+    },
+    {
+      "candidate_slug": "miguel-uribe-londono",
+      "statement_id": 11,
+      "position": "neutral",
+      "confidence": "low",
+      "source_type": "inferencia",
+      "source_quote": null,
+      "source_url": null,
+      "notes": "Sin cita."
+    },
+    {
+      "candidate_slug": "miguel-uribe-londono",
+      "statement_id": 12,
+      "position": "agree",
+      "confidence": "low",
+      "source_type": "inferencia",
+      "source_quote": null,
+      "source_url": null,
+      "notes": "Línea ortodoxa."
+    },
+    {
+      "candidate_slug": "miguel-uribe-londono",
+      "statement_id": 13,
+      "position": "very_disagree",
+      "confidence": "low",
+      "source_type": "inferencia",
+      "source_quote": null,
+      "source_url": null,
+      "notes": "Línea ultra-uribista."
+    },
+    {
+      "candidate_slug": "miguel-uribe-londono",
+      "statement_id": 14,
+      "position": "very_disagree",
+      "confidence": "low",
+      "source_type": "inferencia",
+      "source_quote": null,
+      "source_url": null,
+      "notes": "Valores tradicionales."
+    },
+    {
+      "candidate_slug": "miguel-uribe-londono",
+      "statement_id": 15,
+      "position": "very_disagree",
+      "confidence": "medium",
+      "source_type": "inferencia",
+      "source_quote": null,
+      "source_url": null,
+      "notes": "Mano dura contra narcotráfico."
+    },
+    {
+      "candidate_slug": "miguel-uribe-londono",
+      "statement_id": 16,
+      "position": "agree",
+      "confidence": "low",
+      "source_type": "inferencia",
+      "source_quote": null,
+      "source_url": null,
+      "notes": "Línea de derecha internacional."
+    },
+    {
+      "candidate_slug": "miguel-uribe-londono",
+      "statement_id": 17,
+      "position": "very_agree",
+      "confidence": "low",
+      "source_type": "inferencia",
+      "source_quote": null,
+      "source_url": null,
+      "notes": "Línea de derecha hemisférica."
+    },
+    {
+      "candidate_slug": "miguel-uribe-londono",
+      "statement_id": 18,
+      "position": "very_disagree",
+      "confidence": "low",
+      "source_type": "inferencia",
+      "source_quote": null,
+      "source_url": null,
+      "notes": "Línea uribista pro-extracción."
+    },
+    {
+      "candidate_slug": "miguel-uribe-londono",
+      "statement_id": 19,
+      "position": "very_disagree",
+      "confidence": "low",
+      "source_type": "inferencia",
+      "source_quote": null,
+      "source_url": null,
+      "notes": "Misma línea."
+    },
+    {
+      "candidate_slug": "miguel-uribe-londono",
+      "statement_id": 20,
+      "position": "very_disagree",
+      "confidence": "low",
+      "source_type": "inferencia",
+      "source_quote": null,
+      "source_url": null,
+      "notes": "Misma línea."
+    },
+
+    {
+      "candidate_slug": "sondra-macollins",
+      "statement_id": 1,
+      "position": "disagree",
+      "confidence": "low",
+      "source_type": "inferencia",
+      "source_quote": null,
+      "source_url": null,
+      "notes": "Centro tecnocrático crítico de partidos tradicionales."
+    },
+    {
+      "candidate_slug": "sondra-macollins",
+      "statement_id": 2,
+      "position": "disagree",
+      "confidence": "low",
+      "source_type": "inferencia",
+      "source_quote": null,
+      "source_url": null,
+      "notes": "Misma línea."
+    },
+    {
+      "candidate_slug": "sondra-macollins",
+      "statement_id": 3,
+      "position": "disagree",
+      "confidence": "low",
+      "source_type": "inferencia",
+      "source_quote": null,
+      "source_url": null,
+      "notes": "Menos política, anti-mecanismos polarizantes."
+    },
+    {
+      "candidate_slug": "sondra-macollins",
+      "statement_id": 4,
+      "position": "neutral",
+      "confidence": "low",
+      "source_type": "inferencia",
+      "source_quote": null,
+      "source_url": null,
+      "notes": "Sin posición pública."
+    },
+    {
+      "candidate_slug": "sondra-macollins",
+      "statement_id": 5,
+      "position": "neutral",
+      "confidence": "low",
+      "source_type": "inferencia",
+      "source_quote": null,
+      "source_url": null,
+      "notes": "Sin posición pública específica."
+    },
+    {
+      "candidate_slug": "sondra-macollins",
+      "statement_id": 6,
+      "position": "agree",
+      "confidence": "medium",
+      "source_type": "entrevista",
+      "source_quote": "Reformulación de la política de paz, giro hacia sometimiento.",
+      "source_url": null,
+      "notes": "Sin cita textual; línea sostenida en entrevistas."
+    },
+    {
+      "candidate_slug": "sondra-macollins",
+      "statement_id": 7,
+      "position": "neutral",
+      "confidence": "low",
+      "source_type": "inferencia",
+      "source_quote": null,
+      "source_url": null,
+      "notes": "Sin posición pública."
+    },
+    {
+      "candidate_slug": "sondra-macollins",
+      "statement_id": 8,
+      "position": "agree",
+      "confidence": "medium",
+      "source_type": "entrevista",
+      "source_quote": "Control territorial y autoridad del Estado como pilar.",
+      "source_url": null,
+      "notes": "Línea explícita en entrevistas."
+    },
+    {
+      "candidate_slug": "sondra-macollins",
+      "statement_id": 9,
+      "position": "neutral",
+      "confidence": "low",
+      "source_type": "inferencia",
+      "source_quote": null,
+      "source_url": null,
+      "notes": "Sin posición pública."
+    },
+    {
+      "candidate_slug": "sondra-macollins",
+      "statement_id": 10,
+      "position": "neutral",
+      "confidence": "low",
+      "source_type": "inferencia",
+      "source_quote": null,
+      "source_url": null,
+      "notes": "Sin posición pública."
+    },
+    {
+      "candidate_slug": "sondra-macollins",
+      "statement_id": 11,
+      "position": "neutral",
+      "confidence": "low",
+      "source_type": "inferencia",
+      "source_quote": null,
+      "source_url": null,
+      "notes": "Sin posición pública."
+    },
+    {
+      "candidate_slug": "sondra-macollins",
+      "statement_id": 12,
+      "position": "agree",
+      "confidence": "low",
+      "source_type": "inferencia",
+      "source_quote": null,
+      "source_url": null,
+      "notes": "Línea tecnocrática consistente con autonomía institucional."
+    },
+    {
+      "candidate_slug": "sondra-macollins",
+      "statement_id": 13,
+      "position": "neutral",
+      "confidence": "low",
+      "source_type": "inferencia",
+      "source_quote": null,
+      "source_url": null,
+      "notes": "Sin posición pública."
+    },
+    {
+      "candidate_slug": "sondra-macollins",
+      "statement_id": 14,
+      "position": "neutral",
+      "confidence": "low",
+      "source_type": "inferencia",
+      "source_quote": null,
+      "source_url": null,
+      "notes": "Sin posición pública."
+    },
+    {
+      "candidate_slug": "sondra-macollins",
+      "statement_id": 15,
+      "position": "neutral",
+      "confidence": "low",
+      "source_type": "inferencia",
+      "source_quote": null,
+      "source_url": null,
+      "notes": "Sin posición pública."
+    },
+    {
+      "candidate_slug": "sondra-macollins",
+      "statement_id": 16,
+      "position": "neutral",
+      "confidence": "low",
+      "source_type": "inferencia",
+      "source_quote": null,
+      "source_url": null,
+      "notes": "Sin posición pública."
+    },
+    {
+      "candidate_slug": "sondra-macollins",
+      "statement_id": 17,
+      "position": "neutral",
+      "confidence": "low",
+      "source_type": "inferencia",
+      "source_quote": null,
+      "source_url": null,
+      "notes": "Sin posición pública."
+    },
+    {
+      "candidate_slug": "sondra-macollins",
+      "statement_id": 18,
+      "position": "neutral",
+      "confidence": "low",
+      "source_type": "inferencia",
+      "source_quote": null,
+      "source_url": null,
+      "notes": "Sin posición pública."
+    },
+    {
+      "candidate_slug": "sondra-macollins",
+      "statement_id": 19,
+      "position": "neutral",
+      "confidence": "low",
+      "source_type": "inferencia",
+      "source_quote": null,
+      "source_url": null,
+      "notes": "Sin posición pública."
+    },
+    {
+      "candidate_slug": "sondra-macollins",
+      "statement_id": 20,
+      "position": "neutral",
+      "confidence": "low",
+      "source_type": "inferencia",
+      "source_quote": null,
+      "source_url": null,
+      "notes": "Sin posición pública."
+    },
+
+    {
+      "candidate_slug": "roy-barreras",
+      "statement_id": 1,
+      "position": "agree",
+      "confidence": "medium",
+      "source_type": "trayectoria",
+      "source_quote": null,
+      "source_url": null,
+      "notes": "Apoyó inicialmente a Petro; línea progresista en derechos sociales."
+    },
+    {
+      "candidate_slug": "roy-barreras",
+      "statement_id": 2,
+      "position": "agree",
+      "confidence": "medium",
+      "source_type": "trayectoria",
+      "source_quote": null,
+      "source_url": null,
+      "notes": "Misma línea."
+    },
+    {
+      "candidate_slug": "roy-barreras",
+      "statement_id": 3,
+      "position": "agree",
+      "confidence": "low",
+      "source_type": "inferencia",
+      "source_quote": null,
+      "source_url": null,
+      "notes": "Línea progresista pro-mecanismos democráticos."
+    },
+    {
+      "candidate_slug": "roy-barreras",
+      "statement_id": 4,
+      "position": "agree",
+      "confidence": "medium",
+      "source_type": "entrevista",
+      "source_quote": "Hay que cerrar la deuda social del país.",
+      "source_url": null,
+      "notes": "Entrevista Cambio, abril 2026."
+    },
+    {
+      "candidate_slug": "roy-barreras",
+      "statement_id": 5,
+      "position": "disagree",
+      "confidence": "low",
+      "source_type": "inferencia",
+      "source_quote": null,
+      "source_url": null,
+      "notes": "Línea progresista, antiglifosato histórico."
+    },
+    {
+      "candidate_slug": "roy-barreras",
+      "statement_id": 6,
+      "position": "disagree",
+      "confidence": "high",
+      "source_type": "trayectoria",
+      "source_quote": null,
+      "source_url": null,
+      "notes": "Impulsó Ley de Víctimas y Acuerdo de Paz con FARC. Presidió Comisión de Paz."
+    },
+    {
+      "candidate_slug": "roy-barreras",
+      "statement_id": 7,
+      "position": "neutral",
+      "confidence": "low",
+      "source_type": "inferencia",
+      "source_quote": null,
+      "source_url": null,
+      "notes": "Sin cita."
+    },
+    {
+      "candidate_slug": "roy-barreras",
+      "statement_id": 8,
+      "position": "agree",
+      "confidence": "high",
+      "source_type": "plan_oficial",
+      "source_quote": "10.000 drones con IA + Ángeles Guardianes para seguridad ciudadana.",
+      "source_url": "https://roybarreras.co/",
+      "notes": null
+    },
+    {
+      "candidate_slug": "roy-barreras",
+      "statement_id": 9,
+      "position": "neutral",
+      "confidence": "low",
+      "source_type": "inferencia",
+      "source_quote": null,
+      "source_url": null,
+      "notes": "Transición energética con realismo económico."
+    },
+    {
+      "candidate_slug": "roy-barreras",
+      "statement_id": 10,
+      "position": "agree",
+      "confidence": "medium",
+      "source_type": "entrevista",
+      "source_quote": "Reforma para cerrar deuda social; titularizar deuda de salud.",
+      "source_url": null,
+      "notes": "Entrevista Cambio."
+    },
+    {
+      "candidate_slug": "roy-barreras",
+      "statement_id": 11,
+      "position": "agree",
+      "confidence": "low",
+      "source_type": "inferencia",
+      "source_quote": null,
+      "source_url": null,
+      "notes": "Línea progresista en derechos laborales."
+    },
+    {
+      "candidate_slug": "roy-barreras",
+      "statement_id": 12,
+      "position": "agree",
+      "confidence": "low",
+      "source_type": "inferencia",
+      "source_quote": null,
+      "source_url": null,
+      "notes": "Centro responsable."
+    },
+    {
+      "candidate_slug": "roy-barreras",
+      "statement_id": 13,
+      "position": "agree",
+      "confidence": "medium",
+      "source_type": "trayectoria",
+      "source_quote": null,
+      "source_url": null,
+      "notes": "Línea progresista en derechos reproductivos."
+    },
+    {
+      "candidate_slug": "roy-barreras",
+      "statement_id": 14,
+      "position": "agree",
+      "confidence": "low",
+      "source_type": "inferencia",
+      "source_quote": null,
+      "source_url": null,
+      "notes": "Línea progresista LGBTI+."
+    },
+    {
+      "candidate_slug": "roy-barreras",
+      "statement_id": 15,
+      "position": "agree",
+      "confidence": "low",
+      "source_type": "inferencia",
+      "source_quote": null,
+      "source_url": null,
+      "notes": "Médico, línea de salud pública."
+    },
+    {
+      "candidate_slug": "roy-barreras",
+      "statement_id": 16,
+      "position": "disagree",
+      "confidence": "low",
+      "source_type": "inferencia",
+      "source_quote": null,
+      "source_url": null,
+      "notes": "Línea progresista anti-Netanyahu."
+    },
+    {
+      "candidate_slug": "roy-barreras",
+      "statement_id": 17,
+      "position": "neutral",
+      "confidence": "low",
+      "source_type": "inferencia",
+      "source_quote": null,
+      "source_url": null,
+      "notes": "Centro-izquierda, sin cita específica."
+    },
+    {
+      "candidate_slug": "roy-barreras",
+      "statement_id": 18,
+      "position": "agree",
+      "confidence": "low",
+      "source_type": "inferencia",
+      "source_quote": null,
+      "source_url": null,
+      "notes": "Línea progresista en transición."
+    },
+    {
+      "candidate_slug": "roy-barreras",
+      "statement_id": 19,
+      "position": "agree",
+      "confidence": "low",
+      "source_type": "inferencia",
+      "source_quote": null,
+      "source_url": null,
+      "notes": "Salud Digital + Agro-tech sin extractivismo."
+    },
+    {
+      "candidate_slug": "roy-barreras",
+      "statement_id": 20,
+      "position": "agree",
+      "confidence": "low",
+      "source_type": "inferencia",
+      "source_quote": null,
+      "source_url": null,
+      "notes": "Línea progresista ambiental."
+    },
+
+    {
+      "candidate_slug": "carlos-caicedo",
+      "statement_id": 1,
+      "position": "agree",
+      "confidence": "low",
+      "source_type": "inferencia",
+      "source_quote": null,
+      "source_url": null,
+      "notes": "Línea izquierda en derechos sociales."
+    },
+    {
+      "candidate_slug": "carlos-caicedo",
+      "statement_id": 2,
+      "position": "agree",
+      "confidence": "low",
+      "source_type": "inferencia",
+      "source_quote": null,
+      "source_url": null,
+      "notes": "Misma línea."
+    },
+    {
+      "candidate_slug": "carlos-caicedo",
+      "statement_id": 3,
+      "position": "agree",
+      "confidence": "high",
+      "source_type": "plan_oficial",
+      "source_quote": "Participación directa y transparencia con participación activa.",
+      "source_url": "https://fuerzaciudadana.co/",
+      "notes": null
+    },
+    {
+      "candidate_slug": "carlos-caicedo",
+      "statement_id": 4,
+      "position": "very_agree",
+      "confidence": "high",
+      "source_type": "plan_oficial",
+      "source_quote": "Medio salario mínimo a estudiantes de grados 10 y 11 para frenar deserción y reclutamiento.",
+      "source_url": "https://fuerzaciudadana.co/",
+      "notes": null
+    },
+    {
+      "candidate_slug": "carlos-caicedo",
+      "statement_id": 5,
+      "position": "disagree",
+      "confidence": "low",
+      "source_type": "inferencia",
+      "source_quote": null,
+      "source_url": null,
+      "notes": "Línea izquierda histórica."
+    },
+    {
+      "candidate_slug": "carlos-caicedo",
+      "statement_id": 6,
+      "position": "disagree",
+      "confidence": "low",
+      "source_type": "inferencia",
+      "source_quote": null,
+      "source_url": null,
+      "notes": "Línea progresista."
+    },
+    {
+      "candidate_slug": "carlos-caicedo",
+      "statement_id": 7,
+      "position": "neutral",
+      "confidence": "low",
+      "source_type": "inferencia",
+      "source_quote": null,
+      "source_url": null,
+      "notes": "Sin cita."
+    },
+    {
+      "candidate_slug": "carlos-caicedo",
+      "statement_id": 8,
+      "position": "agree",
+      "confidence": "high",
+      "source_type": "entrevista",
+      "source_quote": "Aumentar policías y soldados y mejorar salarios para reducir corrupción interna.",
+      "source_url": null,
+      "notes": "Entrevista Bogotá Cómo Vamos, 2025."
+    },
+    {
+      "candidate_slug": "carlos-caicedo",
+      "statement_id": 9,
+      "position": "disagree",
+      "confidence": "low",
+      "source_type": "inferencia",
+      "source_quote": null,
+      "source_url": null,
+      "notes": "Línea izquierda no-extractivista."
+    },
+    {
+      "candidate_slug": "carlos-caicedo",
+      "statement_id": 10,
+      "position": "agree",
+      "confidence": "low",
+      "source_type": "inferencia",
+      "source_quote": null,
+      "source_url": null,
+      "notes": "Línea redistributiva."
+    },
+    {
+      "candidate_slug": "carlos-caicedo",
+      "statement_id": 11,
+      "position": "agree",
+      "confidence": "low",
+      "source_type": "inferencia",
+      "source_quote": null,
+      "source_url": null,
+      "notes": "Línea izquierda."
+    },
+    {
+      "candidate_slug": "carlos-caicedo",
+      "statement_id": 12,
+      "position": "agree",
+      "confidence": "low",
+      "source_type": "inferencia",
+      "source_quote": null,
+      "source_url": null,
+      "notes": "Descentralización + gestión fiscal seria."
+    },
+    {
+      "candidate_slug": "carlos-caicedo",
+      "statement_id": 13,
+      "position": "agree",
+      "confidence": "low",
+      "source_type": "inferencia",
+      "source_quote": null,
+      "source_url": null,
+      "notes": "Línea progresista."
+    },
+    {
+      "candidate_slug": "carlos-caicedo",
+      "statement_id": 14,
+      "position": "agree",
+      "confidence": "low",
+      "source_type": "inferencia",
+      "source_quote": null,
+      "source_url": null,
+      "notes": "Línea progresista."
+    },
+    {
+      "candidate_slug": "carlos-caicedo",
+      "statement_id": 15,
+      "position": "agree",
+      "confidence": "low",
+      "source_type": "inferencia",
+      "source_quote": null,
+      "source_url": null,
+      "notes": "Línea progresista."
+    },
+    {
+      "candidate_slug": "carlos-caicedo",
+      "statement_id": 16,
+      "position": "disagree",
+      "confidence": "low",
+      "source_type": "inferencia",
+      "source_quote": null,
+      "source_url": null,
+      "notes": "Línea progresista."
+    },
+    {
+      "candidate_slug": "carlos-caicedo",
+      "statement_id": 17,
+      "position": "neutral",
+      "confidence": "low",
+      "source_type": "inferencia",
+      "source_quote": null,
+      "source_url": null,
+      "notes": "Sin cita."
+    },
+    {
+      "candidate_slug": "carlos-caicedo",
+      "statement_id": 18,
+      "position": "agree",
+      "confidence": "low",
+      "source_type": "inferencia",
+      "source_quote": null,
+      "source_url": null,
+      "notes": "Línea progresista ambiental."
+    },
+    {
+      "candidate_slug": "carlos-caicedo",
+      "statement_id": 19,
+      "position": "agree",
+      "confidence": "medium",
+      "source_type": "plan_oficial",
+      "source_quote": "Agua como tesoro; sostenibilidad como eje del desarrollo regional.",
+      "source_url": "https://fuerzaciudadana.co/",
+      "notes": null
+    },
+    {
+      "candidate_slug": "carlos-caicedo",
+      "statement_id": 20,
+      "position": "agree",
+      "confidence": "medium",
+      "source_type": "plan_oficial",
+      "source_quote": "Sostenibilidad ambiental como eje declarado del modelo regional.",
+      "source_url": "https://fuerzaciudadana.co/",
+      "notes": null
+    },
+
+    {
+      "candidate_slug": "gustavo-matamoros",
+      "statement_id": 1,
+      "position": "very_disagree",
+      "confidence": "low",
+      "source_type": "inferencia",
+      "source_quote": null,
+      "source_url": null,
+      "notes": "Línea derecha militar, anti-Petro."
+    },
+    {
+      "candidate_slug": "gustavo-matamoros",
+      "statement_id": 2,
+      "position": "very_disagree",
+      "confidence": "low",
+      "source_type": "inferencia",
+      "source_quote": null,
+      "source_url": null,
+      "notes": "Misma línea."
+    },
+    {
+      "candidate_slug": "gustavo-matamoros",
+      "statement_id": 3,
+      "position": "very_disagree",
+      "confidence": "low",
+      "source_type": "inferencia",
+      "source_quote": null,
+      "source_url": null,
+      "notes": "Anti-Petro."
+    },
+    {
+      "candidate_slug": "gustavo-matamoros",
+      "statement_id": 4,
+      "position": "disagree",
+      "confidence": "low",
+      "source_type": "inferencia",
+      "source_quote": null,
+      "source_url": null,
+      "notes": "Sobriedad como pilar."
+    },
+    {
+      "candidate_slug": "gustavo-matamoros",
+      "statement_id": 5,
+      "position": "very_agree",
+      "confidence": "medium",
+      "source_type": "inferencia",
+      "source_quote": null,
+      "source_url": null,
+      "notes": "Línea de mando militar contra narcotráfico."
+    },
+    {
+      "candidate_slug": "gustavo-matamoros",
+      "statement_id": 6,
+      "position": "very_agree",
+      "confidence": "high",
+      "source_type": "entrevista",
+      "source_quote": "Desmontaría las mesas de negociación desde el primer día. Ley de sometimiento.",
+      "source_url": null,
+      "notes": "Entrevista Cablenoticias, abril 2026."
+    },
+    {
+      "candidate_slug": "gustavo-matamoros",
+      "statement_id": 7,
+      "position": "agree",
+      "confidence": "medium",
+      "source_type": "trayectoria",
+      "source_quote": null,
+      "source_url": null,
+      "notes": "General retirado, doctrina militar."
+    },
+    {
+      "candidate_slug": "gustavo-matamoros",
+      "statement_id": 8,
+      "position": "very_agree",
+      "confidence": "high",
+      "source_type": "entrevista",
+      "source_quote": "Control territorial y fortalecimiento de la Fuerza Pública como eje de campaña.",
+      "source_url": null,
+      "notes": "Línea sostenida en toda su campaña."
+    },
+    {
+      "candidate_slug": "gustavo-matamoros",
+      "statement_id": 9,
+      "position": "agree",
+      "confidence": "low",
+      "source_type": "inferencia",
+      "source_quote": null,
+      "source_url": null,
+      "notes": "Línea derecha sobre estabilidad económica."
+    },
+    {
+      "candidate_slug": "gustavo-matamoros",
+      "statement_id": 10,
+      "position": "very_disagree",
+      "confidence": "low",
+      "source_type": "inferencia",
+      "source_quote": null,
+      "source_url": null,
+      "notes": "Sobriedad fiscal."
+    },
+    {
+      "candidate_slug": "gustavo-matamoros",
+      "statement_id": 11,
+      "position": "neutral",
+      "confidence": "low",
+      "source_type": "inferencia",
+      "source_quote": null,
+      "source_url": null,
+      "notes": "Sin cita."
+    },
+    {
+      "candidate_slug": "gustavo-matamoros",
+      "statement_id": 12,
+      "position": "agree",
+      "confidence": "low",
+      "source_type": "inferencia",
+      "source_quote": null,
+      "source_url": null,
+      "notes": "Línea ortodoxa."
+    },
+    {
+      "candidate_slug": "gustavo-matamoros",
+      "statement_id": 13,
+      "position": "very_disagree",
+      "confidence": "low",
+      "source_type": "inferencia",
+      "source_quote": null,
+      "source_url": null,
+      "notes": "Línea derecha tradicional."
+    },
+    {
+      "candidate_slug": "gustavo-matamoros",
+      "statement_id": 14,
+      "position": "very_disagree",
+      "confidence": "low",
+      "source_type": "inferencia",
+      "source_quote": null,
+      "source_url": null,
+      "notes": "Valores tradicionales."
+    },
+    {
+      "candidate_slug": "gustavo-matamoros",
+      "statement_id": 15,
+      "position": "very_disagree",
+      "confidence": "medium",
+      "source_type": "inferencia",
+      "source_quote": null,
+      "source_url": null,
+      "notes": "Mano dura contra narcotráfico."
+    },
+    {
+      "candidate_slug": "gustavo-matamoros",
+      "statement_id": 16,
+      "position": "agree",
+      "confidence": "low",
+      "source_type": "inferencia",
+      "source_quote": null,
+      "source_url": null,
+      "notes": "Línea derecha internacional."
+    },
+    {
+      "candidate_slug": "gustavo-matamoros",
+      "statement_id": 17,
+      "position": "very_agree",
+      "confidence": "low",
+      "source_type": "inferencia",
+      "source_quote": null,
+      "source_url": null,
+      "notes": "Línea derecha hemisférica."
+    },
+    {
+      "candidate_slug": "gustavo-matamoros",
+      "statement_id": 18,
+      "position": "very_disagree",
+      "confidence": "low",
+      "source_type": "inferencia",
+      "source_quote": null,
+      "source_url": null,
+      "notes": "Línea derecha pro-extracción."
+    },
+    {
+      "candidate_slug": "gustavo-matamoros",
+      "statement_id": 19,
+      "position": "very_disagree",
+      "confidence": "low",
+      "source_type": "inferencia",
+      "source_quote": null,
+      "source_url": null,
+      "notes": "Línea derecha."
+    },
+    {
+      "candidate_slug": "gustavo-matamoros",
+      "statement_id": 20,
+      "position": "neutral",
+      "confidence": "low",
+      "source_type": "inferencia",
+      "source_quote": null,
+      "source_url": null,
+      "notes": "Aval del Partido Ecologista por sustitución, pero sin agenda ambiental robusta. Queda neutral con aviso."
+    }
+  ]
+}

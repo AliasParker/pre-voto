@@ -1,0 +1,34 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Copyright (c) 2026 Equipo pre.voto
+import pytest
+
+
+@pytest.mark.usefixtures("seed_data")
+class TestCandidatesRouter:
+
+    async def test_list_candidates(self, client):
+        resp = await client.get("/candidates/xt")
+        assert resp.status_code == 200
+        data = resp.json()
+        assert isinstance(data, list)
+        assert len(data) == 5
+        slugs = {c["slug"] for c in data}
+        assert "candidata-demo-alfa" in slugs
+
+    async def test_get_candidate_by_slug(self, client):
+        resp = await client.get("/candidates/xt/candidata-demo-alfa")
+        assert resp.status_code == 200
+        data = resp.json()
+        assert data["slug"] == "candidata-demo-alfa"
+        assert data["name"] == "Candidata Demo Alfa"
+        assert "positions" in data
+        assert len(data["positions"]) == 8
+
+    async def test_get_candidate_not_found(self, client):
+        resp = await client.get("/candidates/xt/nonexistent")
+        assert resp.status_code == 404
+        assert "error" in resp.json()
+
+    async def test_candidates_bad_country(self, client):
+        resp = await client.get("/candidates/xx")
+        assert resp.status_code == 404

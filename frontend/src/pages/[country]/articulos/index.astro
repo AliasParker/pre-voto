@@ -1,0 +1,68 @@
+---
+// SPDX-License-Identifier: AGPL-3.0-or-later
+// Copyright (c) 2026 Equipo pre.voto
+
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import ArticleCard from "../../../components/ArticleCard.astro";
+import { fetchCountries, fetchArticles } from "../../../lib/api";
+import { getLocaleFromCountry, t } from "../../../lib/i18n";
+import { getCountryName } from "../../../lib/countries";
+import type { CountryOut, ArticleOut } from "../../../lib/types";
+
+export async function getStaticPaths() {
+  const countries = await fetchCountries();
+  const paths = [];
+  for (const country of countries) {
+    try {
+      const articles = await fetchArticles(country.code);
+      paths.push({
+        params: { country: country.code },
+        props: { country, articles },
+      });
+    } catch {
+      paths.push({
+        params: { country: country.code },
+        props: { country, articles: [] },
+      });
+    }
+  }
+  return paths;
+}
+
+interface Props {
+  country: CountryOut;
+  articles: ArticleOut[];
+}
+
+const { country, articles } = Astro.props;
+const locale = getLocaleFromCountry(country.code);
+const name = getCountryName(country.code, locale);
+---
+
+<BaseLayout
+  title={`${t(locale, "articles.title")} — ${name} | pre.voto`}
+  description={t(locale, "articles.subtitle")}
+  country={country.code}
+>
+  <section class="max-w-4xl mx-auto px-4 py-12">
+    <h1 class="font-serif text-3xl font-bold mb-2">{t(locale, "articles.title")}</h1>
+    <p class="text-ink-soft mb-8">{t(locale, "articles.subtitle")}</p>
+
+    {articles.length > 0 ? (
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {articles.map((article) => (
+          <ArticleCard article={article} country={country.code} />
+        ))}
+      </div>
+    ) : (
+      <div class="text-ink-faint">
+        <p>{t(locale, "articles.noArticles")}</p>
+        <p class="mt-2">
+          <a href={`/${country.code}/quiz`} class="text-brand underline">
+            {t(locale, "articles.emptyQuizLink")}
+          </a>
+        </p>
+      </div>
+    )}
+  </section>
+</BaseLayout>

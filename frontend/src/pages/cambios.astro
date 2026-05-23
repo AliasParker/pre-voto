@@ -1,0 +1,58 @@
+---
+// SPDX-License-Identifier: AGPL-3.0-or-later
+// Copyright (c) 2026 Equipo pre.voto
+
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout
+  title="Registro de cambios | pre.voto"
+  description="Historial público de correcciones, actualizaciones y decisiones editoriales de pre.voto."
+>
+  <article class="max-w-3xl mx-auto px-4 py-12">
+    <h1 class="text-3xl font-bold mb-8">Registro de cambios</h1>
+
+    <div class="prose">
+      <p>
+        Este registro documenta cada corrección, actualización o decisión
+        editorial que se aplica a las codificaciones, datos factuales o
+        metodología de pre.voto. Es público y permanente: una vez registrado, un
+        cambio no se borra.
+      </p>
+      <p>
+        Cada entrada incluye: fecha, solicitante (o "anónimo verificado"), tipo
+        de cambio (codificación, factual o metodológico), decisión (aceptada,
+        rechazada o diferida) y justificación con fuente.
+      </p>
+      <p>
+        Para proponer una corrección o mejora, consulta
+        <a href="/correcciones">/correcciones</a>.
+      </p>
+    </div>
+
+    <!-- Empty state -->
+    <div class="bg-paper-warm border border-line rounded-lg p-6 mt-8">
+      <p class="text-ink-soft text-sm text-center">
+        Aún no se han procesado cambios. Cuando recibamos la primera corrección
+        o actualización, aparecerá listada acá con todos los detalles.
+      </p>
+    </div>
+
+    <!--
+      Future structure recommendation:
+      Use Astro content collections at /content/changes/*.md with frontmatter:
+        date: 2026-05-23
+        requester: "Nombre o anónimo verificado"
+        type: codificación | factual | metodológico
+        decision: aceptada | rechazada | diferida
+        justification: "Texto de la justificación"
+        source: "URL de la fuente"
+
+      Render as chronological inverse list (most recent on top).
+    -->
+
+    <p class="text-sm text-ink-faint mt-8 italic">
+      Última revisión: 23 de mayo de 2026.
+    </p>
+  </article>
+</BaseLayout>

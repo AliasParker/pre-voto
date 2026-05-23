@@ -1,0 +1,90 @@
+---
+// SPDX-License-Identifier: AGPL-3.0-or-later
+// Copyright (c) 2026 Equipo pre.voto
+
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { fetchCountries } from "../../lib/api";
+import { getLocaleFromCountry, t } from "../../lib/i18n";
+import { getCountryName } from "../../lib/countries";
+import type { CountryOut } from "../../lib/types";
+
+export async function getStaticPaths() {
+  const countries = await fetchCountries();
+  return countries.map((country) => ({
+    params: { country: country.code },
+    props: { country },
+  }));
+}
+
+interface Props {
+  country: CountryOut;
+}
+
+const { country } = Astro.props;
+const locale = getLocaleFromCountry(country.code);
+const name = getCountryName(country.code, locale);
+---
+
+<BaseLayout
+  title={`${t(locale, "veda.title")} — ${name} | pre.voto`}
+  description={t(locale, "veda.body")}
+  country={country.code}
+>
+  <article class="max-w-2xl mx-auto px-4 py-12 text-center">
+    <div class="text-5xl mb-6" aria-hidden="true">🗳️</div>
+
+    <h1 class="text-3xl font-bold mb-4">{t(locale, "veda.heading")}</h1>
+
+    <p class="text-lg text-ink-soft leading-relaxed mb-4">
+      {t(locale, "veda.body")}
+    </p>
+
+    <p class="text-sm font-medium text-brand mb-8">
+      {t(locale, "veda.closingTime")}
+    </p>
+
+    <div class="max-w-sm mx-auto text-left mb-8">
+      <p class="text-sm text-ink-faint mb-3">{t(locale, "veda.meanwhile")}</p>
+      <ul class="space-y-2">
+        <li>
+          <a
+            href={`/${country.code}/candidatos`}
+            class="text-brand hover:underline text-sm"
+          >
+            → {t(locale, "veda.viewCandidates")}
+          </a>
+        </li>
+        <li>
+          <a
+            href={`/${country.code}/articulos`}
+            class="text-brand hover:underline text-sm"
+          >
+            → {t(locale, "veda.readArticles")}
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <a
+      href={`/${country.code}/`}
+      class="text-sm text-ink-faint hover:text-ink"
+    >
+      &larr; {t(locale, "common.backToHome")}
+    </a>
+  </article>
+
+  <!-- Client-side redirect: if quiz is NOT disabled, redirect to /quiz -->
+  <script is:inline define:vars={{ countryCode: country.code }}>
+    (async function checkVeda() {
+      try {
+        const res = await fetch(`/api/feature-flags/quiz-status?country=${countryCode}`);
+        if (res.ok) {
+          const data = await res.json();
+          if (!data.quiz_disabled) {
+            window.location.replace(`/${countryCode}/quiz`);
+          }
+        }
+      } catch {}
+    })();
+  </script>
+</BaseLayout>

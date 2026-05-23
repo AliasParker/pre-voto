@@ -1,0 +1,50 @@
+---
+// SPDX-License-Identifier: AGPL-3.0-or-later
+// Copyright (c) 2026 Equipo pre.voto
+
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import QuizApp from "../../components/islands/QuizApp.svelte";
+import { fetchCountries } from "../../lib/api";
+import { getLocaleFromCountry, t } from "../../lib/i18n";
+import { getCountryName } from "../../lib/countries";
+import type { CountryOut } from "../../lib/types";
+
+export async function getStaticPaths() {
+  const countries = await fetchCountries();
+  return countries.map((country) => ({
+    params: { country: country.code },
+    props: { country },
+  }));
+}
+
+interface Props {
+  country: CountryOut;
+}
+
+const { country } = Astro.props;
+const locale = getLocaleFromCountry(country.code);
+const name = getCountryName(country.code, locale);
+---
+
+<BaseLayout
+  title={`${t(locale, "quiz.title")} — ${name} | pre.voto`}
+  description={`${t(locale, "quiz.welcomeDesc")}`}
+  country={country.code}
+>
+  <QuizApp client:load country={country.code} locale={locale} />
+
+  <!-- Client-side veda redirect: if quiz is disabled, send to /veda -->
+  <script is:inline define:vars={{ countryCode: country.code }}>
+    (async function checkVeda() {
+      try {
+        const res = await fetch(`/api/feature-flags/quiz-status?country=${countryCode}`);
+        if (res.ok) {
+          const data = await res.json();
+          if (data.quiz_disabled) {
+            window.location.replace(`/${countryCode}/veda`);
+          }
+        }
+      } catch {}
+    })();
+  </script>
+</BaseLayout>

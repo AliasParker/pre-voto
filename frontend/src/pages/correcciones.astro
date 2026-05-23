@@ -1,0 +1,139 @@
+---
+// SPDX-License-Identifier: AGPL-3.0-or-later
+// Copyright (c) 2026 Equipo pre.voto
+
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout
+  title="Cómo proponer una corrección | pre.voto"
+  description="Canal público para proponer correcciones de codificación, datos factuales o mejoras metodológicas a pre.voto."
+>
+  <article class="max-w-3xl mx-auto px-4 py-12">
+    <h1 class="text-3xl font-bold mb-8">Cómo proponer una corrección o mejora</h1>
+
+    <div class="prose">
+      <p>
+        Pre.voto es una iniciativa de código y datos abiertos. Eso significa dos
+        cosas:
+      </p>
+      <ol>
+        <li>
+          Cualquier persona puede proponer cambios — candidatos, campañas,
+          periodistas, académicos, ciudadanos, organizaciones cívicas.
+        </li>
+        <li>
+          Todas las propuestas se procesan por el mismo canal y siguen el mismo
+          protocolo público. No hay trato preferencial.
+        </li>
+      </ol>
+
+      <h2>Tipos de cambio que aceptamos</h2>
+      <p>
+        <strong>(a) Corrección de codificación.</strong> Cuando consideres que
+        una posición codificada para un candidato debería ser diferente, o cuando
+        tengas evidencia nueva que cambia el nivel de confianza.
+      </p>
+      <p>
+        <strong>(b) Corrección factual.</strong> Errores tipográficos, datos
+        biográficos incorrectos, vínculos rotos, citas mal atribuidas.
+      </p>
+      <p>
+        <strong>(c) Propuesta de mejora metodológica.</strong> Sugerencias para
+        agregar, modificar o retirar statements en ciclos futuros. No se aplican
+        durante una elección activa.
+      </p>
+
+      <h2>Cómo enviar una solicitud</h2>
+      <p>Dos canales:</p>
+      <ul>
+        <li>
+          Email:
+          <a href="mailto:errores@pre.voto">errores@pre.voto</a>
+        </li>
+        <li>GitHub: abrir un issue en el repositorio público</li>
+      </ul>
+      <p>Para que tu solicitud pueda procesarse, incluye:</p>
+      <ul>
+        <li>El candidato y el statement (o el dato a corregir)</li>
+        <li>La posición o dato que consideras correcto</li>
+        <li>
+          Una fuente verificable: URL pública, fecha, y cita textual cuando
+          aplique
+        </li>
+        <li>Tu nombre, organización o seudónimo verificable</li>
+      </ul>
+
+      <h2>Qué pasa después</h2>
+      <ol>
+        <li>Acuse de recibo: dentro de 48 horas</li>
+        <li>Decisión editorial: dentro de 7 días hábiles</li>
+        <li>
+          Tres resultados posibles:
+          <ul>
+            <li>
+              <strong>Aceptada:</strong> la codificación o el dato se actualiza y
+              se publica en el <a href="/cambios">changelog</a>
+            </li>
+            <li>
+              <strong>Rechazada:</strong> respondemos con la justificación
+              pública en el <a href="/cambios">changelog</a>
+            </li>
+            <li>
+              <strong>Diferida:</strong> si requiere análisis profundo, pasa a
+              revisión con plazo extendido
+            </li>
+          </ul>
+        </li>
+      </ol>
+
+      <h2>Changelog público</h2>
+      <p>
+        Todas las decisiones quedan registradas en
+        <a href="/cambios">/cambios</a>. Incluye fecha, solicitante (o "anónimo
+        verificado"), tipo de cambio, decisión y justificación.
+      </p>
+
+      <h2>Casos especiales</h2>
+      <p>
+        <strong>Candidatos y campañas:</strong> usan el mismo canal que cualquier
+        otra persona. No hay línea privilegiada. Las solicitudes provenientes de
+        una campaña se identifican como tales en el changelog.
+      </p>
+      <p>
+        <strong
+          >Solicitudes anónimas vinculadas a una campaña activa:</strong
+        > si detectamos que una solicitud anónima proviene de una campaña sin
+        declararlo, se procesa igual pero se anota la observación en el
+        changelog.
+      </p>
+      <p><strong>Lo que no procesamos:</strong></p>
+      <ul>
+        <li>
+          Pedidos de retirar codificaciones por desacuerdo político sin nueva
+          evidencia
+        </li>
+        <li>
+          Solicitudes de ajustar el umbral de confianza para favorecer a un
+          candidato
+        </li>
+        <li>
+          Quejas sobre el posicionamiento descriptivo sin alternativa concreta
+          propuesta
+        </li>
+      </ul>
+
+      <h2>Período de freeze electoral</h2>
+      <p>
+        Durante los 7 días previos a una elección activa, las codificaciones
+        quedan congeladas. Solo se procesan correcciones factuales urgentes. Las
+        correcciones de codificación se acumulan y se procesan después de la
+        elección, con changelog visible.
+      </p>
+    </div>
+
+    <p class="text-sm text-ink-faint mt-8 italic">
+      Última revisión: 23 de mayo de 2026.
+    </p>
+  </article>
+</BaseLayout>

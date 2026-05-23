@@ -1,0 +1,26 @@
+{
+  "name": "prevoto-frontend",
+  "type": "module",
+  "version": "0.1.0",
+  "private": true,
+  "license": "AGPL-3.0-or-later",
+  "scripts": {
+    "dev": "astro dev --host 0.0.0.0 --port 3000",
+    "build": "astro build",
+    "preview": "astro preview"
+  },
+  "dependencies": {
+    "@astrojs/svelte": "^6.0.0",
+    "astro": "^4.0.0",
+    "lucide-svelte": "^1.0.1",
+    "marked": "^18.0.3",
+    "svelte": "^5.0.0"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.0",
+    "@tailwindcss/vite": "^4.0.0",
+    "@types/marked": "^5.0.2",
+    "tailwindcss": "^4.0.0",
+    "typescript": "^5.6.0"
+  }
+}

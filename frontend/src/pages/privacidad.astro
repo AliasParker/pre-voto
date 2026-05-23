@@ -1,0 +1,222 @@
+---
+// SPDX-License-Identifier: AGPL-3.0-or-later
+// Copyright (c) 2026 Equipo pre.voto
+
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout
+  title="Privacidad | pre.voto"
+  description="Política de privacidad de pre.voto: qué datos se recopilan, cómo se procesan y tus derechos."
+>
+  <article class="max-w-3xl mx-auto px-4 py-12">
+    <h1 class="text-3xl font-bold mb-8">Privacidad</h1>
+
+    <div class="prose">
+      <h2>Datos que recopilamos</h2>
+      <p>
+        pre.voto está diseñado para funcionar sin recopilar datos personales
+        individuales. No requerimos registro, no almacenamos las respuestas del
+        quiz de forma asociada a un usuario, y solo usamos cookies de analítica
+        si el usuario lo autoriza expresamente.
+      </p>
+
+      <h2>El quiz</h2>
+      <p>
+        Las respuestas del quiz se procesan localmente en tu navegador para calcular
+        la afinidad con los candidatos. Cuando se envían al servidor para validación,
+        se registra un hash anónimo de sesión (derivado de tu dirección IP, el
+        user-agent de tu navegador, la fecha UTC del día y una sal secreta) para
+        fines estadísticos agregados. No es posible reconstruir tu identidad a partir
+        de este hash.
+      </p>
+      <p>
+        Los resultados del quiz se almacenan en la memoria temporal de tu navegador
+        mientras completas el cuestionario. No se guardan en disco ni en almacenamiento
+        persistente. Se borran automáticamente al cerrar la pestaña.
+      </p>
+
+      <h2>Cookies y almacenamiento local</h2>
+      <p>
+        pre.voto utiliza las siguientes cookies y mecanismos de almacenamiento local:
+      </p>
+      <ul>
+        <li>
+          <strong>Preferencia de tema</strong> (<code>prevoto-theme</code> en localStorage):
+          guarda tu elección de modo claro u oscuro. No se transmite a ningún servidor.
+        </li>
+        <li>
+          <strong>Consentimiento de cookies</strong> (<code>prevoto_cookie_consent</code> en localStorage):
+          registra si aceptaste o rechazaste las cookies de analítica. Valores posibles:
+          <code>accepted</code> o <code>rejected</code>.
+        </li>
+      </ul>
+
+      <h2>Google Analytics (GA4)</h2>
+      <p>
+        Si aceptas el banner de cookies, pre.voto carga Google Analytics 4
+        (propiedad <code>G-2ZPYJ7FQJV</code>) para entender qué páginas son más
+        útiles y cómo mejorar el contenido.
+      </p>
+      <p>
+        <strong>Si rechazas el banner, Google Analytics no se carga en absoluto.</strong>
+        Ningún script de Google se ejecuta, ninguna cookie de Google se instala, y
+        ningún dato se transmite a Google. El sitio funciona exactamente igual.
+      </p>
+      <p>
+        Cuando GA4 está activo, Google establece las siguientes cookies:
+      </p>
+      <ul>
+        <li>
+          <code>_ga</code>: identificador anónimo de usuario. Duración: 2 años.
+        </li>
+        <li>
+          <code>_ga_&lt;ID&gt;</code>: estado de sesión. Duración: 2 años.
+        </li>
+      </ul>
+      <p>
+        Usamos Google Analytics con la función Consent Mode v2 activada. Esto
+        significa que GA4 respeta tu decisión de consentimiento y no almacena
+        datos de analítica hasta que aceptas. Las categorías de consentimiento
+        para publicidad (<code>ad_storage</code>, <code>ad_user_data</code>,
+        <code>ad_personalization</code>) están permanentemente en "denegado"
+        porque pre.voto no muestra publicidad.
+      </p>
+      <p>
+        <strong>Datos que recopila GA4 cuando está activo</strong>: páginas visitadas,
+        duración de sesión, país de origen (aproximado), tipo de dispositivo y navegador.
+        No recopilamos datos demográficos, intereses ni datos de remarketing.
+      </p>
+      <p>
+        <strong>Eventos personalizados</strong> que registramos (solo cuando GA4 está activo):
+      </p>
+      <ul>
+        <li><code>quiz_started</code>: se registró que alguien inició el quiz (sin datos personales).</li>
+        <li><code>quiz_completed</code>: se registró que alguien completó el quiz.</li>
+        <li><code>result_shared</code>: se registró que alguien compartió su resultado.</li>
+        <li><code>candidate_view</code>: se registró la visita a una ficha de candidato.</li>
+        <li><code>article_view</code>: se registró la visita a un artículo.</li>
+      </ul>
+      <p>
+        Ningún evento contiene información que permita identificar al usuario.
+      </p>
+
+      <h2>Cloudflare Web Analytics</h2>
+      <p>
+        pre.voto utiliza <strong>Cloudflare Web Analytics</strong>, un servicio de
+        analítica que <strong>no usa cookies, no rastrea usuarios individuales y no
+        requiere consentimiento</strong>. Cloudflare recopila métricas agregadas de
+        rendimiento (tiempos de carga, páginas visitadas, país de origen) directamente
+        desde su red, sin instalar ningún identificador en tu navegador.
+      </p>
+      <p>
+        Este servicio está activo para todos los visitantes, independientemente de tu
+        decisión sobre el banner de cookies, porque no recopila datos personales.
+      </p>
+
+      <h2>Tracking interno anónimo (eventos del quiz)</h2>
+      <p>
+        Además de Google Analytics, pre.voto registra eventos anónimos del quiz en
+        su propia base de datos para entender el flujo de uso y mejorar la herramienta.
+        Estos eventos incluyen:
+      </p>
+      <ul>
+        <li><code>quiz_started</code>: alguien inició el quiz.</li>
+        <li><code>question_viewed</code>: se mostró una pregunta.</li>
+        <li><code>question_answered</code>: se respondió una pregunta (se registra la
+        posición elegida, no quién la eligió).</li>
+        <li><code>quiz_completed</code>: alguien completó el quiz (se registra el
+        candidato más afín y el porcentaje, no quién hizo el quiz).</li>
+        <li><code>share_clicked</code>: alguien compartió su resultado (se registra
+        el canal: WhatsApp, X, Telegram o enlace copiado).</li>
+      </ul>
+      <p>
+        Cada evento se asocia a un <strong>hash de sesión</strong>: un valor
+        criptográfico derivado de tu dirección IP, el user-agent de tu navegador,
+        la fecha UTC del día y una sal secreta. Este hash se renueva cada 24 horas
+        y <strong>no es reversible</strong>: no es posible reconstruir tu IP ni tu
+        identidad a partir de él.
+      </p>
+      <p>
+        Estos datos se almacenan por un máximo de <strong>24 meses</strong> y se
+        usan exclusivamente para análisis interno (tasas de completación, preguntas
+        donde más se abandona, distribución de respuestas). <strong>No se publican
+        como estadísticas colectivas durante el período de campaña electoral.</strong>
+      </p>
+
+      <h2>¿Compartimos datos con terceros?</h2>
+      <p>
+        Los terceros que reciben datos de navegación son:
+      </p>
+      <ul>
+        <li><strong>Google</strong> (como procesador de Google Analytics), solo si
+        aceptas el banner de cookies.</li>
+        <li><strong>Cloudflare</strong> (Web Analytics), que recibe métricas agregadas
+        de rendimiento sin cookies ni datos personales.</li>
+        <li><strong>Beehiiv</strong> (proveedor de newsletter), que recibe tu dirección
+        de correo electrónico y país seleccionado si te suscribes al newsletter.</li>
+        <li><strong>Stripe</strong> (procesador de pagos), que recibe tus datos de pago
+        si realizas una donación voluntaria. pre.voto no almacena datos de tarjetas
+        de crédito ni información financiera; estos son procesados directamente por
+        Stripe bajo su propia <a href="https://stripe.com/privacy" target="_blank"
+        rel="noopener noreferrer">política de privacidad</a>.</li>
+      </ul>
+      <p>
+        No vendemos, alquilamos ni compartimos datos con ningún otro tercero.
+        No mostramos publicidad.
+      </p>
+
+      <h2>Newsletter</h2>
+      <p>
+        Si te suscribes al newsletter, almacenamos tu dirección de correo electrónico
+        y el país seleccionado a través de Beehiiv (nuestro proveedor de email).
+        Puedes darte de baja en cualquier momento a través del enlace incluido en
+        cada correo.
+      </p>
+
+      <h2>Cómo revocar tu consentimiento</h2>
+      <p>
+        Puedes cambiar tu decisión sobre las cookies en cualquier momento:
+      </p>
+      <ul>
+        <li>
+          <strong>Borrar la cookie de consentimiento</strong>: abre las herramientas de
+          desarrollador de tu navegador, ve a Application &gt; Local Storage &gt;
+          pre.voto, y elimina la clave <code>prevoto_cookie_consent</code>. Al
+          recargar la página, el banner volverá a aparecer.
+        </li>
+        <li>
+          <strong>Borrar todas las cookies</strong>: en la configuración de tu navegador,
+          busca "borrar datos de navegación" y selecciona "cookies y datos de sitios".
+          Esto elimina tanto las cookies de GA4 como tu preferencia de consentimiento.
+        </li>
+      </ul>
+
+      <h2>Tus derechos</h2>
+      <p>
+        De acuerdo con la Ley 1581 de 2012 (Colombia) y la normativa aplicable,
+        tienes derecho a:
+      </p>
+      <ul>
+        <li>Conocer qué datos tenemos sobre ti (en el caso del newsletter, tu email).</li>
+        <li>Solicitar la corrección o eliminación de tus datos.</li>
+        <li>Revocar tu consentimiento en cualquier momento.</li>
+      </ul>
+      <p>
+        Para ejercer estos derechos, escribe a
+        <a href="mailto:hola@pre.voto">hola@pre.voto</a>.
+      </p>
+
+      <h2>Contacto</h2>
+      <p>
+        Si tienes preguntas sobre esta política, escribe a
+        <a href="mailto:hola@pre.voto">hola@pre.voto</a>.
+      </p>
+
+      <hr />
+      <p class="text-sm text-ink-faint">
+        Última actualización: 22 de mayo de 2026.
+      </p>
+    </div>
+  </article>
+</BaseLayout>

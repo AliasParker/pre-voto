@@ -1,0 +1,73 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+dist/
+build/
+.venv/
+venv/
+*.egg
+
+# Node
+node_modules/
+.astro/
+dist/
+
+# Docker
+docker-compose.override.yml
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Secrets
+.env
+.env.local
+.env.production
+origin.crt
+origin.key
+*.pem
+
+# OS
+Thumbs.db
+.DS_Store
+
+# Logs
+*.log
+logs/
+
+# Coverage
+htmlcov/
+.coverage
+coverage.xml
+
+# Testing
+.pytest_cache/
+.mypy_cache/
+
+# Secret notes (R2 credentials, server info)
+R2-API.MD
+r2-api.md
+server.md
+*.credentials
+secrets/
+
+# Internal docs (not for public repo)
+LAUNCH_BRIEF.md
+SPEC.md
+docs/services-inventory.md
+docs/audit-fases-1-4.md
+docs/image/
+
+# Working images (raw PNGs, not production assets)
+imagenes/
+
+# Claude Code local artifacts
+.agents/
+.claude/
+skills-lock.json

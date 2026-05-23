@@ -1,0 +1,108 @@
+---
+// SPDX-License-Identifier: AGPL-3.0-or-later
+// Copyright (c) 2026 Equipo pre.voto
+
+import "../styles/global.css";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import Analytics from "../components/Analytics.astro";
+import CookieBanner from "../components/islands/CookieBanner.svelte";
+import { getLocaleFromCountry } from "../lib/i18n";
+
+interface Props {
+  title?: string;
+  description?: string;
+  country?: string;
+  ogImage?: string;
+  jsonLd?: Record<string, unknown>;
+  ogType?: string;
+  ogArticlePublishedTime?: string;
+  ogArticleAuthor?: string;
+}
+
+const {
+  title = "pre.voto",
+  description = "Compara tus posiciones con las de los candidatos. Voto informado para Latinoamerica.",
+  country,
+  ogImage = "/favicon.svg",
+  jsonLd,
+  ogType = "website",
+  ogArticlePublishedTime,
+  ogArticleAuthor,
+} = Astro.props;
+
+const locale = country ? getLocaleFromCountry(country) : "es";
+const lang = locale === "pt-BR" ? "pt-BR" : "es";
+const canonicalUrl = new URL(Astro.url.pathname, Astro.site ?? "https://pre.voto");
+---
+
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="canonical" href={canonicalUrl.href} />
+
+    <title>{title}</title>
+    <meta name="description" content={description} />
+
+    <!-- Open Graph -->
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content={ogType} />
+    <meta property="og:url" content={canonicalUrl.href} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:site_name" content="pre.voto" />
+    {ogArticlePublishedTime && (
+      <meta property="article:published_time" content={ogArticlePublishedTime} />
+    )}
+    {ogArticleAuthor && (
+      <meta property="article:author" content={ogArticleAuthor} />
+    )}
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+
+    {jsonLd && (
+      <script is:inline type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+    )}
+
+    <!-- Dark mode: apply before paint to prevent flash -->
+    <script is:inline>
+      (function () {
+        var theme = localStorage.getItem("prevoto-theme");
+        if (
+          theme === "dark" ||
+          (!theme && window.matchMedia("(prefers-color-scheme: dark)").matches)
+        ) {
+          document.documentElement.classList.add("dark");
+        }
+      })();
+    </script>
+
+    <slot name="head" />
+
+    <Analytics />
+  </head>
+  <body class="bg-paper text-ink min-h-screen flex flex-col">
+    <a
+      href="#main-content"
+      class="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-50 focus:bg-brand focus:text-white focus:px-4 focus:py-2 focus:rounded"
+    >
+      {lang === "pt-BR" ? "Ir para o conteudo" : "Ir al contenido"}
+    </a>
+
+    <Header country={country} />
+
+    <main id="main-content" class="flex-1">
+      <slot />
+    </main>
+
+    <Footer country={country} />
+
+    <CookieBanner client:load />
+  </body>
+</html>

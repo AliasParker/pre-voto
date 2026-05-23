@@ -1,0 +1,161 @@
+---
+// SPDX-License-Identifier: AGPL-3.0-or-later
+// Copyright (c) 2026 Equipo pre.voto
+
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { t } from "../../lib/i18n";
+import { SHOW_DONATIONS } from "../../lib/flags";
+
+const locale = "es";
+
+if (!SHOW_DONATIONS) {
+  return Astro.redirect("/");
+}
+---
+
+<BaseLayout
+  title={`${t(locale, "donate.thanksTitle")} | pre.voto`}
+  description="Gracias por tu contribución a pre.voto."
+>
+  <article class="max-w-2xl mx-auto px-4 py-12 text-center">
+    <div id="donation-status" class="space-y-6">
+      <p class="text-4xl mb-4" aria-hidden="true">&#x1F64F;</p>
+      <h1 class="text-3xl font-serif font-bold">
+        {t(locale, "donate.thanksTitle")}
+      </h1>
+      <p id="status-message" class="text-lg text-ink-soft leading-relaxed">
+        {t(locale, "donate.thanksPending")}
+      </p>
+      <p id="confirmation-id" class="text-sm text-ink-soft hidden"></p>
+    </div>
+
+    <!-- Newsletter opt-in (shown after successful donation) -->
+    <div id="newsletter-section" class="mt-8 hidden">
+      <div class="max-w-sm mx-auto p-6 rounded-xl border border-line bg-paper-warm">
+        <label class="flex items-start gap-3 cursor-pointer text-left">
+          <input
+            id="newsletter-checkbox"
+            type="checkbox"
+            class="mt-1 h-4 w-4 rounded border-line text-terracotta
+              focus:ring-terracotta"
+          />
+          <span class="text-sm text-ink-soft">
+            {t(locale, "donate.newsletterPostDonation")}
+          </span>
+        </label>
+        <button
+          id="newsletter-confirm"
+          type="button"
+          class="mt-4 w-full py-2 rounded-lg font-bold text-white
+            bg-terracotta hover:bg-terracotta/90 transition-colors
+            disabled:bg-gray-400 disabled:cursor-not-allowed"
+        >
+          {t(locale, "donate.newsletterConfirm")}
+        </button>
+        <p id="newsletter-status" class="mt-2 text-sm hidden"></p>
+      </div>
+    </div>
+
+    <div class="mt-10 space-y-4">
+      <a
+        href="/apoyar"
+        class="inline-block px-6 py-3 rounded-lg border border-line
+          text-ink hover:border-terracotta transition-colors"
+      >
+        {t(locale, "donate.backToSupport")}
+      </a>
+      <p class="text-sm text-ink-soft">
+        <a href="/" class="text-terracotta hover:underline">
+          {t(locale, "common.backToHome")}
+        </a>
+      </p>
+    </div>
+  </article>
+</BaseLayout>
+
+<script>
+  async function checkStatus() {
+    const params = new URLSearchParams(window.location.search);
+    const sessionId = params.get("session_id");
+    if (!sessionId) return;
+
+    try {
+      const res = await fetch(`/api/donations/session/${encodeURIComponent(sessionId)}`);
+      if (!res.ok) return;
+
+      const data = await res.json();
+      const msgEl = document.getElementById("status-message");
+      const confEl = document.getElementById("confirmation-id");
+      const newsletterSection = document.getElementById("newsletter-section");
+      if (!msgEl) return;
+
+      if (data.status === "succeeded") {
+        msgEl.textContent =
+          "Tu apoyo nos ayuda a llevar pre.voto a más países.";
+        if (confEl) {
+          const shortId = sessionId.slice(-8);
+          confEl.textContent = `Confirmación: ${shortId}`;
+          confEl.classList.remove("hidden");
+        }
+        // Show newsletter opt-in if not already opted in
+        if (newsletterSection && !data.newsletter_opt_in) {
+          newsletterSection.classList.remove("hidden");
+          setupNewsletter(sessionId);
+        }
+      } else if (data.status === "failed") {
+        msgEl.textContent =
+          "Hubo un problema con tu pago. Intenta de nuevo o escríbenos a hola@pre.voto.";
+      }
+      // "pending" keeps the default message
+    } catch {
+      // Silently fail — default message is fine
+    }
+  }
+
+  function setupNewsletter(sessionId: string) {
+    const checkbox = document.getElementById("newsletter-checkbox") as HTMLInputElement;
+    const confirmBtn = document.getElementById("newsletter-confirm") as HTMLButtonElement;
+    const statusEl = document.getElementById("newsletter-status");
+    if (!checkbox || !confirmBtn || !statusEl) return;
+
+    confirmBtn.addEventListener("click", async () => {
+      if (!checkbox.checked) return;
+
+      confirmBtn.disabled = true;
+      confirmBtn.textContent = "Enviando...";
+
+      try {
+        const res = await fetch(
+          `/api/donations/session/${encodeURIComponent(sessionId)}/newsletter-opt-in`,
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ opt_in: true }),
+          }
+        );
+
+        if (res.ok) {
+          statusEl.textContent = "¡Listo! Te avisaremos por email.";
+          statusEl.className = "mt-2 text-sm text-green-600 dark:text-green-400";
+          statusEl.classList.remove("hidden");
+          confirmBtn.classList.add("hidden");
+          checkbox.disabled = true;
+        } else {
+          statusEl.textContent = "No se pudo guardar. Intenta de nuevo.";
+          statusEl.className = "mt-2 text-sm text-red-600 dark:text-red-400";
+          statusEl.classList.remove("hidden");
+          confirmBtn.disabled = false;
+          confirmBtn.textContent = "Confirmar";
+        }
+      } catch {
+        statusEl.textContent = "Error de conexión. Intenta de nuevo.";
+        statusEl.className = "mt-2 text-sm text-red-600 dark:text-red-400";
+        statusEl.classList.remove("hidden");
+        confirmBtn.disabled = false;
+        confirmBtn.textContent = "Confirmar";
+      }
+    });
+  }
+
+  checkStatus();
+</script>

@@ -1,0 +1,60 @@
+---
+// SPDX-License-Identifier: AGPL-3.0-or-later
+// Copyright (c) 2026 Equipo pre.voto
+
+import type { CandidateOut } from "../lib/types";
+
+interface Props {
+  candidate: CandidateOut;
+  country: string;
+}
+
+const { candidate, country } = Astro.props;
+const initials = candidate.name
+  .split(" ")
+  .map((w) => w[0])
+  .slice(0, 2)
+  .join("")
+  .toUpperCase();
+const color = candidate.color || "#737373";
+---
+
+<a
+  href={`/${country}/candidatos/${candidate.slug}`}
+  class="block border border-line rounded-lg p-4 hover:border-brand hover:shadow-sm transition-all group"
+  style={`border-left: 4px solid ${color}`}
+>
+  <div class="flex items-center gap-3">
+    {candidate.photo_url ? (
+      <img
+        src={candidate.photo_url}
+        alt={candidate.name}
+        width="48"
+        height="48"
+        loading="lazy"
+        decoding="async"
+        class="w-12 h-12 rounded-full object-cover"
+      />
+    ) : (
+      <div
+        class="w-12 h-12 rounded-full flex items-center justify-center text-white text-sm font-bold"
+        style={`background-color: ${color}`}
+      >
+        {initials}
+      </div>
+    )}
+    <div class="min-w-0">
+      <span class="font-semibold block group-hover:text-brand transition-colors">{candidate.name}</span>
+      {(candidate.coalition || candidate.party_acronym || candidate.party) && (
+        <span class="text-sm text-ink-faint block truncate">
+          {candidate.coalition || candidate.party_acronym || candidate.party}
+        </span>
+      )}
+      {candidate.running_mate && (
+        <span class="text-xs text-ink-faint block truncate">
+          VP: {candidate.running_mate}
+        </span>
+      )}
+    </div>
+  </div>
+</a>

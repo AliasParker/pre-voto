@@ -1,0 +1,164 @@
+---
+// SPDX-License-Identifier: AGPL-3.0-or-later
+// Copyright (c) 2026 Equipo pre.voto
+
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout
+  title="Preguntas frecuentes | pre.voto"
+  description="Respuestas a las preguntas más comunes sobre pre.voto: qué es, quién lo hace, cómo se codifican las posiciones y cómo se usa tu información."
+>
+  <article class="max-w-3xl mx-auto px-4 py-12">
+    <h1 class="text-3xl font-bold mb-8">Preguntas frecuentes</h1>
+
+    <div class="prose">
+      <h2>1. ¿Qué es pre.voto?</h2>
+      <p>
+        Pre.voto es una brújula electoral (en inglés: Voting Advice Application
+        o VAA). Te muestra qué tan cerca están tus posiciones de las de los 12
+        candidatos en contienda, sobre 20 temas. No te dice por quién votar. No
+        es una encuesta. No es una recomendación. Tu resultado es para tu uso
+        personal.
+      </p>
+
+      <h2>2. ¿Quién está detrás de pre.voto?</h2>
+      <p>
+        Pre.voto es operada por Equipo pre.voto.
+        Es una iniciativa independiente, sin afiliación partidaria, sin pauta
+        comercial y sin contenido patrocinado. No recibe financiamiento de
+        gobiernos, partidos políticos, campañas, ni de actores corporativos con
+        intereses electorales. Para cualquier consulta editorial o institucional:
+        <a href="mailto:hola@pre.voto">hola@pre.voto</a>.
+      </p>
+
+      <h2>3. ¿Es una encuesta? ¿Aplica la Ley 2494 de 2025?</h2>
+      <p>
+        No, y no aplica. La Ley 2494 regula la elaboración y publicación de
+        encuestas de intención de voto: ejercicios estadísticos que miden, sobre
+        una muestra representativa, qué porcentaje de la población piensa votar
+        por cada candidato. Pre.voto no hace nada de eso. Es una herramienta
+        pedagógica individual: tomas un cuestionario y ves tu coincidencia
+        personal con cada candidato. No agrega resultados, no publica
+        estadísticas colectivas, no infiere intención de voto del electorado. Tu
+        resultado es para ti.
+      </p>
+
+      <h2>4. ¿Cómo se codificaron las posiciones de los candidatos?</h2>
+      <p>
+        Para cada candidato y cada uno de los 20 statements, el equipo editorial
+        de pre.voto determinó una posición con un nivel de confianza (alta /
+        media / baja). "Confianza alta" significa que hay cita textual del
+        candidato sobre ese tema. "Confianza media" significa que la posición se
+        infiere de una línea explícita aunque no haya cita exacta. "Confianza
+        baja" significa que se infirió de la trayectoria o coalición. Cada una de
+        las 240 codificaciones está publicada con su fuente, su URL cuando existe
+        y su cita textual cuando existe. Las puedes auditar en cada ficha de
+        candidato.
+      </p>
+
+      <h2>
+        5. ¿Por qué algunos candidatos tienen 85% de cita directa y otros 0%?
+      </h2>
+      <p>
+        Porque no todos los candidatos han hablado públicamente sobre todos los
+        temas. Iván Cepeda tiene un plan de gobierno extenso y trayectoria
+        parlamentaria documentada: 85% de sus posiciones tienen cita directa.
+        Sondra Macollins ha centrado su campaña en una sola propuesta y no ha
+        tomado posición pública sobre 18 de los 20 temas: 0% de cita directa.
+        Pre.voto te muestra esa diferencia explícitamente, en lugar de inflar
+        artificialmente las codificaciones. Para los candidatos con menos de 30%
+        de cita directa, vas a ver un aviso destacado al inicio de su ficha.
+      </p>
+
+      <h2>6. ¿Qué significa la "doble métrica" de afinidad?</h2>
+      <p>
+        En la página de resultados, cada candidato te muestra dos números: tu
+        afinidad con TODAS sus posiciones, y tu afinidad SOLO con las posiciones
+        de cita directa. La primera te dice cuánto coincides con el candidato tal
+        como pre.voto lo codificó. La segunda te dice cuánto coincides con el
+        candidato tal como él mismo se ha pronunciado públicamente. Cuando los
+        dos números son distintos, es información: significa que parte de tu
+        coincidencia depende de inferencias que pre.voto hizo.
+      </p>
+
+      <h2>
+        7. ¿En qué se diferencia pre.voto del test electoral de El Tiempo o de
+        Match Presidencial?
+      </h2>
+      <p>Tres diferencias concretas y verificables.</p>
+      <p>
+        <strong>(a) Transparencia de las codificaciones por candidato.</strong>
+        Pre.voto publica las 240 codificaciones individuales con su posición, su
+        nivel de confianza, la cita textual del candidato cuando existe y la URL
+        de la fuente original. El test de El Tiempo y Match Presidencial muestran
+        un porcentaje final de afinidad, pero no publican cómo codificaron las
+        posiciones de cada candidato ni qué evidencia las respalda. Eso significa
+        que tú puedes auditar nuestras codificaciones; las suyas no.
+      </p>
+      <p>
+        <strong>(b) Licencia abierta vs. licencia cerrada.</strong> Pre.voto
+        publica el código fuente bajo licencia libre y el dataset completo de
+        statements, candidatos y codificaciones bajo licencia Creative Commons
+        CC-BY 4.0. Eso significa que cualquier medio, universidad, ONG o
+        ciudadano puede descargarlo, auditarlo, traducirlo, replicarlo en otra
+        elección o construir herramientas derivadas sin pedirnos permiso. El test
+        de El Tiempo opera bajo el régimen opuesto: su pie de página declara
+        expresamente la prohibición de reproducción total o parcial, de uso para
+        el desarrollo de programas de inteligencia artificial o aprendizaje
+        automático, y de traducción a cualquier idioma sin autorización escrita
+        previa.
+      </p>
+      <p>
+        <strong
+          >(c) Honestidad sobre el respaldo documental por candidato.</strong
+        >
+        Pre.voto te muestra explícitamente cuánto de tu coincidencia con cada
+        candidato se basa en declaraciones públicas directas y cuánto en
+        inferencias del equipo editorial.
+      </p>
+
+      <h2>
+        8. Encontré una codificación que considero errada. ¿Cómo la corrijo?
+      </h2>
+      <p>
+        Escribe a <a href="mailto:errores@pre.voto">errores@pre.voto</a> o abre
+        un issue en el repositorio público de GitHub. Incluye: el candidato, el
+        statement, la posición que consideras correcta, y una fuente verificable
+        (URL, fecha, cita textual). El equipo editorial revisa cada solicitud en
+        un plazo de 48 a 72 horas. Si la nueva evidencia es válida, la
+        codificación se actualiza y queda registrada en el changelog público con
+        fecha y fuente. Cualquier candidato, campaña, periodista o ciudadano usa
+        el mismo canal — no hay trato preferencial. Detalles completos en
+        <a href="/correcciones">/correcciones</a>.
+      </p>
+
+      <h2>9. ¿Qué pasa con mis respuestas del quiz?</h2>
+      <p>
+        Tu quiz no requiere registro ni cuenta. Las respuestas se asocian a un
+        token único que aparece en la URL de tu página de resultados y solo tú lo
+        conoces. Pre.voto no vende, comparte ni cede tu información a terceros.
+        Si eliges suscribirte al newsletter post-quiz, esa suscripción es
+        completamente opcional y explícita (con checkbox). No se te suscribe
+        automáticamente bajo ninguna circunstancia. Para ejercer derechos de
+        acceso, rectificación o supresión:
+        <a href="mailto:hola@pre.voto">hola@pre.voto</a>.
+      </p>
+
+      <h2>10. ¿Está pre.voto sesgada políticamente?</h2>
+      <p>
+        Toda codificación de una posición política es un acto interpretativo y,
+        por lo tanto, falible. No te pedimos que confíes en nuestra neutralidad;
+        te pedimos que audites nuestras decisiones. Por eso publicamos las 240
+        codificaciones con fuente, abrimos el código y los datos, y ofrecemos un
+        canal público de corrección con changelog visible. Si encuentras un sesgo
+        sistemático que podamos corroborar con evidencia, lo corregimos
+        públicamente.
+      </p>
+    </div>
+
+    <p class="text-sm text-ink-faint mt-8 italic">
+      Última revisión: 23 de mayo de 2026.
+    </p>
+  </article>
+</BaseLayout>

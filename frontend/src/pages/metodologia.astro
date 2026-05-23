@@ -1,0 +1,211 @@
+---
+// SPDX-License-Identifier: AGPL-3.0-or-later
+// Copyright (c) 2026 Equipo pre.voto
+
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Disclaimer from "../components/Disclaimer.astro";
+---
+
+<BaseLayout
+  title="Metodología | pre.voto"
+  description="Cómo funciona la brújula electoral de pre.voto: codificación de posiciones, cálculo de afinidad y fuentes."
+>
+  <article class="max-w-3xl mx-auto px-4 py-12">
+    <h1 class="text-3xl font-bold mb-8">Metodología</h1>
+
+    <div class="prose">
+      <h2>Qué es una brújula electoral</h2>
+      <p>
+        Una brújula electoral es una herramienta que te ayuda a comparar tus
+        opiniones políticas con las posiciones de los candidatos. No es una
+        encuesta. No te dice por quién votar. Es un punto de partida para tu
+        propia decisión.
+      </p>
+      <p>
+        La tradición de las brújulas electorales empezó en Países Bajos en 1989
+        con StemWijzer. Hoy existen en Alemania (Wahl-O-Mat), Canadá
+        (Vote Compass), Suiza (smartvote) y decenas de países más. La idea
+        simple: si las posiciones políticas de un candidato son públicas,
+        deberías poder compararlas con las tuyas sin tener que leer los 200
+        puntos de cada plan de gobierno.
+      </p>
+      <p>Pre.voto es la primera brújula electoral pan-LATAM. Empezamos por Colombia 2026.</p>
+
+      <h2>Cómo se construyeron las 20 preguntas</h2>
+      <p>
+        Para cada elección elegimos veinte temas que están realmente en disputa
+        entre los candidatos. No incluimos consensos (nadie está en contra de la
+        educación) ni temas que se decidieron hace décadas. Buscamos los puntos
+        donde las propuestas se separan.
+      </p>
+      <p>Para Colombia 2026, los temas se agrupan en seis ejes:</p>
+      <ul>
+        <li>
+          <strong>Continuidad o ruptura con el gobierno Petro</strong> — reforma
+          pensional, reforma laboral, consultas populares, transferencias
+          monetarias.
+        </li>
+        <li>
+          <strong>Paz y seguridad</strong> — glifosato, Paz Total, servicio
+          militar, pie de fuerza.
+        </li>
+        <li>
+          <strong>Modelo económico</strong> — hidrocarburos, reforma tributaria,
+          salario mínimo, autonomía del Banco de la República.
+        </li>
+        <li>
+          <strong>Derechos sociales y civiles</strong> — aborto, adopción por
+          parejas del mismo sexo, despenalización de drogas.
+        </li>
+        <li>
+          <strong>Política exterior</strong> — relaciones con Israel,
+          reconocimiento del gobierno de Maduro.
+        </li>
+        <li>
+          <strong>Transición ambiental</strong> — fracking, energías renovables,
+          Amazonía.
+        </li>
+      </ul>
+      <p>
+        Las veinte preguntas están publicadas íntegras en el quiz, con el mismo
+        texto exacto que se usa para evaluar a los candidatos.
+      </p>
+
+      <h2>Cómo se codifican las posiciones de los candidatos</h2>
+      <p>
+        Para cada candidato y cada una de las 20 preguntas, codificamos su
+        posición en una de cinco categorías: muy de acuerdo, de acuerdo, neutral,
+        en desacuerdo, muy en desacuerdo.
+      </p>
+      <p>Cada codificación incluye además dos metadatos:</p>
+      <p>
+        <strong>Nivel de confianza</strong> — qué tan respaldada está la
+        posición:
+      </p>
+      <ul>
+        <li>
+          <em>Alta</em> — hay una cita directa del candidato (plan de gobierno,
+          entrevista, declaración pública).
+        </li>
+        <li>
+          <em>Media</em> — la posición se infiere de una línea explícita
+          (votación en bancada, postura coherente de su coalición).
+        </li>
+        <li>
+          <em>Baja</em> — la posición se infiere de trayectoria sin una
+          declaración específica reciente.
+        </li>
+      </ul>
+      <p>
+        <strong>Tipo de fuente</strong> — de dónde sale la posición: plan
+        oficial, entrevista, cuenta oficial en redes, trayectoria legislativa, o
+        inferencia.
+      </p>
+      <p>
+        Cuando hay cita directa, la cita textual y el enlace a la fuente están
+        disponibles en la ficha del candidato. Cuando es inferencia, lo decimos
+        abiertamente y explicamos el razonamiento.
+      </p>
+      <p>
+        El porcentaje de codificaciones con cita directa varía mucho entre
+        candidatos. Para Colombia 2026 va desde 85% (Cepeda, con un plan de
+        gobierno extenso) hasta 0% (Macollins, cuya campaña se concentra en una
+        sola bandera). Ese número es visible en cada ficha y en cada resultado
+        del quiz, para que sepas cuánto respaldo documental tiene cada posición.
+      </p>
+
+      <h2>Cómo se calcula tu afinidad</h2>
+      <p>
+        Cada respuesta tuya se compara con la del candidato en esa misma
+        pregunta:
+      </p>
+      <ul>
+        <li>Coinciden exactamente: <strong>100%</strong></li>
+        <li>
+          Difieren un nivel (por ejemplo, tú "muy de acuerdo", el candidato "de
+          acuerdo"): <strong>75%</strong>
+        </li>
+        <li>Difieren dos niveles: <strong>50%</strong></li>
+        <li>Difieren tres niveles: <strong>25%</strong></li>
+        <li>Posiciones opuestas: <strong>0%</strong></li>
+      </ul>
+      <p>
+        Tu afinidad final con cada candidato es el promedio simple de las 20
+        preguntas. Si dejas alguna pregunta en "neutral", esa pregunta se excluye
+        de tu cálculo (no penaliza a nadie, no premia a nadie).
+      </p>
+      <p>Mostramos dos métricas para cada candidato:</p>
+      <ul>
+        <li>
+          <strong>Afinidad con todas las posiciones</strong> del candidato (las
+          20 codificaciones, sin importar confianza).
+        </li>
+        <li>
+          <strong>Afinidad solo con posiciones de cita directa</strong> (las
+          codificaciones de confianza alta).
+        </li>
+      </ul>
+      <p>
+        La segunda métrica es más robusta. Si la primera es alta y la segunda es
+        baja, significa que esa coincidencia depende mucho de inferencias
+        nuestras. Te lo decimos.
+      </p>
+
+      <h2>Lo que esta metodología no captura</h2>
+      <p>
+        Una brújula electoral te dice qué tan cerca estás de las
+        <strong>posiciones declaradas o inferidas</strong> de un candidato. No te
+        dice nada sobre:
+      </p>
+      <ul>
+        <li>
+          <strong>Viabilidad</strong> — qué tan probable es que el candidato
+          cumpla lo que promete.
+        </li>
+        <li>
+          <strong>Trayectoria</strong> — qué hizo el candidato en cargos
+          anteriores.
+        </li>
+        <li>
+          <strong>Coherencia</strong> — si sus posiciones cambiaron de manera
+          oportunista.
+        </li>
+        <li>
+          <strong>Capacidad de gobierno</strong> — equipo, gobernabilidad
+          legislativa, ejecución.
+        </li>
+        <li>
+          <strong>Carácter personal y ético</strong> — lo que importa para muchos
+          votantes.
+        </li>
+      </ul>
+      <p>
+        Estas dimensiones son legítimas y a veces decisivas. La brújula te da un
+        punto de partida, no una respuesta cerrada.
+      </p>
+
+      <h2>Reportar errores y sugerir mejoras</h2>
+      <p>
+        Si encuentras un error en alguna codificación, escríbenos a
+        <a href="mailto:errores@pre.voto"><strong>errores@pre.voto</strong></a>
+        con la fuente que respalde la corrección. Revisamos todos los reportes.
+        Si la corrección procede, actualizamos la codificación y queda registrado
+        en el historial público del repositorio.
+      </p>
+      <p>
+        El código fuente y los datos editoriales están publicados en GitHub bajo
+        licencia abierta (AGPL-3.0-or-later para el código, CC-BY 4.0 para los datos).
+        Cualquier persona puede auditar, replicar o forkear la metodología.
+      </p>
+    </div>
+
+    <p class="text-sm text-ink-faint mt-8 italic">
+      Última revisión: 21 de mayo de 2026. Esta página se actualiza cuando hay
+      cambios metodológicos relevantes.
+    </p>
+
+    <div class="mt-8">
+      <Disclaimer variant="methodology" />
+    </div>
+  </article>
+</BaseLayout>

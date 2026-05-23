@@ -1,0 +1,88 @@
+---
+// SPDX-License-Identifier: AGPL-3.0-or-later
+// Copyright (c) 2026 Equipo pre.voto
+
+import { getLocaleFromCountry, t, type Locale } from "../lib/i18n";
+
+interface Props {
+  country: string;
+}
+
+const { country } = Astro.props;
+const locale: Locale = getLocaleFromCountry(country);
+---
+
+<section class="bg-paper-warm border border-line rounded-lg p-6">
+  <h3 class="font-semibold mb-1">{t(locale, "newsletter.title")}</h3>
+  <p class="text-sm text-ink-soft mb-4">{t(locale, "newsletter.desc")}</p>
+  <form
+    id="newsletter-form"
+    class="flex gap-2"
+    data-country={country}
+    data-msg-success={t(locale, "newsletter.success")}
+    data-msg-error={t(locale, "newsletter.error")}
+    data-msg-rate-limit={t(locale, "newsletter.rateLimit")}
+  >
+    <input
+      type="email"
+      name="email"
+      required
+      placeholder={t(locale, "newsletter.placeholder")}
+      class="flex-1 px-3 py-2 border border-line rounded-md bg-paper text-ink text-sm focus:outline-none focus:ring-2 focus:ring-brand"
+    />
+    <button
+      type="submit"
+      class="px-4 py-2 bg-brand text-white rounded-md text-sm font-medium hover:bg-brand-dark transition-colors"
+    >
+      {t(locale, "newsletter.submit")}
+    </button>
+  </form>
+  <p id="newsletter-feedback" class="text-sm mt-2 hidden"></p>
+</section>
+
+<script is:inline>
+  (function () {
+    var form = document.getElementById("newsletter-form");
+    var feedback = document.getElementById("newsletter-feedback");
+    if (!form || !feedback) return;
+
+    form.addEventListener("submit", async function (e) {
+      e.preventDefault();
+      var email = form.querySelector('input[name="email"]').value;
+      var country = form.dataset.country;
+      feedback.className = "text-sm mt-2";
+      feedback.textContent = "";
+
+      try {
+        var res = await fetch("/api/subscribers", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            email: email,
+            country_code: country,
+            source: "website",
+          }),
+        });
+
+        if (res.status === 429) {
+          feedback.textContent = form.dataset.msgRateLimit;
+          feedback.classList.add("text-brand");
+          return;
+        }
+
+        if (!res.ok) {
+          feedback.textContent = form.dataset.msgError;
+          feedback.classList.add("text-brand");
+          return;
+        }
+
+        feedback.textContent = form.dataset.msgSuccess;
+        feedback.classList.add("text-candidate-1");
+        form.querySelector('input[name="email"]').value = "";
+      } catch {
+        feedback.textContent = form.dataset.msgError;
+        feedback.classList.add("text-brand");
+      }
+    });
+  })();
+</script>

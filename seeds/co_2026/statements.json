@@ -1,0 +1,156 @@
+{
+  "country": "CO",
+  "election": "2026_first_round",
+  "version": "1.0.0",
+  "last_updated": "2026-05-18",
+  "statements": [
+    {
+      "id": 1,
+      "slug": "reforma-pensional",
+      "axis": "continuidad",
+      "text": "La reforma pensional aprobada en 2024 (Ley 2381) debe mantenerse y profundizarse en el próximo gobierno.",
+      "short_label": "Reforma pensional de Petro"
+    },
+    {
+      "id": 2,
+      "slug": "reforma-laboral",
+      "axis": "continuidad",
+      "text": "La reforma laboral impulsada por el gobierno Petro debe ser implementada plenamente.",
+      "short_label": "Reforma laboral de Petro"
+    },
+    {
+      "id": 3,
+      "slug": "consulta-popular",
+      "axis": "continuidad",
+      "text": "El próximo gobierno debe convocar consultas populares vinculantes para decidir reformas estructurales.",
+      "short_label": "Consultas populares vinculantes"
+    },
+    {
+      "id": 4,
+      "slug": "transferencias-monetarias",
+      "axis": "continuidad",
+      "text": "Las transferencias monetarias del Estado a hogares vulnerables deben ampliarse.",
+      "short_label": "Transferencias monetarias"
+    },
+    {
+      "id": 5,
+      "slug": "glifosato",
+      "axis": "seguridad",
+      "text": "Las fumigaciones aéreas con glifosato deben reanudarse para erradicar cultivos ilícitos.",
+      "short_label": "Glifosato aéreo"
+    },
+    {
+      "id": 6,
+      "slug": "suspender-negociaciones",
+      "axis": "seguridad",
+      "text": "El Estado debe suspender las negociaciones con las disidencias armadas (ELN, EMC, Segunda Marquetalia).",
+      "short_label": "Suspender Paz Total"
+    },
+    {
+      "id": 7,
+      "slug": "servicio-militar",
+      "axis": "seguridad",
+      "text": "El servicio militar obligatorio debe mantenerse y no convertirse en voluntario.",
+      "short_label": "Servicio militar obligatorio"
+    },
+    {
+      "id": 8,
+      "slug": "pie-de-fuerza",
+      "axis": "seguridad",
+      "text": "El pie de fuerza (policías y soldados) debe aumentarse significativamente.",
+      "short_label": "Aumentar pie de fuerza"
+    },
+    {
+      "id": 9,
+      "slug": "hidrocarburos-motor",
+      "axis": "economia",
+      "text": "Los hidrocarburos deben seguir siendo el motor principal de la economía colombiana.",
+      "short_label": "Hidrocarburos como motor"
+    },
+    {
+      "id": 10,
+      "slug": "reforma-tributaria",
+      "axis": "economia",
+      "text": "Una reforma tributaria progresiva con mayor carga a las personas y empresas de altos ingresos es necesaria.",
+      "short_label": "Reforma tributaria progresiva"
+    },
+    {
+      "id": 11,
+      "slug": "smlv-inflacion",
+      "axis": "economia",
+      "text": "El salario mínimo debe aumentarse por encima de la inflación anual.",
+      "short_label": "Salario mínimo sobre inflación"
+    },
+    {
+      "id": 12,
+      "slug": "autonomia-banrep",
+      "axis": "economia",
+      "text": "La autonomía del Banco de la República debe protegerse y no ser interferida por el gobierno.",
+      "short_label": "Autonomía Banco República"
+    },
+    {
+      "id": 13,
+      "slug": "aborto-24-semanas",
+      "axis": "social",
+      "text": "La interrupción voluntaria del embarazo debe estar permitida hasta la semana 24 (Sentencia C-055/2022).",
+      "short_label": "Aborto hasta 24 semanas"
+    },
+    {
+      "id": 14,
+      "slug": "adopcion-mismo-sexo",
+      "axis": "social",
+      "text": "La adopción por parejas del mismo sexo debe ser plenamente garantizada.",
+      "short_label": "Adopción parejas mismo sexo"
+    },
+    {
+      "id": 15,
+      "slug": "despenalizacion-drogas",
+      "axis": "social",
+      "text": "Las drogas de uso recreativo deben despenalizarse y regularse.",
+      "short_label": "Despenalización drogas"
+    },
+    {
+      "id": 16,
+      "slug": "relaciones-israel",
+      "axis": "exterior",
+      "text": "Colombia debe restablecer plenamente sus relaciones diplomáticas con el Estado de Israel.",
+      "short_label": "Restablecer relaciones con Israel"
+    },
+    {
+      "id": 17,
+      "slug": "no-reconocimiento-maduro",
+      "axis": "exterior",
+      "text": "Colombia no debe reconocer al gobierno de Nicolás Maduro como legítimo representante de Venezuela.",
+      "short_label": "No reconocimiento Maduro"
+    },
+    {
+      "id": 18,
+      "slug": "prohibicion-fracking",
+      "axis": "ambiente",
+      "text": "El fracking debe prohibirse de manera definitiva en Colombia.",
+      "short_label": "Prohibición fracking"
+    },
+    {
+      "id": 19,
+      "slug": "renovables-sobre-hidrocarburos",
+      "axis": "ambiente",
+      "text": "Las energías renovables deben priorizarse sobre los hidrocarburos en la matriz energética.",
+      "short_label": "Renovables sobre hidrocarburos"
+    },
+    {
+      "id": 20,
+      "slug": "proteccion-amazonia",
+      "axis": "ambiente",
+      "text": "La protección de la Amazonía debe primar sobre cualquier actividad extractiva en ese territorio.",
+      "short_label": "Protección Amazonía"
+    }
+  ],
+  "axes": {
+    "continuidad": "Continuidad o ruptura con el gobierno Petro",
+    "seguridad": "Paz y seguridad",
+    "economia": "Modelo económico",
+    "social": "Derechos sociales y civiles",
+    "exterior": "Política exterior",
+    "ambiente": "Transición ambiental"
+  }
+}

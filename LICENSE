@@ -1,0 +1,54 @@
+This project uses a dual-license model.
+
+===========================================================================
+CODE — GNU Affero General Public License v3.0 (AGPL-3.0-or-later)
+===========================================================================
+
+Copyright (c) 2026 Equipo pre.voto
+
+This program is free software: you can redistribute it and/or modify it
+under the terms of the GNU Affero General Public License as published by
+the Free Software Foundation, either version 3 of the License, or (at
+your option) any later version.
+
+This program is distributed in the hope that it will be useful, but
+WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+General Public License for more details.
+
+You should have received a copy of the GNU Affero General Public License
+along with this program. If not, see <https://www.gnu.org/licenses/>.
+
+The full text of the AGPL-3.0 is included in LICENSES/AGPL-3.0-or-later.txt.
+
+===========================================================================
+EDITORIAL DATA — Creative Commons Attribution 4.0 International (CC-BY 4.0)
+===========================================================================
+
+The editorial data published through the pre.voto open-data API — including
+statements, candidate positions, confidence levels, source types, source
+quotes, and source URLs — is licensed under the Creative Commons
+Attribution 4.0 International License.
+
+You are free to:
+  - Share — copy and redistribute the material in any medium or format
+  - Adapt — remix, transform, and build upon the material for any purpose,
+    including commercially
+
+Under the following terms:
+  - Attribution — You must give appropriate credit, provide a link to the
+    license, and indicate if changes were made.
+
+Full license text: https://creativecommons.org/licenses/by/4.0/legalcode
+
+Attribution format:
+  Equipo pre.voto, pre.voto, CC-BY 4.0
+
+===========================================================================
+TRADEMARK
+===========================================================================
+
+The name "pre.voto", the pre.voto logo, and the pre.voto domain are NOT
+covered by either license above. You may fork and modify the code under
+AGPL-3.0, but you may not use the "pre.voto" name, logo, or domain for
+your derivative work without explicit written permission.
